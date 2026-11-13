@@ -188,6 +188,21 @@
 .a1-org-arrow{color:#3d946c;font-size:21px;font-weight:800;line-height:1}
 @media(max-width:760px){.a1-repr-grid{grid-template-columns:1fr}.a1-shape-legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+
+/* A2 : les variables, leurs types, leur nommage et les constantes */
+.a2-var-box{max-width:400px;margin:20px auto;background:#f5faf6;border:1px solid #cfe4d6;border-radius:15px;padding:17px;text-align:center}
+.a2-var-label{font-size:13px;color:#4d7661;margin:8px 0}.a2-var-value{width:150px;min-height:75px;border:3px solid #56a27a;border-radius:12px;background:#e0f2e5;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:850;color:#1a6a4d;margin:auto}
+.a2-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.a2-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.a2-grid article{padding:15px;background:#f5faf6;border:1px solid #d5e7db;border-radius:13px;min-width:0}
+.a2-grid h3{font-size:15px;color:#24684c;margin:0 0 9px}.a2-grid p{font-size:12px;line-height:1.6;margin:0 0 6px}
+.a2-grid code{display:block;font-size:12px;padding:5px 8px;margin:5px 0;border-radius:7px;background:#fff;border:1px solid #e1ede4;overflow-wrap:anywhere}
+.a2-rules{display:grid;gap:9px;margin:18px 0}
+.a2-rules>div{display:flex;align-items:start;gap:12px;background:#f4f9f5;border:1px solid #d8e9dc;border-radius:11px;padding:12px 14px}
+.a2-rules b{flex:0 0 29px;height:29px;background:#d9efe0;color:#175d42;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px}
+.a2-rules span{font-size:13px;color:#345b4b}
+@media(max-width:730px){.a2-grid,.a2-grid.three{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -456,21 +471,44 @@ const algoChapters = [
   "id": "algo-sequence",
   "num": "A2",
   "icon": "↳",
-  "title": "Variables et instructions séquentielles",
-  "short": "Lire, affecter, calculer et afficher une valeur avec le pseudo-code.",
-  "time": "60 min",
+  "title": "Les variables, les constantes et les instructions",
+  "short": "Notion de variable, règles de nommage, types, constantes et instructions séquentielles.",
+  "time": "75 min",
   "level": "Initiation",
   "objectives": [
-   "Comprendre variables, types et affectation.",
-   "Écrire Lire, Écrire et ← en pseudo-code.",
-   "Effectuer une trace pas à pas d'un calcul de laboratoire."
+   "Définir une variable et identifier son nom, son type et sa valeur.",
+   "Appliquer les règles de nommage des identifiants.",
+   "Reconnaître les types Entier, Réel, Chaîne et Booléen.",
+   "Distinguer variable et constante avec un exemple simple.",
+   "Écrire Lire, Écrire et ← et suivre l'évolution des variables."
   ],
   "sections": [
    {
-    "title": "Variables et types",
-    "body": "<p>Une <strong>variable</strong> est un nom associé à une valeur. Les types fréquents sont <strong>Entier</strong> (un effectif), <strong>Réel</strong> (une concentration), <strong>Chaîne</strong> (un nom d’espèce) et <strong>Booléen</strong> (vrai/faux).</p><p>L’écriture <code class=\"inline\">x ← 5</code> signifie « affecter 5 à x ». En Python, on écrira <code class=\"inline\">x = 5</code>. L’affectation ne signifie pas une égalité mathématique définitive.</p>",
-    "pseudo": "Algorithme Variables\nVariables nb_graines : Entier\n          temperature : Réel\n          espece : Chaîne\nDébut\n    nb_graines ← 40\n    temperature ← 22.5\n    espece ← \"Olea europaea\"\n    Écrire espece, nb_graines\nFin",
-    "code": "nb_graines = 40\ntemperature = 22.5\nespece = 'Olea europaea'\nprint(espece, nb_graines)"
+    "title": "Notion de variable : définition et rôle",
+    "body": "<p>Une <strong>variable</strong> associe un <strong>nom</strong> à une valeur qui peut changer au cours de l'exécution. En algorithmique, on la caractérise par son <strong>identificateur</strong>, son <strong>type</strong> et sa <strong>valeur</strong>.</p><div class=\"a2-var-box\"><div class=\"a2-var-label\">Variable : <strong>nb_graines</strong></div><div class=\"a2-var-value\">40</div><div class=\"a2-var-label\">Type : Entier · Valeur : 40</div></div><div class=\"a2-grid three\"><article><h3>Nom</h3><p>Identificateur : <code>nb_graines</code></p></article><article><h3>Type</h3><p>Nature : <code>Entier</code></p></article><article><h3>Valeur</h3><p>Contenu actuel : <code>40</code></p></article></div><p>Dans notre <strong>pseudo-code</strong>, les variables sont déclarées avec leur type avant <em>Début</em>. En <strong>Python</strong>, une déclaration de type préalable n'est pas obligatoire : l'affectation associe un nom à un objet.</p><div class=\"info-box\"><strong>Image pédagogique :</strong> une variable peut être imaginée comme une boîte avec une étiquette. En Python, c'est plus précisément un nom lié à un objet.</div>",
+    "pseudo": "Algorithme VariableExemple\nVariables\n    nb_graines : Entier\nDébut\n    nb_graines ← 40\n    Écrire nb_graines\n    nb_graines ← 45\n    Écrire nb_graines\nFin",
+    "code": "nb_graines = 40\nprint(nb_graines)\nnb_graines = 45\nprint(nb_graines)",
+    "output": "40\n45"
+   },
+   {
+    "title": "Nommage des variables : règles à respecter",
+    "body": "<p>Le <strong>nom d'une variable</strong> est un identificateur. Dans les exemples de ce module, nous choisissons des noms lisibles avec lettres, chiffres et caractère <code class=\"inline\">_</code> (<em>underscore</em>).</p><div class=\"a2-rules\"><div><b>1</b><span>Commencer par une lettre ou <code>_</code>, jamais par un chiffre.</span></div><div><b>2</b><span>Ne pas mettre d'espaces ni de caractères tels que <code>-</code> ou <code>!</code>.</span></div><div><b>3</b><span>Éviter les mots-clés réservés : <code>if</code>, <code>for</code>, <code>class</code>…</span></div><div><b>4</b><span>Choisir un nom explicite : <code>taux_germination</code> plutôt que <code>x1</code>.</span></div></div><div class=\"a2-grid\"><article><h3>✓ Exemples valides</h3><code>nb_graines</code><code>lot2</code><code>temperature</code><code>_masse</code></article><article><h3>✕ Exemples invalides</h3><code>2lots</code><code>nb graines</code><code>taux-germination</code><code>for</code></article></div><p>Python distingue <code class=\"inline\">Masse</code> et <code class=\"inline\">masse</code>. Certains identificateurs Unicode sont possibles, mais pour débuter nous privilégions les caractères non accentués.</p>",
+    "code": "nb_graines = 40\ntaux_germination = 85.0\nlot2 = 'A'\nprint(nb_graines, taux_germination, lot2)",
+    "output": "40 85.0 A"
+   },
+   {
+    "title": "Les types : Entier, Réel, Chaîne et Booléen",
+    "body": "<p>Le <strong>type</strong> indique la nature de la donnée. Pour commencer, distinguons quatre types de base et leurs équivalents Python :</p><div class=\"a2-grid\"><article><h3>Entier · int</h3><p>Nombres sans décimales : <code>-1</code>, <code>0</code>, <code>100</code>. Exemple : effectif des graines.</p></article><article><h3>Réel · float</h3><p>Valeurs décimales : <code>0.12</code>, <code>10.46</code>, <code>-13.5</code>. Exemple : température.</p></article><article><h3>Chaîne · str</h3><p>Texte : <code>\"ATGC\"</code>, <code>\"Olivier\"</code>. Exemple : séquence ADN.</p></article><article><h3>Booléen · bool</h3><p>Valeurs logiques <code>True</code> et <code>False</code>. Exemple : graine germée ou non.</p></article></div><div class=\"info-box\"><strong>Attention :</strong> en Python, les booléens s'écrivent <code class=\"inline\">True</code> et <code class=\"inline\">False</code>. On les traite ici comme des valeurs logiques, et pas comme de simples chiffres 1 et 0.</div>",
+    "pseudo": "Algorithme TypesBiologiques\nVariables\n    nb_graines : Entier\n    temperature : Réel\n    espece : Chaîne\n    est_germee : Booléen\nDébut\n    nb_graines ← 40\n    temperature ← 22.5\n    espece ← \"Olivier\"\n    est_germee ← Vrai\n    Écrire nb_graines, temperature, espece, est_germee\nFin",
+    "code": "nb_graines = 40       # int\ntemperature = 22.5     # float\nespece = 'Olivier'     # str\nest_germee = True      # bool\nprint(type(nb_graines).__name__)\nprint(type(temperature).__name__)\nprint(type(espece).__name__)\nprint(type(est_germee).__name__)",
+    "output": "int\nfloat\nstr\nbool"
+   },
+   {
+    "title": "Les constantes : valeurs fixes pendant l'algorithme",
+    "body": "<p>Une <strong>constante</strong> est une valeur que l'on choisit de ne pas modifier pendant l'algorithme. Dans notre pseudo-code, elle reçoit une valeur dès sa déclaration.</p><p>Par convention, les noms des constantes sont écrits <strong>en majuscules</strong> : <code class=\"inline\">PI</code>, <code class=\"inline\">MAXI</code>, <code class=\"inline\">SEUIL</code>.</p><div class=\"a2-grid\"><article><h3>Variable</h3><p>Valeur susceptible de changer :</p><code>rayon ← 10</code><code>rayon ← 12</code></article><article><h3>Constante</h3><p>Valeur conservée pendant le calcul :</p><code>PI = 3.14</code><code>MAXI = 32</code></article></div><div class=\"info-box\"><strong>En Python :</strong> écrire <code class=\"inline\">PI = 3.14</code> est une convention de nommage ; Python ne rend pas automatiquement cette valeur non modifiable. On s'engage à ne pas la réaffecter.</div>",
+    "pseudo": "Algorithme SurfaceCercle\nConstantes\n    PI = 3.14\nVariables\n    rayon, surface : Réel\nDébut\n    rayon ← 10\n    surface ← PI × rayon × rayon\n    Écrire surface\nFin",
+    "code": "PI = 3.14\nrayon = 10\nsurface = PI * rayon * rayon\nprint(surface)",
+    "output": "314.0"
    },
    {
     "title": "Lire et Écrire",
@@ -494,6 +532,66 @@ const algoChapters = [
    }
   ],
   "quiz": [
+   {
+    "q": "Quelles informations caractérisent une variable dans ce cours ?",
+    "choices": [
+     "Nom, type et valeur",
+     "Couleur et numéro de page",
+     "Seulement son nom"
+    ],
+    "correct": 0,
+    "why": "Une variable possède un nom et un type, et doit recevoir une valeur avant son utilisation."
+   },
+   {
+    "q": "Quel nom de variable est valide en Python ?",
+    "choices": [
+     "2graines",
+     "nb_graines",
+     "nb graines"
+    ],
+    "correct": 1,
+    "why": "Un identificateur ne peut pas commencer par un chiffre ou contenir des espaces."
+   },
+   {
+    "q": "Quel type convient pour 22.5 ?",
+    "choices": [
+     "Entier / int",
+     "Réel / float",
+     "Booléen / bool"
+    ],
+    "correct": 1,
+    "why": "Un nombre décimal est représenté par float."
+   },
+   {
+    "q": "Quelle est une valeur booléenne Python ?",
+    "choices": [
+     "\"True\" (texte)",
+     "True",
+     "22.5"
+    ],
+    "correct": 1,
+    "why": "True sans guillemets est une valeur booléenne."
+   },
+   {
+    "q": "Quelle écriture convient pour une constante selon la convention Python ?",
+    "choices": [
+     "PI = 3.14",
+     "2PI = 3.14",
+     "pi = 3.14 obligatoire"
+    ],
+    "correct": 0,
+    "why": "Une constante est généralement nommée en majuscules."
+   },
+   {
+    "q": "Faut-il déclarer explicitement « Variables nb : Entier » dans Python ?",
+    "choices": [
+     "Oui, toujours",
+     "Non",
+     "Seulement pour une chaîne"
+    ],
+    "correct": 1,
+    "why": "La déclaration typée est notre convention de pseudo-code, pas une obligation Python."
+   },
    {
     "q": "Que signifie x ← 10 en pseudo-code ?",
     "choices": [
