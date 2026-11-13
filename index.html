@@ -141,6 +141,29 @@
 .loop-compare-grid code{display:block;overflow-wrap:anywhere;color:#165f4a;font-size:11px}
 @media(max-width:720px){.loop-compare-grid{grid-template-columns:1fr}}
 
+
+/* A1 : introduction à l'algorithmique */
+.a1-steps{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:18px 0}
+.a1-steps>div{flex:1 1 125px;background:#edf7f0;border:1px solid #c7e4d3;border-radius:12px;padding:16px 10px;text-align:center;min-width:120px}
+.a1-steps small{display:block;color:#638074;font-size:10px}.a1-steps strong,.a1-steps b{display:block;font-size:16px;color:#1e684e}
+.a1-steps>span{font-size:23px;color:#398c65}
+.a1-two,.a1-three{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:17px 0}
+.a1-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.a1-two>div,.a1-three>article{background:#f5faf6;border:1px solid #dae9df;border-radius:12px;padding:15px}
+.a1-two strong,.a1-three strong{color:#1c5f47;font-size:14px}
+.a1-two p,.a1-three p{font-size:12px;margin:6px 0 0}
+.a1-history{display:flex;align-items:center;gap:20px;background:#f4f9f5;border:1px solid #d7e9dc;border-radius:15px;padding:19px;margin:18px 0}
+.a1-arabic{min-width:170px;padding:26px 13px;background:#e4f2e7;border-radius:11px;text-align:center;font-size:27px;color:#1b6044;direction:rtl}
+.a1-history h3{font-size:16px;color:#245c43}.a1-history p{font-size:13px}
+.a1-flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:15px 0}
+.a1-flow>span{flex:1 1 105px;background:#e6f2e9;border:1px solid #c8e3cd;border-radius:10px;padding:12px;text-align:center;color:#1c6449;font-weight:750;font-size:12px}
+.a1-flow>b{color:#468e6c;font-size:19px}
+.a1-cylinder{display:grid;grid-template-columns:minmax(180px,.8fr) minmax(220px,1.2fr);gap:15px;align-items:center;background:#f8fcf8;border:1px solid #d2e7dc;border-radius:15px;padding:16px;margin:17px 0}
+.a1-cylinder-drawing{text-align:center}.a1-cylinder-drawing svg{display:block;width:100%;max-height:260px}
+.a1-cylinder-drawing small{font-size:11px;color:#688677}.a1-cylinder h3{font-size:17px;color:#235b41}
+.a1-cylinder p{font-size:13px}
+@media(max-width:790px){.a1-three,.a1-two,.a1-cylinder{grid-template-columns:1fr}.a1-history{flex-direction:column}.a1-steps{display:grid;grid-template-columns:1fr}.a1-steps>span{text-align:center;transform:rotate(90deg)}.a1-flow{display:grid;grid-template-columns:1fr}.a1-flow>b{text-align:center;transform:rotate(90deg)}}
+
 </style>
 </head>
 <body>
@@ -245,33 +268,64 @@ const algoChapters = [
   "id": "algo-concepts",
   "num": "A1",
   "icon": "◇",
-  "title": "Qu'est-ce qu'un algorithme ?",
-  "short": "Comprendre le problème, identifier les entrées, les traitements et les sorties.",
-  "time": "50 min",
+  "title": "Introduction à l’algorithmique",
+  "short": "Définition, origine, analyse de problème, structure générale et exemples complets en pseudo-code.",
+  "time": "75 min",
   "level": "Initiation",
   "objectives": [
    "Définir un algorithme et le distinguer d’un programme.",
-   "Identifier les données d’entrée, le traitement et le résultat attendu.",
-   "Décomposer un problème biologique en étapes finies."
+   "Connaître l’origine du mot algorithme et comprendre son utilité.",
+   "Identifier les données d’entrée, le traitement et les données de sortie.",
+   "Reconnaître les trois parties du pseudo-code : en-tête, déclarations et corps.",
+   "Écrire un algorithme complet et vérifier ses résultats."
   ],
   "sections": [
    {
-    "title": "Un algorithme, avant le code",
-    "body": "<p>Un <strong>algorithme</strong> est une suite d’instructions <strong>précises</strong>, <strong>ordonnées</strong> et <strong>finies</strong> qui résout un problème. Il peut être décrit en français structuré, avec un organigramme ou en <em>pseudo-code</em>.</p><p>Un <strong>programme</strong> est sa traduction dans un langage de programmation (par exemple Python). L’algorithme décrit <em>quoi faire</em> ; le programme permet à l’ordinateur de l’exécuter.</p><div class=\"info-box\"><strong>Exemple quotidien :</strong> pour préparer une solution : vérifier le matériel → mesurer → mélanger → étiqueter. L’ordre et les conditions comptent.</div>"
+    "title": "Qu’est-ce qu’un algorithme ?",
+    "body": "<p>Un <strong>algorithme</strong> est une suite <strong>finie, ordonnée et précise</strong> d’instructions permettant de résoudre un problème. Il décrit la méthode de résolution <strong>indépendamment du langage</strong> de programmation.</p><div class=\"a1-steps\"><div><small>Question à résoudre</small><b>Problème</b></div><span>→</span><div><small>Analyse / réflexion</small><b>Algorithme</b></div><span>→</span><div><small>Codage : Python, C, Java…</small><b>Programme</b></div><span>→</span><div><small>Exécution et tests</small><b>Résultats</b></div></div><div class=\"a1-two\"><div><strong>✎ Sur papier</strong><p>Analyser le problème et concevoir l’algorithme.</p></div><div><strong>⌘ Sur ordinateur</strong><p>Coder, exécuter, tester et vérifier les résultats.</p></div></div><div class=\"info-box\"><strong>À retenir :</strong> un algorithme n’est pas obligatoirement écrit en Python ; il peut être traduit dans plusieurs langages.</div>"
    },
    {
-    "title": "Entrées → traitement → sorties",
-    "body": "<p>Pour chaque problème, poser trois questions : <strong>quelles données reçoit-on ?</strong> <strong>quel calcul fait-on ?</strong> <strong>quel résultat veut-on ?</strong></p><p><strong>Cas biologique :</strong> parmi 40 graines semées, 34 ont germé. On souhaite calculer le taux de germination.</p><table><thead><tr><th>Entrées</th><th>Traitement</th><th>Sortie</th></tr></thead><tbody><tr><td>semées = 40, germées = 34</td><td>(34 / 40) × 100</td><td>85 %</td></tr></tbody></table>",
-    "pseudo": "Algorithme TauxGermination\nEntrées : semees, germees\nDébut\n    taux ← (germees / semees) × 100\n    Écrire taux, \"%\"\nFin",
-    "note": "Avant de diviser, il faudra vérifier que le nombre de graines semées est strictement positif. Nous apprendrons cette condition au chapitre A3."
+    "title": "Origine du mot « algorithme »",
+    "body": "<div class=\"a1-history\"><div class=\"a1-arabic\">الخوارزمي</div><div><h3>Muhammad ibn Mūsā al-Khwārizmī</h3><p>Le mot « algorithme » dérive du nom latinisé du mathématicien <strong>al-Khwārizmī</strong>, savant du IX<sup>e</sup> siècle célèbre pour ses travaux sur les méthodes de calcul et l’algèbre.</p><p>Les méthodes algorithmiques existaient déjà sous d’autres formes dans l’Antiquité ; c’est le terme moderne qui est lié à son nom.</p></div></div>"
    },
    {
-    "title": "Comment représenter un algorithme ?",
-    "body": "<p>Le <strong>pseudo-code</strong> est une écriture lisible par les humains : les mots <em>Début</em>, <em>Lire</em>, <em>Si</em>, <em>Pour</em> y expriment les actions. Il ne s’exécute pas directement comme un script Python.</p><p>Un <strong>organigramme</strong> décrit visuellement le déroulement : ellipse pour Début/Fin, parallélogramme pour Lire/Écrire, rectangle pour un traitement, losange pour une décision.</p><div class=\"info-box\"><strong>Chaîne de résolution :</strong> Problème → Analyse (entrées/sorties) → Algorithme → Traduction en Python → Tests → Résultat.</div>"
+    "title": "À quoi sert un algorithme ?",
+    "body": "<p>Un algorithme sert à <strong>décrire les étapes de résolution d’un problème</strong> de façon structurée, claire, vérifiable et indépendante d’un langage de programmation.</p><div class=\"a1-trio\"><div><b>Entrées</b><span>Quelles données connaît-on ?</span></div><div><b>Traitement</b><span>Quelles opérations effectuer ?</span></div><div><b>Sortie</b><span>Quel résultat obtenir ?</span></div></div><p>Exemples : calculer une moyenne, classer des mesures de pH, compter une base dans une séquence ADN ou déterminer le volume d’un cylindre.</p>"
    },
    {
-    "title": "Qualités d'une bonne solution",
-    "body": "<p>Un algorithme doit avoir des étapes sans ambiguïté, se terminer, être correct pour les entrées prévues et gérer les cas limites. On le vérifie sur des <strong>jeux d’essai</strong> : un cas normal, un cas limite, une entrée invalide.</p><p><strong>À essayer :</strong> avec 10 graines semées et 0 germée, le taux attendu est 0 %. Avec 0 graine semée, le calcul est impossible sans message d’erreur.</p>"
+    "title": "Définition d’un problème",
+    "body": "<p>En algorithmique, un <strong>problème</strong> est une tâche ou une question formulée de manière précise, pour laquelle on cherche une solution à partir de données disponibles.</p><p><strong>Exemples :</strong> trouver la valeur maximale d’une liste ; calculer une concentration ; déterminer le volume d’un cylindre ; calculer le taux de germination d’un lot de graines.</p><div class=\"info-box\"><strong>Avant tout pseudo-code :</strong> se demander ce qui est connu, ce qui est recherché et quelle méthode permet de passer de l’un à l’autre.</div>"
+   },
+   {
+    "title": "Analyser un problème : entrée, traitement, sortie",
+    "body": "<p><strong>L’analyse d’un problème</strong> consiste à distinguer trois éléments essentiels :</p><div class=\"a1-three\"><article><strong>1. Données d’entrée</strong><p>Valeurs nécessaires pour résoudre le problème : rayon, hauteur, mesures, effectifs…</p></article><article><strong>2. Traitement</strong><p>Calculs, opérations et décisions appliqués aux données d’entrée.</p></article><article><strong>3. Données de sortie</strong><p>Résultat attendu : volume, moyenne, pourcentage ou décision.</p></article></div><div class=\"a1-flow\"><span>Entrées</span><b>→</b><span>Traitement</span><b>→</b><span>Résultats</span></div><p><strong>Cas biologique :</strong> 40 graines semées et 34 germées → taux = 100 × 34 / 40 → <strong>85 %</strong>. Une division nécessite un effectif semé strictement positif.</p>"
+   },
+   {
+    "title": "Exemple d’analyse : volume d’un cylindre",
+    "body": "<p><strong>Problème :</strong> calculer le volume d’un cylindre connaissant son rayon <em>R</em> et sa hauteur <em>H</em>.</p><div class=\"a1-cylinder\"><div class=\"a1-cylinder-drawing\"><svg viewBox=\"0 0 240 210\" role=\"img\" aria-label=\"Cylindre : rayon R et hauteur H\"><ellipse cx=\"120\" cy=\"165\" rx=\"78\" ry=\"25\" fill=\"#72b6a1\" stroke=\"#357866\" stroke-width=\"2\"/><rect x=\"42\" y=\"45\" width=\"156\" height=\"120\" fill=\"#8ccaba\"/><path d=\"M42 45V165 M198 45V165\" stroke=\"#357866\" stroke-width=\"2\"/><ellipse cx=\"120\" cy=\"45\" rx=\"78\" ry=\"25\" fill=\"#e8b788\" stroke=\"#357866\" stroke-width=\"2\"/><path d=\"M120 45L191 45\" stroke=\"#275848\" stroke-width=\"2\"/><text x=\"155\" y=\"38\" font-size=\"18\" fill=\"#214e41\">R</text><path d=\"M25 46V165 M20 46H30 M20 165H30\" stroke=\"#275848\" stroke-width=\"2\"/><text x=\"8\" y=\"110\" font-size=\"17\" fill=\"#214e41\">H</text></svg><small>Rayon R et hauteur H</small></div><div><h3>Analyse</h3><p><strong>Entrées :</strong> R, H</p><p><strong>Constante :</strong> Pi = 3,14</p><p><strong>Traitement :</strong> SB = Pi × R × R ; V = SB × H</p><p><strong>Sortie :</strong> V (volume)</p></div></div><div class=\"a1-flow\"><span>R = 10, H = 20</span><b>→</b><span>Pi × 10² × 20</span><b>→</b><span>V = 6 280</span></div><p>Si les dimensions sont en centimètres, le résultat vaut <strong>6 280 cm³</strong> pour Pi = 3,14.</p>"
+   },
+   {
+    "title": "Structure générale d’un algorithme",
+    "body": "<p>Dans la convention utilisée pour ce cours, un algorithme comporte <strong>trois parties</strong>. Le pseudo-code n’est pas un langage universel : certaines conventions de notation peuvent varier.</p><div class=\"a1-three\"><article><strong>1. L’en-tête</strong><p>Le mot <code class=\"inline\">Algorithme</code> suivi de son nom.</p></article><article><strong>2. La partie déclarative</strong><p>Les constantes et les variables avec leurs types.</p></article><article><strong>3. Le corps</strong><p>Les instructions comprises entre <code class=\"inline\">Début</code> et <code class=\"inline\">Fin</code>.</p></article></div><p><strong>Lire</strong> sert à obtenir une donnée ; <strong>Écrire</strong> sert à afficher un résultat ; <strong>←</strong> représente l’affectation.</p>",
+    "pseudo": "Algorithme NomAlgorithme\nConstantes\n    Pi = 3.14\nVariables\n    x, resultat : Réel\nDébut\n    Lire x\n    resultat ← 2 × x\n    Écrire resultat\nFin"
+   },
+   {
+    "title": "Exemple complet en pseudo-code : VolumeCylindre",
+    "body": "<p>Un algorithme ne peut pas utiliser <em>R</em> et <em>H</em> sans leur donner de valeurs. Il faut donc d’abord <strong>Lire R</strong> et <strong>Lire H</strong>, ou leur affecter des valeurs, avant le calcul.</p><div class=\"info-box\"><strong>Attention à l’exemple des diapositives :</strong> une version qui calcule le volume sans lire ni initialiser R et H est <strong>incomplète</strong>. La version ci-dessous corrige ce point et vérifie que les dimensions sont positives.</div>",
+    "pseudo": "Algorithme VolumeCylindre\nConstantes\n    Pi = 3.14\nVariables\n    R, H, SB, V : Réel\nDébut\n    Lire R\n    Lire H\n    Si R <= 0 OU H <= 0 Alors\n        Écrire \"Dimensions invalides\"\n    Sinon\n        SB ← Pi × R × R\n        V ← SB × H\n        Écrire V\n    FinSi\nFin",
+    "note": "Avec R = 10 et H = 20, le volume est 6 280 unités cubiques. Tester aussi R = 0 pour vérifier la branche d’erreur."
+   },
+   {
+    "title": "Passage du pseudo-code à Python",
+    "body": "<p>Le programme Python traduit la même logique : <code class=\"inline\">Lire</code> devient ici <code class=\"inline\">input()</code>, <code class=\"inline\">←</code> devient <code class=\"inline\">=</code>, et <code class=\"inline\">Écrire</code> devient <code class=\"inline\">print()</code>.</p>",
+    "code": "PI = 3.14\nrayon = float(input('Rayon (cm) : '))\nhauteur = float(input('Hauteur (cm) : '))\nif rayon <= 0 or hauteur <= 0:\n    print('Dimensions invalides')\nelse:\n    surface_base = PI * rayon * rayon\n    volume = surface_base * hauteur\n    print('Volume :', volume, 'cm³')",
+    "output": "Rayon (cm) : 10\nHauteur (cm) : 20\nVolume : 6280.0 cm³",
+    "note": "On suppose des valeurs numériques saisies correctement. Une version plus robuste peut gérer les conversions invalides avec try/except."
+   },
+   {
+    "title": "Application biologique : taux de germination",
+    "body": "<p>Appliquons le même raisonnement à un problème de biologie : calculer un taux de germination en contrôlant les effectifs.</p><div class=\"a1-trio\"><div><b>Entrées</b><span>Quelles données connaît-on ?</span></div><div><b>Traitement</b><span>Quelles opérations effectuer ?</span></div><div><b>Sortie</b><span>Quel résultat obtenir ?</span></div></div><p><strong>Exemple :</strong> semées = 40, germées = 34 → <strong>85 %</strong>. Autres tests : (10, 0) → 0 % ; (0, 0) → données invalides.</p>",
+    "pseudo": "Algorithme TauxGermination\nVariables\n    semees, germees : Entier\n    taux : Réel\nDébut\n    Lire semees\n    Lire germees\n    Si semees <= 0 OU germees < 0 OU germees > semees Alors\n        Écrire \"Effectifs invalides\"\n    Sinon\n        taux ← 100 × germees / semees\n        Écrire taux, \"%\"\n    FinSi\nFin"
    }
   ],
   "quiz": [
@@ -280,30 +334,70 @@ const algoChapters = [
     "choices": [
      "Oui",
      "Non",
-     "Seulement en biologie"
+     "Seulement pour les biologistes"
     ],
     "correct": 1,
-    "why": "Le raisonnement algorithmique est indépendant du langage de programmation."
+    "why": "La méthode est indépendante du langage de programmation."
    },
    {
-    "q": "Dans l'exemple de germination, quelle est la sortie ?",
+    "q": "Le mot algorithme est associé au nom de quel mathématicien ?",
     "choices": [
-     "34 graines",
-     "85 %",
-     "40 graines"
-    ],
-    "correct": 1,
-    "why": "Le résultat est le taux de germination calculé à partir des entrées."
-   },
-   {
-    "q": "Pourquoi tester le nombre de graines semées ?",
-    "choices": [
-     "Pour éviter une division par zéro",
-     "Pour changer le nom du programme",
-     "Pour accélérer l'ordinateur"
+     "Al-Khwārizmī",
+     "Newton",
+     "Pascal"
     ],
     "correct": 0,
-    "why": "La formule comporte une division par le nombre de graines semées."
+    "why": "Le mot dérive du nom latinisé du mathématicien al-Khwārizmī."
+   },
+   {
+    "q": "Quels éléments identifie-t-on lors de l’analyse d’un problème ?",
+    "choices": [
+     "Entrées, traitement, sortie",
+     "Écran, souris, clavier",
+     "HTML, CSS, JavaScript"
+    ],
+    "correct": 0,
+    "why": "On distingue les données, les opérations et le résultat."
+   },
+   {
+    "q": "Dans l’exemple du cylindre, quelles sont les données d’entrée ?",
+    "choices": [
+     "V uniquement",
+     "R et H",
+     "SB et V"
+    ],
+    "correct": 1,
+    "why": "R et H sont lus avant le calcul ; Pi est une constante."
+   },
+   {
+    "q": "Pourquoi écrit-on Lire R et Lire H ?",
+    "choices": [
+     "Pour afficher R et H",
+     "Pour connaître leurs valeurs avant le calcul",
+     "Pour déclarer Pi"
+    ],
+    "correct": 1,
+    "why": "Les variables doivent recevoir une valeur avant utilisation."
+   },
+   {
+    "q": "Quel est le volume pour R = 10, H = 20 et Pi = 3,14 ?",
+    "choices": [
+     "6 280",
+     "628",
+     "62 800"
+    ],
+    "correct": 0,
+    "why": "V = 3,14 × 10 × 10 × 20 = 6 280."
+   },
+   {
+    "q": "Quelle est la sortie de l’algorithme de germination pour 40 graines semées et 34 germées ?",
+    "choices": [
+     "34 %",
+     "40 %",
+     "85 %"
+    ],
+    "correct": 2,
+    "why": "100 × 34 / 40 = 85 %."
    }
   ]
  },
