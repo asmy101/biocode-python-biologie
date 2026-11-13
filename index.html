@@ -847,104 +847,92 @@ let selectedLab='adn';
 function labPage(){return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Mini-laboratoire</div><span class="eyebrow">Laboratoire pédagogique · interactif</span><h1>Expérimentez avec vos données.</h1><p>Huit outils pour explorer Python appliqué à la biologie. Les calculs interactifs sont réalisés dans le navigateur ; le code Python équivalent est présenté à droite et peut être copié.</p><div class="lab-tabs" role="tablist" aria-label="Choisir une expérience">${Object.entries({adn:'🧬 Séquence ADN',ph:'⚖ pH',croissance:'📈 Croissance',dilution:'🧪 Concentration',transcription:'🧬 ADN → ARN',germination:'🌱 Germination',statistiques:'📊 Statistiques',dilution2:'💧 Dilution'}).map(([id,n])=>`<button type="button" class="lab-tab ${selectedLab===id?'selected':''}" data-lab="${id}" role="tab" aria-selected="${selectedLab===id}">${n}</button>`).join('')}</div><div class="lab-layout"><section class="lab-panel"><span class="eyebrow">Calculateur de démonstration</span><h2>${escapeHtml(labs[selectedLab].title)}</h2><p>${escapeHtml(labs[selectedLab].desc)}</p>${labs[selectedLab].fields}<button class="btn" style="margin-top:18px" type="button" data-lab-calc="${selectedLab}">${labs[selectedLab].button} →</button><div class="lab-result" id="lab-result" role="status" aria-live="polite">Saisissez vos valeurs, puis lancez le calcul.</div><div class="lab-extra">Outil pédagogique : les exemples ne constituent ni un diagnostic ni une analyse expérimentale validée.</div></section><section class="lab-panel"><span class="eyebrow">Relier la démonstration au code</span><h2>En Python, cela donne…</h2><p>Copiez ce programme dans Thonny ou votre éditeur Python. Les valeurs sont des exemples : adaptez-les pour reproduire votre propre essai.</p>${codeWindow(labs[selectedLab].python,selectedLab+'.py')}<div class="info-box"><strong>Question :</strong> que se passe-t-il si vous changez la valeur d'entrée ? Essayez de prédire la sortie avant d'exécuter le script.</div></section></div>`;}
 
 
-const visualCases={
- germination:{
-  title:"Germination des graines",
-  intro:"Une simulation guidée : compter les graines semées et celles qui ont germé. Tester le contrôle des effectifs avant le calcul.",
-  fields:[
-   {id:"semees",label:"Graines semées",value:"40"},
-   {id:"germees",label:"Graines germées",value:"34"}
-  ]
- },
- ph:{
-  title:"Classification simple du pH",
-  intro:"Visualiser les branchements Si / Sinon Si / Sinon pour une classification scolaire du pH à 25 °C.",
-  fields:[{id:"ph",label:"pH de l’échantillon",value:"6.5"}]
- },
- moyenne:{
-  title:"Moyenne de températures",
-  intro:"Observer une boucle qui parcourt plusieurs mesures et calcule leur moyenne.",
-  fields:[{id:"temperatures",label:"Températures en °C, séparées par ;",value:"18;20;22;24"}]
- }
+
+const atelierCases={
+ germination:{title:"Taux de germination",description:"Calculer le pourcentage de graines germées dans un lot, après validation des effectifs.",fields:[{key:"semees",label:"Graines semées",value:"40"},{key:"germees",label:"Graines germées",value:"34"}],formula:"taux = 100 × germées / semées",inputs:"semées, germées",output:"taux (%)"},
+ ph:{title:"Classification du pH",description:"Classer une mesure en acide, neutre ou basique selon une convention scolaire à 25 °C.",fields:[{key:"ph",label:"pH mesuré",value:"6.5"}],formula:"Si pH < 7 : acide ; si pH = 7 : neutre ; sinon : basique",inputs:"pH",output:"catégorie"},
+ moyenne:{title:"Moyenne de températures",description:"Parcourir une série de mesures et calculer la moyenne en évitant la liste vide.",fields:[{key:"temperatures",label:"Températures séparées par ;",value:"18;20;22;24"}],formula:"moyenne = somme / nombre de mesures",inputs:"mesures",output:"moyenne (°C)"}
 };
-let visualCurrent='germination';
-const vBlock=(kind,content)=>'<div class="v-block '+kind+'">'+escapeHtml(content)+'</div>';
-function visualPage(){
- const item=visualCases[visualCurrent];
- const entries=item.fields.map(field=>'<label for="vis-'+field.id+'">'+escapeHtml(field.label)+'</label><input id="vis-'+field.id+'" value="'+escapeHtml(field.value)+'" aria-label="'+escapeHtml(field.label)+'">').join('');
- return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Programmation visuelle / Atelier</div>'
- +'<span class="eyebrow">Atelier interactif · Biologie</span><h1>Construire la logique avec des blocs</h1>'
- +'<p>Choisissez un exemple, modifiez les valeurs et cliquez sur <strong>Simuler</strong>. Le simulateur montre les blocs exécutés, les vérifications et le programme Python correspondant.</p>'
- +'<div class="visual-tool-layout"><section class="visual-tool-panel">'
- +'<h2>1. Choisir une expérience</h2><label for="vis-case">Cas biologique</label>'
- +'<select id="vis-case"><option value="germination" '+(visualCurrent==='germination'?'selected':'')+'>🌱 Germination</option>'
- +'<option value="ph" '+(visualCurrent==='ph'?'selected':'')+'>🧪 Classification du pH</option>'
- +'<option value="moyenne" '+(visualCurrent==='moyenne'?'selected':'')+'>🌡 Moyenne de températures</option></select>'
- +'<p class="vis-steps">'+escapeHtml(item.intro)+'</p>'+entries
- +'<button type="button" class="btn" id="vis-run" style="margin-top:16px">▶ Simuler les blocs</button>'
- +'<div class="visual-block-result" id="vis-result" role="status" aria-live="polite">Lancez la simulation pour voir le résultat.</div>'
- +'<div class="info-box">Les blocs sont une représentation pédagogique originale, pas un éditeur Scratch ni un moteur Python : les calculs sont simulés dans le navigateur.</div>'
- +'</section><section class="visual-tool-panel"><h2>2. Blocs du programme</h2>'
- +'<div class="visual-stack" id="vis-blocks">'+vBlock('event','▶ Quand on lance')+'<div class="vis-steps">Les blocs apparaîtront ici.</div></div>'
- +'<h2>3. Traduction en Python</h2><div id="vis-python">'+codeWindow('# Choisissez un exemple et cliquez sur Simuler','exemple.py')+'</div>'
- +'</section></div>'
- +'<div class="section-head"><div><h2>Pour aller plus loin</h2><p>Retrouvez les cours qui expliquent les blocs et leur traduction.</p></div></div>'
- +'<div class="activity-grid"><a class="activity-card" href="#/cours/visuel-concepts"><span class="mini-icon">▧</span><div><h3>Comprendre les blocs</h3><p>Événements, variables, conditions et boucles</p></div></a>'
- +'<a class="activity-card" href="#/cours/visuel-transition"><span class="mini-icon">⇄</span><div><h3>Des blocs à Python</h3><p>Comparer les instructions et tester un exemple</p></div></a></div>';
-}
-function simulateVisual(){
- let blocks=[vBlock('event','▶ Quand on lance')], python='', resultat='',error=false;
- if(visualCurrent==='germination'){
-  const rawS=el('vis-semees').value.trim(),rawG=el('vis-germees').value.trim();
-  const s=Number(rawS),g=Number(rawG);
-  const valid=rawS!==''&&rawG!==''&&Number.isSafeInteger(s)&&Number.isSafeInteger(g)&&s>0&&g>=0&&g<=s;
-  blocks.push(vBlock('variable','▦ Mettre semees à '+(rawS||'?')),vBlock('variable','▦ Mettre germees à '+(rawG||'?')));
-  blocks.push(vBlock('condition','◇ Si semees > 0 et 0 ≤ germees ≤ semees'));
-  if(valid){
-   const taux=100*g/s;
-   blocks.push('<div class="v-nested">'+vBlock('variable','▦ Mettre taux à 100 × '+g+' / '+s)+vBlock('output','◉ Afficher '+fixed2(taux)+' %')+'</div>');
-   resultat='Taux de germination : '+fixed2(taux)+' %'; 
-  }else{
-   blocks.push(vBlock('condition','◇ Sinon'),'<div class="v-nested">'+vBlock('output','◉ Afficher « Effectifs invalides »')+'</div>');
-   resultat='Effectifs invalides : semées > 0, 0 ≤ germées ≤ semées, nombres entiers requis.';error=true;
-  }
-  python="semees = "+(valid?s:40)+"\ngermees = "+(valid?g:34)
-      +"\nif semees > 0 and 0 <= germees <= semees:\n    taux = 100 * germees / semees\n    print(round(taux, 2), '%')\nelse:\n    print('Effectifs invalides')";
- }else if(visualCurrent==='ph'){
-  const raw=el('vis-ph').value.trim(),value=Number(raw),valid=raw!==''&&Number.isFinite(value)&&value>=0&&value<=14;
-  blocks.push(vBlock('variable','▦ Mettre ph à '+(raw||'?')),vBlock('condition','◇ Si pH est compris entre 0 et 14'));
-  if(valid){
-   const state=value<7?'Acide':value>7?'Basique':'Neutre';
-   blocks.push('<div class="v-nested">'+vBlock('condition','◇ Si pH < 7 / Sinon si pH = 7 / Sinon')+vBlock('output','◉ Afficher « '+state+' »')+'</div>');
-   resultat='pH '+fixed2(value)+' : '+state+' (classification pédagogique à 25 °C).';
-  }else{
-   blocks.push(vBlock('condition','◇ Sinon'),'<div class="v-nested">'+vBlock('output','◉ Afficher « Valeur hors plage pédagogique »')+'</div>');
-   resultat='Entrer un pH numérique entre 0 et 14 (plage pédagogique).';error=true;
-  }
-  python="ph = "+(valid?value:6.5)+"\nif ph < 0 or ph > 14:\n    print('Hors plage pédagogique')\nelif ph < 7:\n    print('Acide')\nelif ph == 7:\n    print('Neutre')\nelse:\n    print('Basique')";
- }else if(visualCurrent==='moyenne'){
-  const raw=el('vis-temperatures').value.trim();
-  const parts=raw.split(';').map(a=>a.trim().replace(',','.'));
-  const valid=raw!==''&&parts.length<=100&&parts.every(x=>/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(x)&&Number.isFinite(Number(x)));
-  blocks.push(vBlock('variable','▦ Mettre mesures à ['+(raw.slice(0,60)||'?')+']'));
-  blocks.push(vBlock('condition','◇ Si la liste n’est pas vide et contient des nombres'));
-  if(valid){
-   const nums=parts.map(Number),sum=nums.reduce((a,b)=>a+b,0),mean=sum/nums.length;
-   if(Number.isFinite(mean)){
-    blocks.push('<div class="v-nested">'+vBlock('variable','▦ Mettre somme à 0')+vBlock('loop','↻ Pour chaque température : somme ← somme + température')+vBlock('variable','▦ Mettre moyenne à somme / '+nums.length)+vBlock('output','◉ Afficher '+fixed2(mean)+' °C')+'</div>');
-    resultat='Moyenne de '+nums.length+' mesures : '+fixed2(mean)+' °C.';
-   }else{resultat='Nombres trop grands.';error=true;}
-  }else{
-   blocks.push(vBlock('condition','◇ Sinon'),'<div class="v-nested">'+vBlock('output','◉ Afficher « Liste invalide »')+'</div>');
-   resultat='Entrez entre 1 et 100 valeurs numériques séparées par ;';error=true;
-  }
-  const values=valid?parts.map(Number):[18,20,22,24];
-  python='mesures = '+JSON.stringify(values)
-  +"\nif mesures:\n    somme = 0\n    for temperature in mesures:\n        somme += temperature\n    moyenne = somme / len(mesures)\n    print(moyenne)\nelse:\n    print('Liste vide')";
+let atelierCurrent='germination';
+const flowNode=(kind,label)=>'<div class="flow-node '+kind+'">'+escapeHtml(label)+'</div>';
+const flowArrow=()=>'<div class="flow-down" aria-hidden="true">↓</div>';
+function atelierFlow(caseId){
+ let condition,yes,no,process,read,final;
+ if(caseId==='germination'){
+  read="Lire semees et germees";condition="semées > 0 ET 0 ≤ germées ≤ semées ?";
+  process="Calculer 100 × germées / semées";yes="Afficher le taux (%)";no="Afficher « Effectifs invalides »";
+ }else if(caseId==='ph'){
+  read="Lire la valeur de pH";condition="pH numérique entre 0 et 14 ?";
+  process="Comparer le pH à 7";yes="Afficher acide, neutre ou basique";no="Afficher « Valeur invalide »";
+ }else{
+  read="Lire les températures";condition="Liste non vide de mesures numériques ?";
+  process="Additionner les mesures, puis diviser par leur nombre";yes="Afficher la moyenne (°C)";no="Afficher « Liste invalide »";
  }
- el('vis-blocks').innerHTML=blocks.join('');
- el('vis-python').innerHTML=codeWindow(python,'exemple.py');
- const output=el('vis-result');output.textContent=resultat;output.classList.toggle('error',error);
+ return '<div class="atelier-flow" aria-label="Organigramme algorithmique">'
+ +flowNode('terminal','Début')+flowArrow()+flowNode('read',read)+flowArrow()
+ +flowNode('decision','◇ '+condition)
+ +'<div class="flow-forks"><div class="flow-fork"><span class="flow-caption">Oui ✓</span>'+flowNode('process',process)+flowArrow()+flowNode('output',yes)+'</div>'
+ +'<div class="flow-fork invalid"><span class="flow-caption">Non ✕</span>'+flowNode('output',no)+'</div></div>'
+ +flowArrow()+flowNode('terminal','Fin')+'</div>';
+}
+function atelierPage(){
+ const example=atelierCases[atelierCurrent];
+ const options=Object.entries(atelierCases).map(([id,x])=>'<option value="'+id+'" '+(atelierCurrent===id?'selected':'')+'>'+escapeHtml(x.title)+'</option>').join('');
+ const controls=example.fields.map(x=>'<label for="atelier-'+x.key+'">'+escapeHtml(x.label)+'</label><input id="atelier-'+x.key+'" value="'+escapeHtml(x.value)+'" autocomplete="off">').join('');
+ return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Atelier interactif</div>'
+ +'<span class="eyebrow">Algorithmique → Python · Biologie</span><h1>Du problème à un programme Python</h1>'
+ +'<p>Un <strong>schéma d’algorithme</strong>, son <strong>pseudo-code</strong> et sa <strong>traduction Python</strong> pour le même problème. Changez les valeurs et testez vos hypothèses.</p>'
+ +'<div class="schema-bridge"><h3>Les cinq étapes</h3><div class="schema-track">'
+ +'<div class="schema-step"><strong>1. Problème</strong><span>Question biologique</span></div><span class="schema-arrow">→</span>'
+ +'<div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span>'
+ +'<div class="schema-step"><strong>3. Algorithme</strong><span>Organigramme et pseudo-code</span></div><span class="schema-arrow">→</span>'
+ +'<div class="schema-step"><strong>4. Python</strong><span>Traduction</span></div><span class="schema-arrow">→</span>'
+ +'<div class="schema-step"><strong>5. Tests</strong><span>Résultat vérifié</span></div></div></div>'
+ +'<div class="atelier-grid"><section class="atelier-panel"><h2>1. Problème et données</h2>'
+ +'<label for="atelier-case">Choisir un cas biologique</label><select id="atelier-case">'+options+'</select>'
+ +'<p style="margin:15px 0">'+escapeHtml(example.description)+'</p>'
+ +'<div class="info-box"><strong>Entrées :</strong> '+escapeHtml(example.inputs)+'<br><strong>Traitement :</strong> '+escapeHtml(example.formula)+'<br><strong>Sortie :</strong> '+escapeHtml(example.output)+'</div>'
+ +controls+'<button type="button" class="btn" id="atelier-run" style="margin-top:18px">▶ Tester cet algorithme</button>'
+ +'<div id="atelier-result" class="atelier-result" role="status" aria-live="polite">Choisissez des valeurs et lancez le test.</div>'
+ +'<p class="atelier-note">Exercices pédagogiques : le calcul est simulé dans le navigateur, sans exécuter directement Python.</p>'
+ +'</section><section class="atelier-panel"><h2>2. Schéma algorithmique (organigramme)</h2>'+atelierFlow(atelierCurrent)
+ +'<h2>3. Pseudo-code</h2><div id="atelier-pseudo"></div>'
+ +'<h2>4. Traduction en Python</h2><div id="atelier-python"></div>'
+ +'<h2>5. Jeux d’essai</h2><div id="atelier-tests"></div>'
+ +'</section></div>';
+}
+function computeAtelier(){
+ const get=id=>document.getElementById('atelier-'+id)?.value.trim()||'';
+ let pseudo='',python='',message='',isError=false,tests='';
+ if(atelierCurrent==='germination'){
+  const sr=get('semees'),gr=get('germees'),ss=Number(sr),gg=Number(gr);
+  const valid=sr!==''&&gr!==''&&Number.isSafeInteger(ss)&&Number.isSafeInteger(gg)&&ss>0&&gg>=0&&gg<=ss;
+  pseudo='Algorithme Germination\nDébut\n  Lire semees, germees\n  Si semees <= 0 OU germees < 0 OU germees > semees Alors\n    Écrire "Effectifs invalides"\n  Sinon\n    taux ← 100 × germees / semees\n    Écrire taux, "%"\n  FinSi\nFin';
+  python='semees = 40\ngermees = 34\nif semees <= 0 or germees < 0 or germees > semees:\n    print("Effectifs invalides")\nelse:\n    taux = 100 * germees / semees\n    print(round(taux, 2), "%")';
+  tests='40 semées, 34 germées → 85 % · 10, 0 → 0 % · 10, 15 → entrée invalide';
+  if(valid)message='Résultat : '+(100*gg/ss).toLocaleString('fr-FR',{maximumFractionDigits:2})+' % de germination.';
+  else{isError=true;message='Entrées invalides : il faut 0 < semées et 0 ≤ germées ≤ semées (entiers).';}
+ }else if(atelierCurrent==='ph'){
+  const raw=get('ph'),p=Number(raw);const valid=raw!==''&&Number.isFinite(p)&&p>=0&&p<=14;
+  pseudo='Algorithme ClassifierPH\nDébut\n  Lire pH\n  Si pH < 0 OU pH > 14 Alors\n    Écrire "Valeur invalide"\n  Sinon Si pH < 7 Alors\n    Écrire "Acide"\n  Sinon Si pH = 7 Alors\n    Écrire "Neutre"\n  Sinon\n    Écrire "Basique"\n  FinSi\nFin';
+  python='ph = 6.5\nif ph < 0 or ph > 14:\n    print("Valeur invalide")\nelif ph < 7:\n    print("Acide")\nelif ph == 7:\n    print("Neutre")\nelse:\n    print("Basique")';
+  tests='pH 6,5 → acide · pH 7 → neutre · pH 8 → basique · pH −1 → hors plage pédagogique';
+  if(valid)message='pH '+p.toLocaleString('fr-FR')+' : '+(p<7?'acide':p>7?'basique':'neutre')+' (convention scolaire à 25 °C).';
+  else{isError=true;message='Valeur non valide pour la plage pédagogique 0–14.';}
+ }else{
+  const raw=get('temperatures'),parts=raw.split(';').map(x=>x.trim().replace(',','.'));
+  const valid=raw!==''&&parts.length<=100&&parts.every(x=>/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(x)&&Number.isFinite(Number(x)));
+  const vals=parts.map(Number),avg=valid?vals.reduce((a,b)=>a+b,0)/vals.length:NaN;
+  pseudo='Algorithme Moyenne\nDébut\n  Lire mesures\n  Si mesures est vide OU non numérique Alors\n    Écrire "Liste invalide"\n  Sinon\n    somme ← 0\n    Pour chaque x dans mesures Faire\n      somme ← somme + x\n    FinPour\n    moyenne ← somme / nombre(mesures)\n    Écrire moyenne\n  FinSi\nFin';
+  python='mesures = [18, 20, 22, 24]\nif not mesures:\n    print("Liste vide")\nelse:\n    somme = 0\n    for x in mesures:\n        somme += x\n    print(somme / len(mesures))';
+  tests='18;20;22;24 → moyenne 21 °C · 5 → moyenne 5 °C · liste vide → erreur';
+  if(valid&&Number.isFinite(avg))message='Moyenne : '+avg.toLocaleString('fr-FR',{maximumFractionDigits:2})+' °C ('+vals.length+' mesure(s)).';
+  else{isError=true;message='Liste invalide. Saisissez 1 à 100 valeurs séparées par ;';}
+ }
+ document.getElementById('atelier-pseudo').innerHTML=codeWindow(pseudo,'pseudo-code.txt');
+ document.getElementById('atelier-python').innerHTML=codeWindow(python,'exemple.py');
+ document.getElementById('atelier-tests').innerHTML='<div class="atelier-examples">'+tests.split(' · ').map(t=>'<span>'+escapeHtml(t)+'</span>').join('')+'</div>';
+ const out=document.getElementById('atelier-result');out.textContent=message;out.classList.toggle('error',isError);
 }
 
 function searchPage(term){
@@ -1019,7 +1007,7 @@ function calcLab(id){
 }
 
 document.addEventListener('click',e=>{
- const run=e.target.closest('#vis-run');if(run){simulateVisual();return;}
+ const run=e.target.closest('#atelier-run');if(run){computeAtelier();return;}
  const go=e.target.closest('[data-go]');if(go){location.hash='/'+go.dataset.go;return;}
  const a=e.target.closest('[data-answer]');if(a){const [id,i,j]=a.dataset.answer.split('|');answers[id+'-'+i]=Number(j);const c=allChapters.find(x=>x.id===id);const q=c?.quiz[Number(i)];const wrap=a.closest('.quiz-card');if(q&&wrap){const choices=wrap.querySelectorAll('.choice');choices.forEach((b,idx)=>{b.disabled=true;b.classList.toggle('correct',idx===q.correct);b.classList.toggle('incorrect',idx===Number(j)&&idx!==q.correct)});const div=document.createElement('div');div.className='quiz-result '+(Number(j)===q.correct?'good':'bad');div.textContent=(Number(j)===q.correct?'✓ Bonne réponse. ':'Réponse correcte : '+q.choices[q.correct]+'. ')+q.why;wrap.appendChild(div);}return;}
  const c=e.target.closest('[data-complete]');if(c){const id=c.dataset.complete;if(done.has(id))done.delete(id);else done.add(id);save();renderNav();c.textContent=done.has(id)?'✓ Chapitre terminé · Annuler':'✓ Marquer ce chapitre comme terminé';c.classList.toggle('complete',done.has(id));return;}
@@ -1031,7 +1019,7 @@ document.addEventListener('click',e=>{
  const sect=e.target.closest('[data-section]');if(sect){e.preventDefault();el(sect.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return;}
 });
 function searchSubmit(){const q=el('global-search').value.trim();if(!q)return;lastSearch=q;try{sessionStorage.setItem('biocode-last-search',q);}catch(e){}if(currentPath()==='recherche')render();else location.hash='/recherche';el('global-search').blur();}
-document.addEventListener('change',e=>{if(e.target.id==='vis-case'&&visualCases[e.target.value]){visualCurrent=e.target.value;el('main').innerHTML=visualPage();}});
+document.addEventListener('change',e=>{if(e.target.id==='atelier-case'&&atelierCases[e.target.value]){atelierCurrent=e.target.value;el('main').innerHTML=atelierPage();computeAtelier();}});
 el('global-search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchSubmit();}});
 el('global-search').addEventListener('input',e=>{if(!e.target.value.trim()&&currentPath()==='recherche'){location.hash='/accueil';}});
 el('mobile-menu').addEventListener('click',()=>{el('sidebar').classList.toggle('open');el('mobile-overlay').classList.toggle('show');});
