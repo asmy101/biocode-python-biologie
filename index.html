@@ -215,6 +215,29 @@
 .a2-correction pre{overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;border-radius:9px;background:#102e28;color:#e8f7ef;font:12px/1.55 Consolas,Monaco,monospace}
 @media print{.a2-correction:not([open])>summary{display:none}.a2-correction:not([open]){display:none}}
 
+
+/* A2 : instructions de base et traces d'affectation */
+.a2-instruction-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:19px 0}
+.a2-instruction-cards article{border:1px solid #d5e6d9;border-radius:13px;background:#f5faf6;padding:16px;min-width:0}
+.a2-instruction-cards article>span{background:#d9eee0;color:#1a6848;border-radius:50%;height:30px;width:30px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:850}
+.a2-instruction-cards h3{font-size:15px;margin:9px 0 7px;color:#1e5e43}
+.a2-instruction-cards p{font-size:12px;margin:4px 0}
+.a2-instruction-flow,.a2-affect-syntax,.a2-change{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:18px 0}
+.a2-instruction-flow span,.a2-affect-syntax span{background:#e7f3e9;border:1px solid #c6e2d1;border-radius:11px;padding:12px 15px;color:#225d45;font-size:13px;font-weight:800;text-align:center}
+.a2-instruction-flow b,.a2-affect-syntax strong,.a2-change>strong{font-size:23px;color:#3d9270}
+.a2-example-line{display:grid;grid-template-columns:minmax(160px,.9fr) minmax(0,1.1fr);gap:10px;border-bottom:1px solid #e2efe6;padding:10px 6px;align-items:center;font-size:13px}
+.a2-example-line code{font-size:13px;color:#165c41;overflow-wrap:anywhere}.a2-example-line span{color:#4c695b}
+.a2-change>div{padding:15px 20px;border:1px solid #c6e1d1;background:#f1f9f3;border-radius:14px;text-align:center;min-width:145px}
+.a2-change code{display:block;font-size:17px;color:#215e46;margin-bottom:5px}.a2-change span{display:block;font-size:12px;color:#547667}
+.a2-pseudo-exercise{background:#14322c;color:#f2fbf2;border-radius:11px;padding:15px 17px;font:13px/1.7 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.a2-trace-scroll{overflow-x:auto;max-width:100%}
+.a2-trace-table{width:100%;border-collapse:collapse;font-size:12px;min-width:390px}
+.a2-trace-table th,.a2-trace-table td{border:1px solid #d9e7dc;padding:9px 11px;text-align:center;color:#375847}
+.a2-trace-table th{background:#dceee3;font-weight:850}
+.a2-trace-table tr:last-child{background:#edf8ee;font-weight:850}
+.a2-trace-table td:first-child{text-align:left;font-weight:700}
+@media(max-width:760px){.a2-instruction-cards{grid-template-columns:1fr}.a2-example-line{grid-template-columns:1fr}.a2-affect-syntax,.a2-instruction-flow{flex-direction:column}.a2-change{flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -484,8 +507,8 @@ const algoChapters = [
   "num": "A2",
   "icon": "↳",
   "title": "Les variables, les constantes et les instructions",
-  "short": "Notion de variable, règles de nommage, types, constantes et instructions séquentielles.",
-  "time": "75 min",
+  "short": "Variables, constantes, affectation, lecture, écriture et exercices corrigés avec tableaux de trace.",
+  "time": "110 min",
   "level": "Initiation",
   "objectives": [
    "Définir une variable et identifier son nom, son type et sa valeur.",
@@ -493,7 +516,10 @@ const algoChapters = [
    "Reconnaître les types Entier, Réel, Chaîne et Booléen.",
    "Distinguer variable et constante avec un exemple simple.",
    "Écrire Lire, Écrire et ← et suivre l'évolution des variables.",
-   "Résoudre des exercices complets de moyenne pondérée, surface et concentration avec analyse du problème et pseudo-code."
+   "Résoudre des exercices complets de moyenne pondérée, surface et concentration avec analyse du problème et pseudo-code.",
+   "Interpréter une affectation et expliquer le remplacement d’une valeur.",
+   "Traduire les instructions Lire et Écrire en Python.",
+   "Compléter un tableau de trace et utiliser div et mod pour des entiers positifs."
   ],
   "sections": [
    {
@@ -524,29 +550,67 @@ const algoChapters = [
     "output": "314.0"
    },
    {
-    "title": "Exercices d’application après les variables : moyennes et surfaces",
-    "body": "<p>Appliquer la méthode <strong>Problème → Entrées → Traitement → Sortie → Algorithme</strong>. Les corrigés sont masqués au départ : essayez de résoudre les exercices avant de les afficher.</p>\n<div class=\"a2-exercise\">\n<h3>Exercice 1 — Moyenne pondérée de deux notes</h3>\n<p><strong>Problème :</strong> calculer la moyenne de deux notes <code>N1</code> et <code>N2</code> ayant des coefficients <code>C1</code> et <code>C2</code> différents.</p>\n<div class=\"a2-formula\">M = (N1 × C1 + N2 × C2) / (C1 + C2)</div>\n<p><strong>Travail demandé :</strong> identifier les entrées, la sortie et le traitement, puis écrire un algorithme complet avec les instructions de lecture et d'affichage.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 1</summary>\n<p><strong>Entrées :</strong> N1, N2 : Réel ; C1, C2 : Entier. <strong>Sortie :</strong> M : Réel. Il faut vérifier que la somme des coefficients est positive.</p>\n<pre>Algorithme MoyennePonderee\nVariables\n    N1, N2, M : Réel\n    C1, C2 : Entier\nDébut\n    Lire N1, N2, C1, C2\n    Si C1 &lt; 0 OU C2 &lt; 0 OU C1 + C2 = 0 Alors\n        Écrire \"Coefficients invalides\"\n    Sinon\n        M ← (N1 × C1 + N2 × C2) / (C1 + C2)\n        Écrire M\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> N1 = 12, C1 = 2, N2 = 16, C2 = 3 → M = <strong>14,4</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 2 — Surface d’un rectangle</h3>\n<p><strong>Problème :</strong> calculer la surface d'un rectangle connaissant sa longueur <code>L</code> et sa largeur <code>l</code>.</p>\n<div class=\"a2-formula\">S = L × l</div>\n<p><strong>Travail demandé :</strong> identifier les données et écrire un algorithme qui lit les dimensions, calcule la surface et l'affiche.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 2</summary>\n<p><strong>Entrées :</strong> L et l (Réel) ; <strong>traitement :</strong> L × l ; <strong>sortie :</strong> S (Réel).</p>\n<pre>Algorithme SurfaceRectangle\nVariables\n    L, l, S : Réel\nDébut\n    Lire L, l\n    Si L &lt;= 0 OU l &lt;= 0 Alors\n        Écrire \"Dimensions invalides\"\n    Sinon\n        S ← L × l\n        Écrire S\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> L = 8 et l = 5 → S = <strong>40 unités²</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 3 — Concentration massique (application biologique)</h3>\n<p>Un échantillon contient une masse de soluté <code>m</code> exprimée en grammes et un volume <code>Vml</code> exprimé en millilitres. Écrire l'algorithme qui calcule la concentration en g/L.</p>\n<p><strong>Indice :</strong> 1 L = 1 000 mL.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 3</summary>\n<pre>Algorithme Concentration\nVariables\n    m, Vml, Vl, C : Réel\nDébut\n    Lire m, Vml\n    Si Vml &lt;= 0 Alors\n        Écrire \"Volume invalide\"\n    Sinon\n        Vl ← Vml / 1000\n        C ← m / Vl\n        Écrire C\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> m = 5 g et Vml = 250 mL → Vl = 0,25 L → C = <strong>20 g/L</strong>.</p></details>\n</div>",
-    "note": "Pour calculer une moyenne pondérée, ne pas oublier le dénominateur C1 + C2 ; pour une surface, préciser les unités au carré ; pour une concentration, convertir les mL en L."
+    "title": "Les instructions de base : affectation, lecture et écriture",
+    "body": "<p>Les <strong>instructions de base</strong> sont les opérations élémentaires d’un algorithme. Avant les tests et les boucles, il faut apprendre à <strong>affecter</strong> des valeurs, <strong>lire</strong> des données et <strong>écrire</strong> des résultats.</p><div class=\"a2-instruction-cards\"><article><span>1</span><h3>Affectation</h3><p><code>A ← 5</code></p><p>Donner une valeur à une variable.</p></article><article><span>2</span><h3>Entrée / Lecture</h3><p><code>Lire A</code></p><p>Recevoir une valeur donnée par l’utilisateur.</p></article><article><span>3</span><h3>Sortie / Écriture</h3><p><code>Écrire A</code></p><p>Afficher un message ou un résultat.</p></article></div><div class=\"a2-instruction-flow\"><span>Lire les données</span><b>→</b><span>Calculer / Affecter</span><b>→</b><span>Écrire le résultat</span></div>"
    },
    {
-    "title": "Lire et Écrire",
+    "title": "L’affectation : définition, syntaxe et exemples",
+    "body": "<p><strong>L’affectation</strong> donne à une variable la valeur obtenue par l’évaluation d’une expression. En pseudo-code, nous utilisons le symbole <strong>←</strong>, dirigé vers la variable qui reçoit le résultat.</p><div class=\"a2-affect-syntax\"><span>Variable</span><strong>←</strong><span>Expression</span></div><p>On calcule d’abord l’expression située <strong>à droite</strong>, puis on affecte son résultat à la variable <strong>à gauche</strong>. En Python, on utilise <code class=\"inline\">=</code> pour l’affectation.</p><div class=\"a2-example-line\"><code>A ← 5</code><span>A prend la valeur 5</span></div><div class=\"a2-example-line\"><code>B ← 5 + 4</code><span>B prend la valeur 9</span></div><div class=\"a2-example-line\"><code>C ← 6 × 2 × (10 + 4)</code><span>C prend la valeur 168</span></div><div class=\"a2-example-line\"><code>D ← A + B</code><span>D prend la valeur 14</span></div><div class=\"a2-example-line\"><code>E ← A × B + C</code><span>E prend la valeur 213</span></div><div class=\"info-box\"><strong>À retenir :</strong> on écrit <code class=\"inline\">A ← 4</code> en pseudo-code et <code class=\"inline\">A = 4</code> en Python. Le symbole <code class=\"inline\">==</code> en Python sert à comparer, pas à affecter.</div>",
+    "pseudo": "Algorithme Affectations\nVariables\n    A, B, C, D, E : Entier\nDébut\n    A ← 5\n    B ← 5 + 4\n    C ← 6 × 2 × (10 + 4)\n    D ← A + B\n    E ← A × B + C\n    Écrire A, B, C, D, E\nFin",
+    "code": "A = 5\nB = 5 + 4\nC = 6 * 2 * (10 + 4)\nD = A + B\nE = A * B + C\nprint(A, B, C, D, E)",
+    "output": "5 9 168 14 213"
+   },
+   {
+    "title": "Affectation : remplacement et évolution des valeurs",
+    "body": "<p><strong>Remarque 1 — Remplacement :</strong> lorsqu’on affecte une nouvelle valeur à une variable simple, la valeur précédente n’est plus celle associée à ce nom.</p><div class=\"a2-change\"><div><code>A ← 4</code><span>Valeur de A : 4</span></div><strong>→</strong><div><code>A ← 10</code><span>Valeur de A : 10</span></div></div><p><strong>Remarque 2 — Les valeurs changent au fil des instructions :</strong> une variable déjà calculée ne se recalcule pas automatiquement si une autre variable change.</p><div class=\"a2-affect-syntax\"><span>A = 4</span><span>B = 10</span><span>C = 12</span></div><p>On exécute successivement <code class=\"inline\">A ← 4</code>, <code class=\"inline\">B ← 8</code>, <code class=\"inline\">C ← A + B</code>, puis <code class=\"inline\">B ← 10</code>. Au final <strong>C reste 12</strong>, même si B vaut maintenant 10.</p><div class=\"info-box\"><strong>Précision :</strong> cette représentation « case mémoire » est adaptée aux valeurs numériques simples du cours. En Python, les noms peuvent également référencer des objets mutables : on abordera ce cas plus tard avec les listes.</div>",
+    "pseudo": "Algorithme Remplacement\nVariables\n    A, B, C : Entier\nDébut\n    A ← 4\n    B ← 8\n    C ← A + B\n    B ← 10\n    Écrire A, B, C\nFin",
+    "code": "A = 4\nB = 8\nC = A + B\nB = 10\nprint(A, B, C)",
+    "output": "4 10 12"
+   },
+   {
+    "title": "L’instruction d’entrée : Lire",
+    "body": "<p>L’instruction <strong>Lire</strong> permet d’obtenir une ou plusieurs valeurs nécessaires au traitement. On l’utilise avant tout calcul qui dépend d’une donnée fournie par l’utilisateur.</p><div class=\"a2-affect-syntax\"><span>Lire</span><strong>→</strong><span>Variable</span></div><p>Exemple biologique : lire le nombre de graines semées. En Python, <code class=\"inline\">input()</code> lit une chaîne de caractères ; pour travailler avec un nombre entier, on la convertit avec <code class=\"inline\">int()</code>.</p><p>Dans ce premier exemple, on suppose que la saisie contient bien un entier.</p>",
+    "pseudo": "Algorithme LireEffectif\nVariables\n    semees : Entier\nDébut\n    Lire semees\nFin",
+    "code": "semees = int(input('Nombre de graines semées : '))\nprint('Effectif enregistré :', semees)",
+    "output": "Nombre de graines semées : 40\nEffectif enregistré : 40",
+    "note": "Si l’utilisateur saisit un texte non numérique, int() provoquera une erreur ; la gestion des erreurs sera étudiée plus tard."
+   },
+   {
+    "title": "L’instruction de sortie : Écrire",
+    "body": "<p>L’instruction <strong>Écrire</strong> permet d’afficher une valeur, un texte ou le résultat d’un calcul. Elle correspond généralement à <code class=\"inline\">print()</code> en Python.</p><div class=\"a2-affect-syntax\"><span>Écrire</span><strong>→</strong><span>Message / Résultat</span></div><p>Dans un programme biologique, préciser le <strong>nom de la grandeur</strong> et son <strong>unité</strong> rend le résultat plus compréhensible.</p>",
+    "pseudo": "Algorithme AfficherTemperature\nVariables\n    temperature : Réel\nDébut\n    temperature ← 22.5\n    Écrire \"Température :\", temperature, \"°C\"\nFin",
+    "code": "temperature = 22.5\nprint('Température :', temperature, '°C')",
+    "output": "Température : 22.5 °C"
+   },
+   {
+    "title": "Synthèse : Lire et Écrire dans le même algorithme",
     "body": "<p><strong>Lire x</strong> : récupérer une donnée fournie. <strong>Écrire x</strong> : communiquer une valeur. Ces instructions sont différentes du calcul lui-même.</p><p>Dans Python, on utilise <code class=\"inline\">input()</code> pour la saisie et <code class=\"inline\">print()</code> pour l’affichage. Une conversion de type sera souvent nécessaire car input() renvoie du texte.</p>",
     "pseudo": "Algorithme ConversionVolume\nVariables volume_ml, volume_l : Réel\nDébut\n    Lire volume_ml\n    volume_l ← volume_ml / 1000\n    Écrire volume_l, \"L\"\nFin",
     "code": "volume_ml = float(input('Volume (mL) : '))\nvolume_l = volume_ml / 1000\nprint(volume_l, 'L')",
     "output": "Pour 250 mL : 0.25 L"
    },
    {
-    "title": "Trace d'exécution (table de valeurs)",
+    "title": "Exemple guidé : première table de valeurs",
     "body": "<p>Pour vérifier un algorithme, on suit les valeurs des variables <em>instruction après instruction</em>.</p><table><thead><tr><th>Étape</th><th>a</th><th>b</th></tr></thead><tbody><tr><td>a ← 3</td><td>3</td><td>—</td></tr><tr><td>b ← a + 2</td><td>3</td><td>5</td></tr><tr><td>a ← b × 2</td><td>10</td><td>5</td></tr></tbody></table>",
     "pseudo": "Début\n    a ← 3\n    b ← a + 2\n    a ← b × 2\n    Écrire a, b\nFin",
     "note": "La dernière valeur de a est 10, et celle de b est 5. Ce n'est pas une équation à résoudre : c'est une suite d'affectations."
    },
    {
-    "title": "Séquence et unités biologiques",
+    "title": "Exemple biologique : séquence et unités",
     "body": "<p>Les instructions séquentielles s’exécutent de haut en bas. Pour une concentration en g/L, convertir d’abord le volume mL → L, puis appliquer C = m / V. Les vérifications d’erreurs seront ajoutées au chapitre A3.</p>",
     "pseudo": "Algorithme Concentration (volume > 0 supposé)\nDébut\n    masse_g ← 5\n    volume_ml ← 250\n    volume_l ← volume_ml / 1000\n    concentration ← masse_g / volume_l\n    Écrire concentration, \"g/L\"\nFin",
     "code": "masse_g = 5\nvolume_ml = 250\nvolume_l = volume_ml / 1000\nconcentration = masse_g / volume_l\nprint(concentration, 'g/L')",
     "output": "20.0 g/L"
+   },
+   {
+    "title": "Exercices d’application après les variables : moyennes et surfaces",
+    "body": "<p>Appliquer la méthode <strong>Problème → Entrées → Traitement → Sortie → Algorithme</strong>. Les corrigés sont masqués au départ : essayez de résoudre les exercices avant de les afficher.</p>\n<div class=\"a2-exercise\">\n<h3>Exercice 1 — Moyenne pondérée de deux notes</h3>\n<p><strong>Problème :</strong> calculer la moyenne de deux notes <code>N1</code> et <code>N2</code> ayant des coefficients <code>C1</code> et <code>C2</code> différents.</p>\n<div class=\"a2-formula\">M = (N1 × C1 + N2 × C2) / (C1 + C2)</div>\n<p><strong>Travail demandé :</strong> identifier les entrées, la sortie et le traitement, puis écrire un algorithme complet avec les instructions de lecture et d'affichage.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 1</summary>\n<p><strong>Entrées :</strong> N1, N2 : Réel ; C1, C2 : Entier. <strong>Sortie :</strong> M : Réel. Il faut vérifier que la somme des coefficients est positive.</p>\n<pre>Algorithme MoyennePonderee\nVariables\n    N1, N2, M : Réel\n    C1, C2 : Entier\nDébut\n    Lire N1, N2, C1, C2\n    Si C1 &lt; 0 OU C2 &lt; 0 OU C1 + C2 = 0 Alors\n        Écrire \"Coefficients invalides\"\n    Sinon\n        M ← (N1 × C1 + N2 × C2) / (C1 + C2)\n        Écrire M\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> N1 = 12, C1 = 2, N2 = 16, C2 = 3 → M = <strong>14,4</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 2 — Surface d’un rectangle</h3>\n<p><strong>Problème :</strong> calculer la surface d'un rectangle connaissant sa longueur <code>L</code> et sa largeur <code>l</code>.</p>\n<div class=\"a2-formula\">S = L × l</div>\n<p><strong>Travail demandé :</strong> identifier les données et écrire un algorithme qui lit les dimensions, calcule la surface et l'affiche.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 2</summary>\n<p><strong>Entrées :</strong> L et l (Réel) ; <strong>traitement :</strong> L × l ; <strong>sortie :</strong> S (Réel).</p>\n<pre>Algorithme SurfaceRectangle\nVariables\n    L, l, S : Réel\nDébut\n    Lire L, l\n    Si L &lt;= 0 OU l &lt;= 0 Alors\n        Écrire \"Dimensions invalides\"\n    Sinon\n        S ← L × l\n        Écrire S\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> L = 8 et l = 5 → S = <strong>40 unités²</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 3 — Concentration massique (application biologique)</h3>\n<p>Un échantillon contient une masse de soluté <code>m</code> exprimée en grammes et un volume <code>Vml</code> exprimé en millilitres. Écrire l'algorithme qui calcule la concentration en g/L.</p>\n<p><strong>Indice :</strong> 1 L = 1 000 mL.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 3</summary>\n<pre>Algorithme Concentration\nVariables\n    m, Vml, Vl, C : Réel\nDébut\n    Lire m, Vml\n    Si Vml &lt;= 0 Alors\n        Écrire \"Volume invalide\"\n    Sinon\n        Vl ← Vml / 1000\n        C ← m / Vl\n        Écrire C\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> m = 5 g et Vml = 250 mL → Vl = 0,25 L → C = <strong>20 g/L</strong>.</p></details>\n</div>",
+    "note": "Pour calculer une moyenne pondérée, ne pas oublier le dénominateur C1 + C2 ; pour une surface, préciser les unités au carré ; pour une concentration, convertir les mL en L."
+   },
+   {
+    "title": "Exercices d’affectation : valeurs finales et tableaux de trace",
+    "body": "<p>Pour ces exercices, exécuter <strong>les affectations dans l’ordre</strong>. Dans un tableau de trace, le signe <strong>—</strong> signifie que la variable n’a pas encore reçu de valeur.</p>\n<div class=\"a2-exercise\">\n<h3>Exercice 1 — Trouver les valeurs finales de a, b et c</h3>\n<pre class=\"a2-pseudo-exercise\">a ← 1\nb ← 5\nc ← a − b\na ← 2\nc ← a + b</pre>\n<p><strong>Question :</strong> quelles sont les valeurs finales de <code>a</code>, <code>b</code> et <code>c</code> ?</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé et la trace — Exercice 1</summary><div class=\"a2-trace-scroll\"><table class=\"a2-trace-table\"><thead><tr><th>Instruction</th><th>A / a</th><th>B / b</th><th>C / c</th></tr></thead><tbody><tr><td><code>a ← 1</code></td><td>1</td><td>—</td><td>—</td></tr><tr><td><code>b ← 5</code></td><td>1</td><td>5</td><td>—</td></tr><tr><td><code>c ← a − b</code></td><td>1</td><td>5</td><td>-4</td></tr><tr><td><code>a ← 2</code></td><td>2</td><td>5</td><td>-4</td></tr><tr><td><code>c ← a + b</code></td><td>2</td><td>5</td><td>7</td></tr></tbody></table></div><p><strong>Résultat final :</strong> a = <strong>2</strong>, b = <strong>5</strong>, c = <strong>7</strong>. L’ancienne valeur de c (−4) a été remplacée par 7.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 2 — Compléter le tableau de trace</h3>\n<pre class=\"a2-pseudo-exercise\">A ← 2\nB ← 6\nC ← A + B\nC ← C + 1\nA ← C\nB ← B + C</pre>\n<p><strong>Travail demandé :</strong> compléter les colonnes A, B et C après chaque instruction, puis donner leurs valeurs finales.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé et la trace — Exercice 2</summary><div class=\"a2-trace-scroll\"><table class=\"a2-trace-table\"><thead><tr><th>Instruction</th><th>A / a</th><th>B / b</th><th>C / c</th></tr></thead><tbody><tr><td><code>A ← 2</code></td><td>2</td><td>—</td><td>—</td></tr><tr><td><code>B ← 6</code></td><td>2</td><td>6</td><td>—</td></tr><tr><td><code>C ← A + B</code></td><td>2</td><td>6</td><td>8</td></tr><tr><td><code>C ← C + 1</code></td><td>2</td><td>6</td><td>9</td></tr><tr><td><code>A ← C</code></td><td>9</td><td>6</td><td>9</td></tr><tr><td><code>B ← B + C</code></td><td>9</td><td>15</td><td>9</td></tr></tbody></table></div><p><strong>Résultat final :</strong> A = <strong>9</strong>, B = <strong>15</strong>, C = <strong>9</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 3 — Division entière et modulo</h3>\n<p><strong>Rappel :</strong> <code class=\"inline\">div</code> donne le quotient entier (pour ces entiers positifs), <code class=\"inline\">mod</code> donne le reste.</p>\n<pre class=\"a2-pseudo-exercise\">A ← 2\nB ← A + 1\nC ← B div 3\nC ← C + 1\nA ← A mod 2\nB ← B mod 10</pre>\n<p><strong>Travail demandé :</strong> compléter le tableau de trace et donner A, B et C à la fin.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé et la trace — Exercice 3</summary><div class=\"a2-trace-scroll\"><table class=\"a2-trace-table\"><thead><tr><th>Instruction</th><th>A / a</th><th>B / b</th><th>C / c</th></tr></thead><tbody><tr><td><code>A ← 2</code></td><td>2</td><td>—</td><td>—</td></tr><tr><td><code>B ← A + 1</code></td><td>2</td><td>3</td><td>—</td></tr><tr><td><code>C ← B div 3</code></td><td>2</td><td>3</td><td>1</td></tr><tr><td><code>C ← C + 1</code></td><td>2</td><td>3</td><td>2</td></tr><tr><td><code>A ← A mod 2</code></td><td>0</td><td>3</td><td>2</td></tr><tr><td><code>B ← B mod 10</code></td><td>0</td><td>3</td><td>2</td></tr></tbody></table></div><p><strong>Résultat final :</strong> A = <strong>0</strong>, B = <strong>3</strong>, C = <strong>2</strong>.</p><p><code>3 div 3 = 1</code>, <code>2 mod 2 = 0</code>, <code>3 mod 10 = 3</code>. En Python, on utilise <code>//</code> pour le quotient entier et <code>%</code> pour le reste.</p></details>\n</div>\n<div class=\"info-box\"><strong>Pour s’entraîner en autonomie :</strong> vous pouvez aussi utiliser le <a href=\"#/simulateur\">Simulateur pas à pas</a> du site pour observer les valeurs après chaque affectation.</div>",
+    "note": "Le corrigé de chaque exercice est volontairement masqué pour permettre un premier essai individuel."
    }
   ],
   "quiz": [
@@ -649,6 +713,46 @@ const algoChapters = [
     ],
     "correct": 1,
     "why": "(12 × 2 + 16 × 3) / (2 + 3) = 72 / 5 = 14,4."
+   },
+   {
+    "q": "Après A ← 4, B ← 8, C ← A + B, B ← 10, quelle est la valeur de C ?",
+    "choices": [
+     "12",
+     "14",
+     "10"
+    ],
+    "correct": 0,
+    "why": "C reçoit 12 au troisième calcul et ne change pas quand B reçoit 10."
+   },
+   {
+    "q": "Quel est le résultat de 3 div 3 ?",
+    "choices": [
+     "0",
+     "1",
+     "3"
+    ],
+    "correct": 1,
+    "why": "La division entière de 3 par 3 donne 1."
+   },
+   {
+    "q": "Quel est le résultat de 3 mod 10 ?",
+    "choices": [
+     "3",
+     "0",
+     "10"
+    ],
+    "correct": 0,
+    "why": "Le reste de la division de 3 par 10 est 3."
+   },
+   {
+    "q": "Avec a ← 1, b ← 5, c ← a − b, a ← 2, c ← a + b, c vaut finalement…",
+    "choices": [
+     "−4",
+     "7",
+     "6"
+    ],
+    "correct": 1,
+    "why": "La dernière affectation de c donne 2 + 5 = 7."
    }
   ]
  },
