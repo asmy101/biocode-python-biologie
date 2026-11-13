@@ -246,6 +246,25 @@
 .a3-mention-table td,.a3-mention-table th{border:1px solid #d5e5d9;padding:10px 12px;text-align:left}
 .a3-mention-table tbody tr:nth-child(even){background:#f5faf6}
 
+
+/* A4 — Les boucles : schémas et exercices */
+.a4-side-by-side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:16px 0}
+.a4-side-by-side article{min-width:0;border:1px solid #d4e7db;background:#f8fbf8;border-radius:13px;padding:15px}
+.a4-side-by-side h3{font-size:15px;color:#1e6246;margin:0 0 10px}
+.a4-side-by-side p{font-size:12px;line-height:1.65}
+.a4-pseudo{white-space:pre-wrap;overflow-wrap:anywhere;overflow:auto;background:#15382d;color:#eaf7ee;padding:14px;border-radius:10px;font:12px/1.6 Consolas,Monaco,monospace}
+.a4-for-syntax{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:17px 0;border:1px solid #c7e2d0;background:#f4faf6;border-radius:12px;padding:13px}
+.a4-for-syntax>span{font-weight:850;color:#1c7350}.a4-for-syntax>strong{color:#184c38;background:#e2f1e8;padding:5px 10px;border-radius:6px}
+.a4-for-body{flex-basis:100%;border-left:3px solid #5a9e76;padding:10px 13px;color:#245f47;font-size:13px;margin-left:20px}
+.a4-flowchart{margin:18px auto;max-width:860px;overflow:auto;background:#fbfdfb;border:1px solid #d8e8dd;border-radius:14px;padding:15px}
+.a4-flowchart svg{display:block;width:100%;height:auto}
+.a4-output-lines{white-space:pre-line;text-align:center;padding:17px 10px;background:#f5f0df;border:1px solid #e8dabb;border-radius:10px;font-size:14px;line-height:1.75;color:#3a5746}
+.a4-trace-scroll{max-width:100%;overflow-x:auto}
+.a4-trace{width:100%;border-collapse:collapse;font-size:12px;min-width:295px}
+.a4-trace td,.a4-trace th{border:1px solid #cfded4;padding:9px 10px;text-align:left}
+.a4-trace th{background:#e1efe5;color:#1c5c43}.a4-trace tbody tr:nth-child(even){background:#f6faf7}
+@media(max-width:730px){.a4-side-by-side{grid-template-columns:1fr}.a4-flowchart{padding:5px}}
+
 </style>
 </head>
 <body>
@@ -867,14 +886,18 @@ const algoChapters = [
   "num": "A4",
   "icon": "↻",
   "title": "Les boucles : Pour, TantQue et Répéter…Jusqu'à",
-  "short": "Comparer les trois boucles et choisir la bonne structure avant de traiter des données biologiques.",
-  "time": "80 min",
+  "short": "Comparer les trois boucles, comprendre leurs organigrammes et s’entraîner avec des exercices corrigés.",
+  "time": "110 min",
   "level": "Initiation",
   "objectives": [
    "Comparer les boucles Pour, TantQue et Répéter…Jusqu'à et savoir quand utiliser chacune.",
    "Distinguer un test effectué avant d'entrer dans la boucle d'un test effectué après.",
    "Écrire les trois structures en pseudo-code et connaître leur traduction en Python.",
-   "Parcourir une liste de mesures et éviter les boucles infinies."
+   "Parcourir une liste de mesures et éviter les boucles infinies.",
+   "Expliquer pourquoi une boucle évite la duplication des instructions.",
+   "Lire un organigramme de la boucle Pour et utiliser correctement les bornes VI et VF.",
+   "Compléter les traces des boucles Pour et TantQue et prévoir leurs affichages.",
+   "Expliquer les limites d'un exemple pédagogique de vérification de mot de passe."
   ],
   "sections": [
    {
@@ -882,11 +905,45 @@ const algoChapters = [
     "body": "<p>Les trois boucles permettent de <strong>répéter des instructions</strong>, mais elles ne testent pas leur condition au même moment. Pour choisir la bonne structure, on se demande : <em>connaît-on le nombre de répétitions ?</em> et <em>faut-il exécuter le traitement au moins une fois ?</em></p>\n<div class=\"loop-table-scroll\"><table class=\"loop-comparison\"><thead><tr><th>Boucle</th><th>Quand l'utiliser ?</th><th>Test de la condition</th><th>Nombre d'exécutions</th></tr></thead><tbody>\n<tr><td><strong>Pour (for)</strong></td><td>Nombre de répétitions connu ou parcours d'une collection (4 échantillons, bases ADN).</td><td>Progression par compteur ou éléments.</td><td>Peut être <strong>0</strong> si la collection est vide.</td></tr>\n<tr><td><strong>TantQue (while)</strong></td><td>Nombre de répétitions inconnu ; répéter <strong>tant que</strong> la condition est vraie.</td><td><strong>Avant</strong> chaque itération.</td><td><strong>0 ou plus</strong>.</td></tr>\n<tr><td><strong>Répéter…Jusqu'à</strong></td><td>Faire au moins un essai puis recommencer <strong>jusqu'à ce que</strong> la condition devienne vraie.</td><td><strong>Après</strong> chaque itération.</td><td><strong>Au moins 1</strong>.</td></tr></tbody></table></div>\n<div class=\"loop-compare-grid\"><div><strong>Pour</strong><span>Compter ou parcourir</span><code>Pour i de 1 à 4 Faire</code></div><div><strong>TantQue</strong><span>Continuer si vrai</span><code>TantQue condition Faire</code></div><div><strong>Répéter…Jusqu'à</strong><span>Arrêter si vrai</span><code>Répéter … Jusqu'à condition</code></div></div>\n<div class=\"info-box\"><strong>Distinction essentielle :</strong> <em>TantQue</em> continue quand sa condition est <strong>vraie</strong> ; <em>Répéter…Jusqu'à</em> s'arrête quand sa condition devient <strong>vraie</strong>. En Python, il n'existe pas d'instruction native <code class=\"inline\">repeat...until</code> : on utilise généralement <code class=\"inline\">while True</code> avec <code class=\"inline\">break</code>.</div>"
    },
    {
+    "title": "Boucle Pour — motivation : pourquoi répéter ?",
+    "body": "<p><strong>Problème :</strong> afficher le mot <em>« Informatique »</em> exactement <strong>5 fois</strong>.</p><div class=\"a4-side-by-side\"><article><h3>Sans boucle : solution naïve</h3><pre class=\"a4-pseudo\">Algorithme AfficherSansBoucle\nDébut\n    Écrire \"Informatique\"\n    Écrire \"Informatique\"\n    Écrire \"Informatique\"\n    Écrire \"Informatique\"\n    Écrire \"Informatique\"\nFin</pre></article><article><h3>Inconvénients</h3><p>✕ Duplication des instructions.</p><p>✕ Code plus long et difficile à maintenir.</p><p>✕ Peu flexible : pour 100 répétitions, il faudrait 100 lignes.</p><div class=\"info-box\"><strong>Solution :</strong> utiliser une boucle <strong>Pour</strong> quand le nombre de répétitions est connu.</div></article></div>"
+   },
+   {
+    "title": "Boucle Pour — syntaxe, compteur et organigramme",
+    "body": "<p>La boucle <strong>Pour</strong> comporte un <strong>en-tête</strong> (compteur, valeur initiale <em>VI</em>, valeur finale <em>VF</em>) et un <strong>corps</strong> exécuté à chaque itération.</p><div class=\"a4-for-syntax\"><span>Pour</span><strong>compteur ← VI</strong><span>à</span><strong>VF</strong><span>Faire</span><div class=\"a4-for-body\">Instructions à répéter</div><span>FinPour</span></div><p>Dans ce pseudo-code, le compteur augmente de <strong>1</strong> à chaque passage ; <strong>VI et VF sont incluses</strong> lorsque VI ≤ VF. Si VI &gt; VF, la boucle n'est pas exécutée. D'autres conventions autorisent un pas différent.</p>\n<div class=\"a4-flowchart\"><svg viewBox=\"0 0 800 450\" role=\"img\" aria-label=\"Organigramme de la boucle Pour : initialiser le compteur à VI, vérifier compteur inférieur ou égal à VF, exécuter les instructions, incrémenter et revenir au test ; sinon terminer.\"><defs><marker id=\"a4-arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"8\" refY=\"3\" orient=\"auto\"><path d=\"M0,0 L8,3 L0,6 Z\" fill=\"#3c8a6b\"/></marker></defs>\n<rect x=\"300\" y=\"18\" width=\"210\" height=\"48\" rx=\"9\" fill=\"#deefe4\" stroke=\"#397c5d\" stroke-width=\"2\"/><text x=\"405\" y=\"48\" font-size=\"17\" text-anchor=\"middle\" fill=\"#1e5540\" font-weight=\"bold\">compteur ← VI</text>\n<path d=\"M405 66 V95\" fill=\"none\" stroke=\"#3c8a6b\" stroke-width=\"3\" marker-end=\"url(#a4-arrow)\"/>\n<polygon points=\"405,101 558,162 405,222 252,162\" fill=\"#e9f2fb\" stroke=\"#447c9c\" stroke-width=\"2\"/><text x=\"405\" y=\"158\" text-anchor=\"middle\" font-size=\"17\" fill=\"#214e65\" font-weight=\"bold\">compteur ≤ VF</text><text x=\"405\" y=\"180\" text-anchor=\"middle\" font-size=\"14\" fill=\"#214e65\">?</text>\n<path d=\"M405 222 V257\" fill=\"none\" stroke=\"#3c8a6b\" stroke-width=\"3\" marker-end=\"url(#a4-arrow)\"/><text x=\"425\" y=\"243\" fill=\"#23664b\" font-size=\"14\">Vrai</text>\n<rect x=\"300\" y=\"261\" width=\"210\" height=\"50\" rx=\"7\" fill=\"#deefe4\" stroke=\"#397c5d\" stroke-width=\"2\"/><text x=\"405\" y=\"292\" text-anchor=\"middle\" font-size=\"17\" fill=\"#1e5540\">Instructions</text>\n<path d=\"M405 311 V340\" fill=\"none\" stroke=\"#3c8a6b\" stroke-width=\"3\" marker-end=\"url(#a4-arrow)\"/>\n<rect x=\"300\" y=\"343\" width=\"210\" height=\"48\" rx=\"7\" fill=\"#deefe4\" stroke=\"#397c5d\" stroke-width=\"2\"/><text x=\"405\" y=\"372\" text-anchor=\"middle\" font-size=\"16\" fill=\"#1e5540\">compteur ← compteur + 1</text>\n<path d=\"M300 367 H200 V162 H252\" fill=\"none\" stroke=\"#3c8a6b\" stroke-width=\"3\" marker-end=\"url(#a4-arrow)\"/>\n<path d=\"M558 162 H660 V396\" fill=\"none\" stroke=\"#3c8a6b\" stroke-width=\"3\" marker-end=\"url(#a4-arrow)\"/><text x=\"577\" y=\"145\" font-size=\"14\" fill=\"#23664b\">Faux</text>\n<rect x=\"580\" y=\"402\" width=\"160\" height=\"36\" rx=\"18\" fill=\"#f5eee2\" stroke=\"#a18a67\" stroke-width=\"2\"/><text x=\"660\" y=\"426\" text-anchor=\"middle\" font-size=\"16\" fill=\"#63513a\" font-weight=\"bold\">FinPour</text>\n</svg></div>\n<div class=\"a4-side-by-side\"><article><h3>Le compteur sert à…</h3><p>1. <strong>Contrôler</strong> le nombre de répétitions.</p><p>2. <strong>Participer</strong> aux calculs ou servir d’indice dans un tableau.</p></article><article><h3>Traduction en Python</h3><pre class=\"a4-pseudo\">for i in range(VI, VF + 1):\n    # instructions\n    pass</pre><p>En Python, la borne finale de <code>range()</code> est <strong>exclue</strong> : d'où <code>VF + 1</code>.</p></article></div>"
+   },
+   {
+    "title": "Boucle Pour — exemple : afficher Informatique 5 fois",
+    "body": "<p>Remplaçons les cinq instructions identiques par <strong>une seule instruction</strong> dans une boucle. Le compteur parcourt successivement les valeurs <strong>1, 2, 3, 4, 5</strong>.</p><div class=\"a4-side-by-side\"><article><h3>En pseudo-code</h3><pre class=\"a4-pseudo\">Algorithme CinqAffichages\nVariables\n    i : Entier\nDébut\n    Pour i ← 1 à 5 Faire\n        Écrire \"Informatique\"\n    FinPour\nFin</pre></article><article><h3>Résultat : 5 affichages</h3><div class=\"a4-output-lines\">Informatique\nInformatique\nInformatique\nInformatique\nInformatique</div></article></div>",
+    "pseudo": "Algorithme CinqAffichages\nVariables\n    i : Entier\nDébut\n    Pour i ← 1 à 5 Faire\n        Écrire \"Informatique\"\n    FinPour\nFin",
+    "code": "for i in range(1, 6):\n    print('Informatique')",
+    "output": "Informatique\nInformatique\nInformatique\nInformatique\nInformatique"
+   },
+   {
+    "title": "Boucle Pour — exercices : nombres pairs et somme",
+    "body": "<p><strong>Travail demandé :</strong> déterminer le résultat affiché, puis expliquer le rôle du compteur et des variables. Essayez avant d'ouvrir les corrigés.</p>\n<div class=\"a2-exercise\"><h3>Exercice 1 — Afficher les nombres pairs de 0 à 8</h3><pre class=\"a4-pseudo\">Pour i ← 0 à 8 Faire\n    Si i mod 2 = 0 Alors\n        Écrire i\n    FinSi\nFinPour</pre><p><strong>Question :</strong> quelles valeurs sont affichées ?</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Nombres pairs</summary><p><strong>Résultat :</strong> <code>0, 2, 4, 6, 8</code>. Un nombre est pair lorsque le reste de la division par 2 vaut 0.</p><pre>for i in range(0, 9):\n    if i % 2 == 0:\n        print(i)</pre></details></div>\n<div class=\"a2-exercise\"><h3>Exercice 2 — Calculer une somme</h3><pre class=\"a4-pseudo\">Somme ← 0\nPour i ← 1 à 4 Faire\n    Somme ← Somme + i\nFinPour\nÉcrire Somme</pre><p><strong>Question :</strong> quelle valeur sera affichée à la fin ? Compléter la trace de Somme pour i = 1, 2, 3, 4.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Somme</summary><div class=\"a4-trace-scroll\"><table class=\"a4-trace\"><thead><tr><th>i</th><th>Somme avant</th><th>Somme après</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>2</td><td>1</td><td>3</td></tr><tr><td>3</td><td>3</td><td>6</td></tr><tr><td>4</td><td>6</td><td>10</td></tr></tbody></table></div><p><strong>Résultat final :</strong> <code>10</code>, car 1 + 2 + 3 + 4 = 10.</p><pre>somme = 0\nfor i in range(1, 5):\n    somme = somme + i\nprint(somme)</pre></details></div>"
+   },
+   {
     "title": "Boucle Pour : répétitions connues",
     "body": "<p>Une boucle <strong>Pour</strong> convient lorsque le nombre de répétitions est connu. Dans notre pseudo-code, « Pour i de 1 à 4 » inclut 1 et 4 ; en Python, <code class=\"inline\">range(1, 5)</code> produit 1, 2, 3, 4.</p>",
     "pseudo": "Algorithme CompterEchantillons\nDébut\n    Pour i de 1 à 4 Faire\n        Écrire \"Échantillon\", i\n    FinPour\nFin",
     "code": "for i in range(1, 5):\n    print('Échantillon', i)",
     "output": "Échantillon 1\nÉchantillon 2\nÉchantillon 3\nÉchantillon 4"
+   },
+   {
+    "title": "Boucle TantQue — motivation et fonctionnement",
+    "body": "<p><strong>Motivation :</strong> on veut demander un mot de passe et le redemander tant que la réponse n'est pas correcte. <strong>Combien d’essais ?</strong> On ne le sait pas à l'avance : c'est un exemple adapté à <strong>TantQue</strong>.</p><p>La boucle <strong>TantQue</strong> répète les instructions <strong>tant que sa condition est vraie</strong>. Elle teste sa condition <strong>avant</strong> chaque tour : elle peut donc s’exécuter <strong>zéro fois</strong> si le test est initialement faux.</p>\n<div class=\"a4-side-by-side\"><article><h3>Syntaxe pseudo-code</h3><pre class=\"a4-pseudo\">TantQue condition Faire\n    Instructions\nFinTantQue</pre><p>On réévalue la condition après chaque passage.</p></article><article><h3>Éviter une boucle infinie</h3><p>Une variable impliquée dans la condition doit évoluer, ou un événement doit permettre de sortir de la boucle.</p><p><strong>Exemple :</strong> <code>i ← i + 1</code> pour faire progresser un compteur.</p></article></div><div class=\"info-box\"><strong>Sécurité :</strong> un véritable système d’authentification doit limiter les essais et ne doit pas conserver le mot de passe en clair dans le programme. L’exemple du cours sert seulement à comprendre la boucle.</div>"
+   },
+   {
+    "title": "Boucle TantQue — exemple du mot de passe",
+    "body": "<p>Le programme demande une première fois le mot de passe. Tant que la réponse diffère de <code>abc123</code> (valeur fictive d'exercice), il affiche un message et redemande une saisie. Quand la condition devient fausse, il affiche <strong>« Accès autorisé »</strong>.</p><div class=\"a4-side-by-side\"><article><h3>Raisonnement</h3><p><strong>Entrée :</strong> un mot de passe (chaîne de caractères).</p><p><strong>Condition :</strong> <code>pwd ≠ mot_de_passe_correct</code>.</p><p><strong>Sortie :</strong> accès autorisé si la réponse est correcte.</p></article><article><h3>Trace d’exécution possible</h3><div class=\"a4-trace-scroll\"><table class=\"a4-trace\"><thead><tr><th>Saisie</th><th>Condition</th><th>Action</th></tr></thead><tbody><tr><td>essai1</td><td>Vraie</td><td>Redemander</td></tr><tr><td>abc123</td><td>Fausse</td><td>Autoriser</td></tr></tbody></table></div></article></div>",
+    "pseudo": "Algorithme MotDePasseDidactique\nConstantes\n    MOT_DE_PASSE_CORRECT = \"abc123\"\nVariables\n    pwd : Chaîne\nDébut\n    Écrire \"Votre mot de passe :\"\n    Lire pwd\n    TantQue pwd ≠ MOT_DE_PASSE_CORRECT Faire\n        Écrire \"Mot de passe incorrect, réessayez\"\n        Lire pwd\n    FinTantQue\n    Écrire \"Accès autorisé\"\nFin",
+    "code": "mot_de_passe_correct = 'abc123'  # exemple pédagogique uniquement\npwd = input('Votre mot de passe : ')\nwhile pwd != mot_de_passe_correct:\n    print('Mot de passe incorrect, réessayez')\n    pwd = input('Votre mot de passe : ')\nprint('Accès autorisé')",
+    "note": "Cet exemple illustre le contrôle de boucle ; il n'est pas adapté à un système de connexion réel (mot de passe en clair et essais illimités)."
+   },
+   {
+    "title": "Boucle TantQue — exercice : afficher de 1 à 5",
+    "body": "<div class=\"a2-exercise\"><h3>Exercice — Que va afficher cette boucle ?</h3><pre class=\"a4-pseudo\">i ← 1\nTantQue i ≤ 5 Faire\n    Écrire i\n    i ← i + 1\nFinTantQue</pre><p><strong>Travail demandé :</strong> dresser la trace des valeurs de <code>i</code> et noter les affichages successifs. Qu’arrive-t-il si on enlève <code>i ← i + 1</code> ?</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé et la trace</summary><div class=\"a4-trace-scroll\"><table class=\"a4-trace\"><thead><tr><th>Valeur de i</th><th>Test i ≤ 5</th><th>Action</th></tr></thead><tbody><tr><td>1</td><td>Vrai</td><td>Afficher 1 ; i devient 2</td></tr><tr><td>2</td><td>Vrai</td><td>Afficher 2 ; i devient 3</td></tr><tr><td>3</td><td>Vrai</td><td>Afficher 3 ; i devient 4</td></tr><tr><td>4</td><td>Vrai</td><td>Afficher 4 ; i devient 5</td></tr><tr><td>5</td><td>Vrai</td><td>Afficher 5 ; i devient 6</td></tr><tr><td>6</td><td>Faux</td><td>Arrêt</td></tr></tbody></table></div><p><strong>Résultat affiché :</strong> 1, 2, 3, 4, 5. Sans incrémentation, la condition resterait toujours vraie et la boucle ne s’arrêterait pas.</p><pre>i = 1\nwhile i <= 5:\n    print(i)\n    i += 1</pre></details></div>"
    },
    {
     "title": "Boucle TantQue : condition d'arrêt",
@@ -969,6 +1026,46 @@ const algoChapters = [
     ],
     "correct": 0,
     "why": "La condition de Jusqu'à est une condition d'arrêt."
+   },
+   {
+    "q": "Avec Pour i ← 0 à 8 et Si i mod 2 = 0, quelles valeurs s’affichent ?",
+    "choices": [
+     "1, 3, 5, 7",
+     "0, 2, 4, 6, 8",
+     "0, 1, 2, 3, 4"
+    ],
+    "correct": 1,
+    "why": "Les entiers pairs entre 0 et 8 inclus sont 0, 2, 4, 6 et 8."
+   },
+   {
+    "q": "Quelle est la valeur finale de Somme après l’addition de 1 à 4 ?",
+    "choices": [
+     "4",
+     "6",
+     "10"
+    ],
+    "correct": 2,
+    "why": "La somme vaut 1 + 2 + 3 + 4 = 10."
+   },
+   {
+    "q": "Quel est le dernier nombre affiché par TantQue i ≤ 5 si i commence à 1 et augmente de 1 ?",
+    "choices": [
+     "4",
+     "5",
+     "6"
+    ],
+    "correct": 1,
+    "why": "La dernière exécution affiche 5. Ensuite i vaut 6 et la boucle s'arrête."
+   },
+   {
+    "q": "Pourquoi utilise-t-on TantQue pour redemander une saisie incorrecte ?",
+    "choices": [
+     "Le nombre d’essais n’est pas connu à l’avance",
+     "TantQue ne teste pas de condition",
+     "Une boucle TantQue s’exécute exactement cinq fois"
+    ],
+    "correct": 0,
+    "why": "TantQue permet de répéter une action tant que la condition d’arrêt n’est pas remplie."
    }
   ]
  },
