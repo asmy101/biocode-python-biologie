@@ -321,7 +321,7 @@ const algoChapters = [
  },
  {
   "id": "algo-python",
-  "num": "A5",
+  "num": "A6",
   "icon": "⇄",
   "title": "Passer de l'algorithme à Python",
   "short": "Traduire chaque instruction, tester un programme et comparer les résultats.",
@@ -393,6 +393,240 @@ const algoChapters = [
     ],
     "correct": 1,
     "why": "Il faut comparer à des résultats attendus et tester les cas limites."
+   }
+  ]
+ }
+,{
+ "id": "algo-donnees",
+ "num": "A5",
+ "icon": "▤",
+ "title": "Tableaux, listes, tuples et dictionnaires",
+ "short": "Organiser les données biologiques : tableau algorithmique, liste, tuple et dictionnaire Python.",
+ "time": "75 min",
+ "level": "Débutant",
+ "objectives": [
+  "Reconnaître un tableau dans un algorithme et une liste en Python.",
+  "Différencier liste modifiable, tuple non modifiable et dictionnaire clé–valeur.",
+  "Lire, modifier et parcourir des données d'échantillons avec des exemples."
+ ],
+ "sections": [
+  {
+   "title": "Du tableau algorithmique à la liste Python",
+   "body": "<p>En algorithmique, un <strong>tableau</strong> regroupe plusieurs valeurs. Dans les exercices, nous utiliserons les tableaux indexés à partir de <strong>0</strong>, comme les listes Python. En Python, une <strong>liste</strong> est ordonnée et modifiable.</p><div class=\"data-visual\"><div class=\"visual-title\">Visualiser les indices d'une liste</div><div class=\"array-cells\"><div><span>index 0</span><b>18</b></div><div><span>index 1</span><b>20</b></div><div><span>index 2</span><b>22</b></div><div><span>index 3</span><b>24</b></div></div><p class=\"diagram-note\">températures = [18, 20, 22, 24] · températures[1] vaut 20</p></div>",
+   "pseudo": "Algorithme Temperature\nDébut\n    temperatures ← [18, 20, 22, 24]\n    Écrire temperatures[1]\n    temperatures[2] ← 23\n    Écrire temperatures\nFin",
+   "code": "temperatures = [18, 20, 22, 24]\nprint(temperatures[1])\ntemperatures[2] = 23\nprint(temperatures)",
+   "output": "20\n[18, 20, 23, 24]",
+   "note": "Un tableau algorithmique et une liste Python ne sont pas toujours exactement le même type de structure selon le langage : ici, on utilise une convention pédagogique simple."
+  },
+  {
+   "title": "Les listes [ ] : ordonnées et modifiables",
+   "body": "<p>Une <strong>liste</strong> contient plusieurs valeurs et peut évoluer : on ajoute avec <code class=\"inline\">append()</code>, on retire avec <code class=\"inline\">remove()</code> et on accède à l'élément d'indice i avec <code class=\"inline\">liste[i]</code>.</p><p><strong>Biologie :</strong> conserver les températures observées dans plusieurs tubes ou les bases d'une courte séquence.</p>",
+   "code": "temperatures = [18, 20, 22]\ntemperatures.append(24)\ntemperatures[0] = 19\nprint(temperatures)\nprint('Nombre de mesures :', len(temperatures))",
+   "output": "[19, 20, 22, 24]\nNombre de mesures : 4"
+  },
+  {
+   "title": "Les tuples ( ) : données regroupées mais non modifiables",
+   "body": "<p>Un <strong>tuple</strong> conserve les éléments dans un ordre déterminé, mais ses positions ne peuvent pas être réaffectées après sa création. Il convient pour une paire de coordonnées ou un ensemble de valeurs que l'on souhaite garder fixes.</p><div class=\"info-box\"><strong>Attention :</strong> un tuple peut contenir des objets modifiables, comme une liste. L'immuabilité concerne les positions du tuple lui-même.</div>",
+   "code": "coordonnees = (30.4, -9.6)\nprint(coordonnees[0])\nlot = ('Lot A', 34)\nprint(lot[0], lot[1])\n# coordonnees[0] = 30.5  # TypeError",
+   "output": "30.4\nLot A 34"
+  },
+  {
+   "title": "Les dictionnaires { } : associer une clé à une valeur",
+   "body": "<p>Un <strong>dictionnaire</strong> mémorise des associations <strong>clé → valeur</strong>. Plutôt que de chercher un nombre par position, on utilise un nom de clé, par exemple <code class=\"inline\">lot['germees']</code>. Les dictionnaires sont modifiables et conservent l'ordre d'insertion dans les versions modernes de Python.</p><div class=\"data-visual\"><div class=\"visual-title\">Un échantillon décrit par ses attributs</div><div class=\"dict-visual\"><span>« espece »</span><b>Olivier</b><span>« age »</span><b>12 ans</b><span>« parcelle »</span><b>A</b></div></div>",
+   "code": "lot = {'semees': 40, 'germees': 34}\nprint(lot['germees'])\nlot['germees'] = 35\nlot['taux'] = 100 * lot['germees'] / lot['semees']\nprint(lot['taux'])",
+   "output": "34\n87.5"
+  },
+  {
+   "title": "Schéma : quelle structure choisir ?",
+   "body": "<div class=\"data-comparison\"><div><div class=\"compare-symbol\">[ ]</div><h3>Liste</h3><p>Plusieurs valeurs <strong>ordonnées et modifiables</strong>.</p><code>mesures = [18, 20, 22]</code></div><div><div class=\"compare-symbol\">( )</div><h3>Tuple</h3><p>Groupe <strong>ordonné, non réaffectable</strong> par position.</p><code>point = (30.4, -9.6)</code></div><div><div class=\"compare-symbol\">{ }</div><h3>Dictionnaire</h3><p>Données <strong>nommées par clés</strong>.</p><code>lot = {'n': 40}</code></div></div><div class=\"info-box\"><strong>Exercice :</strong> stocker 5 températures → liste ; garder une paire de coordonnées → tuple ; décrire un échantillon avec des propriétés → dictionnaire.</div>"
+  },
+  {
+   "title": "Parcourir plusieurs mesures",
+   "body": "<p>Une boucle <strong>Pour</strong> permet de traiter chaque élément d'une liste. Avant une moyenne, vérifier que l'effectif est non nul.</p>",
+   "pseudo": "Algorithme MoyenneMesures\nDébut\n    mesures ← [18, 20, 22, 24]\n    somme ← 0\n    Pour chaque valeur dans mesures Faire\n        somme ← somme + valeur\n    FinPour\n    moyenne ← somme / 4\n    Écrire moyenne\nFin",
+   "code": "mesures = [18, 20, 22, 24]\nif mesures:\n    moyenne = sum(mesures) / len(mesures)\n    print('Moyenne :', moyenne)\nelse:\n    print('Aucune mesure')",
+   "output": "Moyenne : 21.0"
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Quelle structure permet d'ajouter une nouvelle température avec append() ?",
+   "choices": [
+    "Liste",
+    "Tuple",
+    "Chaîne seule"
+   ],
+   "correct": 0,
+   "why": "Une liste est modifiable et dispose d'append()."
+  },
+  {
+   "q": "Peut-on remplacer directement la première valeur d'un tuple ?",
+   "choices": [
+    "Oui",
+    "Non",
+    "Seulement après print()"
+   ],
+   "correct": 1,
+   "why": "Les éléments d'un tuple ne peuvent pas être réaffectés."
+  },
+  {
+   "q": "Comment lire le nombre de graines germées dans lot = {'germees': 34} ?",
+   "choices": [
+    "lot[0]",
+    "lot['germees']",
+    "lot(34)"
+   ],
+   "correct": 1,
+   "why": "Le dictionnaire utilise des clés nommées."
+  },
+  {
+   "q": "Quelle valeur renvoie [18, 20, 22][1] ?",
+   "choices": [
+    "18",
+    "20",
+    "22"
+   ],
+   "correct": 1,
+   "why": "L'indexation démarre à 0."
+  }
+ ]
+}
+];
+
+const visualChapters = [
+ {
+  "id": "visuel-concepts",
+  "num": "V1",
+  "icon": "▧",
+  "title": "Découvrir la programmation visuelle",
+  "short": "Des blocs colorés pour comprendre séquences, variables, conditions et boucles.",
+  "time": "50 min",
+  "level": "Initiation visuelle",
+  "objectives": [
+   "Expliquer la programmation par blocs et sa différence avec le code textuel.",
+   "Reconnaître événement, séquence, variable, condition et boucle.",
+   "Suivre le parcours d'un programme visuel."
+  ],
+  "sections": [
+   {
+    "title": "Qu'est-ce que la programmation visuelle ?",
+    "body": "<p>En programmation visuelle, nous assemblons des <strong>blocs d'instructions</strong> au lieu de rédiger chaque instruction au clavier. Chaque couleur représente une famille de commandes : événements, variables, conditions, boucles ou affichage.</p><p>Un environnement de programmation par blocs réduit les erreurs de syntaxe mais n'élimine pas les <strong>erreurs logiques</strong>. Il faut toujours analyser le problème et tester le résultat.</p><div class=\"visual-flow\"><span>🧩 Problème</span><span>→</span><span>🟦 Blocs</span><span>→</span><span>🧠 Logique</span><span>→</span><span>🐍 Python</span></div>"
+   },
+   {
+    "title": "Les cinq familles de blocs",
+    "body": "<div class=\"block-glossary\"><div class=\"block-item event\"><strong>▶ Quand on lance</strong><span>Événement : point de départ</span></div><div class=\"block-item variable\"><strong>▦ Mettre nombre à 40</strong><span>Variable : mémoriser une valeur</span></div><div class=\"block-item condition\"><strong>◇ Si nombre &gt; 0 alors</strong><span>Condition : prendre une décision</span></div><div class=\"block-item loop\"><strong>↻ Répéter 4 fois</strong><span>Boucle : refaire des actions</span></div><div class=\"block-item output\"><strong>◉ Afficher le résultat</strong><span>Sortie : communiquer une valeur</span></div></div><p>Les couleurs utilisées ici sont une convention de BioCode, pas un langage officiel. Elles servent à visualiser les notions.</p>"
+   },
+   {
+    "title": "Schéma d'une séquence de blocs",
+    "body": "<p>Les instructions s'exécutent <strong>de haut en bas</strong>. La variable change de valeur lorsqu'un bloc d'affectation est exécuté.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block variable\">▦ Mettre nombre à 3</div><div class=\"v-block variable\">▦ Mettre nombre à nombre + 2</div><div class=\"v-block output\">◉ Afficher nombre → 5</div></div>",
+    "code": "nombre = 3\nnombre = nombre + 2\nprint(nombre)",
+    "output": "5"
+   },
+   {
+    "title": "Condition et boucle en blocs",
+    "body": "<p>Une <strong>condition</strong> choisit une branche, tandis qu'une <strong>boucle</strong> répète une action. Voici un exemple de traitement d'un lot de mesures.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block loop\">↻ Pour chaque température</div><div class=\"v-nested\"><div class=\"v-block condition\">◇ Si température &gt; 30</div><div class=\"v-block output\">◉ Afficher « Élevée »</div></div></div>",
+    "code": "temperatures = [19, 33, 27]\nfor temperature in temperatures:\n    if temperature > 30:\n        print('Élevée')",
+    "output": "Élevée",
+    "note": "En visual programming comme en Python, les blocs doivent être correctement emboîtés pour exprimer leur portée."
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel est l'objectif principal des blocs ?",
+    "choices": [
+     "Supprimer toute logique",
+     "Représenter visuellement les instructions",
+     "Interdire Python"
+    ],
+    "correct": 1,
+    "why": "Les blocs rendent la logique du programme visible."
+   },
+   {
+    "q": "Quel bloc est utilisé pour répéter ?",
+    "choices": [
+     "Boucle",
+     "Variable",
+     "Sortie"
+    ],
+    "correct": 0,
+    "why": "Une boucle exécute plusieurs fois le même traitement."
+   },
+   {
+    "q": "Un programme en blocs peut-il contenir une erreur logique ?",
+    "choices": [
+     "Non",
+     "Oui",
+     "Seulement s'il est en ligne"
+    ],
+    "correct": 1,
+    "why": "L'absence d'erreurs de syntaxe ne garantit pas un calcul correct."
+   }
+  ]
+ },
+ {
+  "id": "visuel-transition",
+  "num": "V2",
+  "icon": "⇄",
+  "title": "Des blocs au code Python",
+  "short": "Comparer un programme en blocs avec sa traduction textuelle et tester un problème biologique.",
+  "time": "70 min",
+  "level": "Atelier guidé",
+  "objectives": [
+   "Associer un bloc à l'instruction Python correspondante.",
+   "Construire et tester un taux de germination.",
+   "Utiliser l'atelier interactif pour modifier les entrées."
+  ],
+  "sections": [
+   {
+    "title": "Correspondance entre blocs et Python",
+    "body": "<div class=\"data-comparison\"><div><div class=\"v-block event\">▶ Quand on lance</div><p>Point de départ</p></div><div><div class=\"v-block variable\">▦ Mettre x à 5</div><code>x = 5</code></div><div><div class=\"v-block condition\">◇ Si x &gt; 0 alors</div><code>if x &gt; 0:</code></div><div><div class=\"v-block loop\">↻ Répéter 3 fois</div><code>for i in range(3):</code></div></div><p>Le pseudo-code, les blocs et Python peuvent représenter <strong>le même algorithme</strong>. Seule la forme change.</p>"
+   },
+   {
+    "title": "Exemple biologique : germination",
+    "body": "<p>On connaît le nombre de graines semées et germées. Il faut vérifier les effectifs avant de calculer un pourcentage.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block variable\">▦ Mettre semees à 40</div><div class=\"v-block variable\">▦ Mettre germees à 34</div><div class=\"v-block condition\">◇ Si semees &gt; 0 ET 0 ≤ germees ≤ semees</div><div class=\"v-nested\"><div class=\"v-block variable\">▦ Mettre taux à 100 × germees / semees</div><div class=\"v-block output\">◉ Afficher taux</div></div><div class=\"v-block condition\">◇ Sinon → afficher « Effectifs invalides »</div></div>",
+    "pseudo": "Début\n    semees ← 40\n    germees ← 34\n    Si semees > 0 ET germees >= 0 ET germees <= semees Alors\n        taux ← 100 * germees / semees\n        Écrire taux, \"%\"\n    Sinon\n        Écrire \"Effectifs invalides\"\n    FinSi\nFin",
+    "code": "semees = 40\ngermees = 34\nif semees > 0 and 0 <= germees <= semees:\n    taux = 100 * germees / semees\n    print(round(taux, 1), '%')\nelse:\n    print('Effectifs invalides')",
+    "output": "85.0 %"
+   },
+   {
+    "title": "Exercice : prédire avant d'exécuter",
+    "body": "<p>Changez <strong>germees</strong> de 34 à 0 puis à 50, sans changer <strong>semees</strong>. Quelle branche s'active ? Comparez vos hypothèses à la simulation.</p><p>Ce laboratoire n'exécute pas du Python côté serveur : il reproduit les mêmes règles de calcul en JavaScript et affiche le <strong>code Python équivalent</strong>.</p><div class=\"info-box\"><strong>À faire :</strong> ouvrez l'atelier, choisissez « Germination », changez les paramètres et lancez la simulation.</div><p><a class=\"btn btn-light\" href=\"#/visuel\">Ouvrir l'atelier de programmation visuelle ↗</a></p>"
+   },
+   {
+    "title": "Pourquoi apprendre les deux méthodes ?",
+    "body": "<p>La programmation visuelle permet de <strong>repérer les étapes</strong> et les structures de contrôle. Python permet ensuite de créer des scripts, traiter des fichiers et automatiser des tâches scientifiques.</p><p><strong>Parcours recommandé :</strong> algorithmique → programmation par blocs → Python → TD/TP de biologie.</p>"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel code Python correspond au bloc « Mettre x à 5 » ?",
+    "choices": [
+     "x == 5",
+     "x = 5",
+     "print(5)"
+    ],
+    "correct": 1,
+    "why": "L'affectation utilise = en Python."
+   },
+   {
+    "q": "Quel résultat pour 40 graines semées et 34 germées ?",
+    "choices": [
+     "85 %",
+     "34 %",
+     "118 %"
+    ],
+    "correct": 0,
+    "why": "100 × 34 / 40 = 85."
+   },
+   {
+    "q": "Si 50 graines germent alors que 40 ont été semées ?",
+    "choices": [
+     "125 % sans validation",
+     "Effectifs invalides",
+     "0 %"
+    ],
+    "correct": 1,
+    "why": "Le contrôle de cohérence doit refuser cette entrée."
    }
   ]
  }
