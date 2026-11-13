@@ -164,6 +164,30 @@
 .a1-cylinder p{font-size:13px}
 @media(max-width:790px){.a1-three,.a1-two,.a1-cylinder{grid-template-columns:1fr}.a1-history{flex-direction:column}.a1-steps{display:grid;grid-template-columns:1fr}.a1-steps>span{text-align:center;transform:rotate(90deg)}.a1-flow{display:grid;grid-template-columns:1fr}.a1-flow>b{text-align:center;transform:rotate(90deg)}}
 
+
+/* A1 : représentation des algorithmes (organigramme et pseudo-code) */
+.a1-repr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:18px 0}
+.a1-repr-card{border:1px solid #d4e6dc;background:#f5faf6;padding:19px;border-radius:15px;min-width:0}
+.a1-repr-icon{font-size:27px;color:#246e54;background:#e0f2e6;width:47px;height:47px;display:flex;align-items:center;justify-content:center;border-radius:12px;margin-bottom:12px}
+.a1-repr-card h3{font-size:17px;color:#185a42;margin:0 0 8px}
+.a1-repr-card p{font-size:13px;line-height:1.65}
+.a1-shape-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0}
+.a1-shape-legend>div{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.a1-shape-legend small{font-size:11px;color:#557568}
+.a1-shape{display:flex;align-items:center;justify-content:center;min-height:58px;min-width:100px;padding:9px 12px;text-align:center;background:#dfefe5;border:2px solid #4b9272;color:#15553f;font-size:12px;font-weight:800}
+.a1-shape-round{border-radius:50%}
+.a1-shape-process{border-radius:5px}
+.a1-shape-diamond{width:78px;min-width:78px;height:78px;transform:rotate(45deg);border-radius:5px;padding:7px}
+.a1-shape-diamond span{transform:rotate(-45deg);font-size:11px}
+.a1-shape-io{transform:skew(-15deg);min-width:120px}.a1-shape-io span{transform:skew(15deg)}
+.a1-org-schema{display:flex;align-items:center;flex-direction:column;gap:5px;background:#f7fbf8;border:1px solid #d4e5dc;border-radius:15px;padding:21px 12px;margin:20px 0}
+.a1-org-pill,.a1-org-process,.a1-org-parallelogram{min-width:190px;max-width:95%;text-align:center;padding:12px 17px;border:2px solid #569775;background:#e4f2e8;color:#165941;font-size:13px;font-weight:800}
+.a1-org-pill{border-radius:100px}.a1-org-process{border-radius:5px;line-height:1.8}
+.a1-org-parallelogram{transform:skew(-14deg);border-radius:3px}
+.a1-org-parallelogram span{display:block;transform:skew(14deg)}
+.a1-org-arrow{color:#3d946c;font-size:21px;font-weight:800;line-height:1}
+@media(max-width:760px){.a1-repr-grid{grid-template-columns:1fr}.a1-shape-legend{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 </head>
 <body>
@@ -276,6 +300,7 @@ const algoChapters = [
    "Définir un algorithme et le distinguer d’un programme.",
    "Connaître l’origine du mot algorithme et comprendre son utilité.",
    "Identifier les données d’entrée, le traitement et les données de sortie.",
+   "Distinguer l’organigramme du pseudo-code et reconnaître les principaux symboles d’un organigramme.",
    "Reconnaître les trois parties du pseudo-code : en-tête, déclarations et corps.",
    "Écrire un algorithme complet et vérifier ses résultats."
   ],
@@ -291,6 +316,12 @@ const algoChapters = [
    {
     "title": "À quoi sert un algorithme ?",
     "body": "<p>Un algorithme sert à <strong>décrire les étapes de résolution d’un problème</strong> de façon structurée, claire, vérifiable et indépendante d’un langage de programmation.</p><div class=\"a1-trio\"><div><b>Entrées</b><span>Quelles données connaît-on ?</span></div><div><b>Traitement</b><span>Quelles opérations effectuer ?</span></div><div><b>Sortie</b><span>Quel résultat obtenir ?</span></div></div><p>Exemples : calculer une moyenne, classer des mesures de pH, compter une base dans une séquence ADN ou déterminer le volume d’un cylindre.</p>"
+   },
+   {
+    "title": "Comment représenter un algorithme ?",
+    "body": "<p>On peut représenter un algorithme de deux grandes façons, selon l'objectif : avec un <strong>organigramme</strong> (forme graphique) ou avec du <strong>pseudo-code</strong> (forme textuelle).</p>\n<div class=\"a1-repr-grid\">\n <article class=\"a1-repr-card\"><div class=\"a1-repr-icon\">◇</div><h3>1. L’organigramme</h3><p>C’est une <strong>représentation graphique</strong> avec des symboles reliés par des flèches. Elle donne une vue d'ensemble de l'enchaînement des actions et des décisions.</p><p><strong>Utilité :</strong> visualiser les étapes, les conditions et le chemin suivi par un programme.</p></article>\n <article class=\"a1-repr-card\"><div class=\"a1-repr-icon\">≡</div><h3>2. Le pseudo-code</h3><p>C’est une <strong>représentation textuelle</strong> structurée, utilisant des mots comme <em>Début</em>, <em>Lire</em>, <em>Écrire</em>, <em>Si</em>, <em>Pour</em> et <em>Fin</em>.</p><p><strong>Utilité :</strong> décrire précisément les instructions et préparer leur traduction dans un langage comme Python.</p></article>\n</div>\n<div class=\"a1-shape-legend\">\n <div><span class=\"a1-shape a1-shape-round\">Début / Fin</span><small>Ovale : début ou fin</small></div>\n <div><span class=\"a1-shape a1-shape-process\">Traitement</span><small>Rectangle : calcul</small></div>\n <div><span class=\"a1-shape a1-shape-diamond\"><span>Condition ?</span></span><small>Losange : décision</small></div>\n <div><span class=\"a1-shape a1-shape-io\"><span>Lire / Écrire</span></span><small>Parallélogramme : entrée / sortie</small></div>\n</div>\n<h3>Le même exemple sous deux formes : volume d’un cylindre</h3>\n<p>Pour des dimensions <strong>strictement positives</strong>, on veut lire le rayon <em>R</em> et la hauteur <em>H</em>, calculer le volume et l'afficher. L’organigramme ci-dessous présente le cas simple ; les contrôles de validité seront ajoutés dans l'exemple complet du chapitre.</p>\n<div class=\"a1-org-schema\" role=\"img\" aria-label=\"Organigramme : Début, Lire R et H, calculer SB puis V, Écrire V, Fin\">\n <div class=\"a1-org-pill\">Début</div><div class=\"a1-org-arrow\">↓</div>\n <div class=\"a1-org-parallelogram\"><span>Lire R, H</span></div><div class=\"a1-org-arrow\">↓</div>\n <div class=\"a1-org-process\">SB ← Pi × R × R<br>V ← SB × H</div><div class=\"a1-org-arrow\">↓</div>\n <div class=\"a1-org-parallelogram\"><span>Écrire V</span></div><div class=\"a1-org-arrow\">↓</div>\n <div class=\"a1-org-pill\">Fin</div>\n</div>\n<div class=\"info-box\"><strong>À retenir :</strong> l’organigramme et le pseudo-code représentent la <em>même logique</em>. L'organigramme reste utilisé pour apprendre, communiquer et modéliser des processus ; le pseudo-code est souvent plus pratique pour les algorithmes longs.</div>",
+    "pseudo": "Algorithme VolumeCylindreSimple\nConstantes\n    Pi = 3.14\nVariables\n    R, H, SB, V : Réel\nDébut\n    Lire R\n    Lire H\n    SB ← Pi × R × R\n    V ← SB × H\n    Écrire V\nFin",
+    "note": "Le pseudo-code illustratif suppose ici R > 0 et H > 0. La version avec vérification des dimensions est présentée plus loin dans le même chapitre."
    },
    {
     "title": "Définition d’un problème",
@@ -398,6 +429,26 @@ const algoChapters = [
     ],
     "correct": 2,
     "why": "100 × 34 / 40 = 85 %."
+   },
+   {
+    "q": "Quelle représentation utilise généralement des symboles et des flèches ?",
+    "choices": [
+     "L’organigramme",
+     "Le pseudo-code",
+     "La variable"
+    ],
+    "correct": 0,
+    "why": "L'organigramme montre graphiquement la progression du traitement."
+   },
+   {
+    "q": "Le pseudo-code peut-il être exécuté directement par l’interpréteur Python ?",
+    "choices": [
+     "Oui, sans modification",
+     "Non, il faut traduire ses instructions en Python",
+     "Uniquement s'il contient Début et Fin"
+    ],
+    "correct": 1,
+    "why": "Le pseudo-code est une écriture pédagogique non directement exécutable par Python."
    }
   ]
  },
