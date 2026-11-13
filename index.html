@@ -908,14 +908,14 @@ function computeAtelier(){
   const sr=get('semees'),gr=get('germees'),ss=Number(sr),gg=Number(gr);
   const valid=sr!==''&&gr!==''&&Number.isSafeInteger(ss)&&Number.isSafeInteger(gg)&&ss>0&&gg>=0&&gg<=ss;
   pseudo='Algorithme Germination\nDébut\n  Lire semees, germees\n  Si semees <= 0 OU germees < 0 OU germees > semees Alors\n    Écrire "Effectifs invalides"\n  Sinon\n    taux ← 100 × germees / semees\n    Écrire taux, "%"\n  FinSi\nFin';
-  python='semees = 40\ngermees = 34\nif semees <= 0 or germees < 0 or germees > semees:\n    print("Effectifs invalides")\nelse:\n    taux = 100 * germees / semees\n    print(round(taux, 2), "%")';
+  python='semees = int(input("Graines semées : "))\ngermees = int(input("Graines germées : "))\nif semees <= 0 or germees < 0 or germees > semees:\n    print("Effectifs invalides")\nelse:\n    taux = 100 * germees / semees\n    print(round(taux, 2), "%")';
   tests='40 semées, 34 germées → 85 % · 10, 0 → 0 % · 10, 15 → entrée invalide';
   if(valid)message='Résultat : '+(100*gg/ss).toLocaleString('fr-FR',{maximumFractionDigits:2})+' % de germination.';
   else{isError=true;message='Entrées invalides : il faut 0 < semées et 0 ≤ germées ≤ semées (entiers).';}
  }else if(atelierCurrent==='ph'){
   const raw=get('ph'),p=Number(raw);const valid=raw!==''&&Number.isFinite(p)&&p>=0&&p<=14;
   pseudo='Algorithme ClassifierPH\nDébut\n  Lire pH\n  Si pH < 0 OU pH > 14 Alors\n    Écrire "Valeur invalide"\n  Sinon Si pH < 7 Alors\n    Écrire "Acide"\n  Sinon Si pH = 7 Alors\n    Écrire "Neutre"\n  Sinon\n    Écrire "Basique"\n  FinSi\nFin';
-  python='ph = 6.5\nif ph < 0 or ph > 14:\n    print("Valeur invalide")\nelif ph < 7:\n    print("Acide")\nelif ph == 7:\n    print("Neutre")\nelse:\n    print("Basique")';
+  python='ph = float(input("pH : "))\nif ph < 0 or ph > 14:\n    print("Valeur invalide")\nelif ph < 7:\n    print("Acide")\nelif ph == 7:\n    print("Neutre")\nelse:\n    print("Basique")';
   tests='pH 6,5 → acide · pH 7 → neutre · pH 8 → basique · pH −1 → hors plage pédagogique';
   if(valid)message='pH '+p.toLocaleString('fr-FR')+' : '+(p<7?'acide':p>7?'basique':'neutre')+' (convention scolaire à 25 °C).';
   else{isError=true;message='Valeur non valide pour la plage pédagogique 0–14.';}
@@ -924,7 +924,7 @@ function computeAtelier(){
   const valid=raw!==''&&parts.length<=100&&parts.every(x=>/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(x)&&Number.isFinite(Number(x)));
   const vals=parts.map(Number),avg=valid?vals.reduce((a,b)=>a+b,0)/vals.length:NaN;
   pseudo='Algorithme Moyenne\nDébut\n  Lire mesures\n  Si mesures est vide OU non numérique Alors\n    Écrire "Liste invalide"\n  Sinon\n    somme ← 0\n    Pour chaque x dans mesures Faire\n      somme ← somme + x\n    FinPour\n    moyenne ← somme / nombre(mesures)\n    Écrire moyenne\n  FinSi\nFin';
-  python='mesures = [18, 20, 22, 24]\nif not mesures:\n    print("Liste vide")\nelse:\n    somme = 0\n    for x in mesures:\n        somme += x\n    print(somme / len(mesures))';
+  python='texte = input("Mesures séparées par ; : ")\nmesures = [float(x.strip().replace(",", ".")) for x in texte.split(";") if x.strip()]\nif not mesures:\n    print("Liste vide")\nelse:\n    somme = 0\n    for x in mesures:\n        somme += x\n    print(somme / len(mesures))';
   tests='18;20;22;24 → moyenne 21 °C · 5 → moyenne 5 °C · liste vide → erreur';
   if(valid&&Number.isFinite(avg))message='Moyenne : '+avg.toLocaleString('fr-FR',{maximumFractionDigits:2})+' °C ('+vals.length+' mesure(s)).';
   else{isError=true;message='Liste invalide. Saisissez 1 à 100 valeurs séparées par ;';}
@@ -951,7 +951,7 @@ function render(){
  else if(type==='atelier'||type==='visuel'){html=atelierPage();title='Atelier interactif';}
  else if(type==='recherche'){let term=lastSearch;try{term=sessionStorage.getItem('biocode-last-search')||lastSearch;}catch(e){}html=searchPage(term);title='Recherche';}
  else {html=home();title='Accueil';}
- el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();
+ el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();if(type==='atelier'||type==='visuel')computeAtelier();
  document.querySelectorAll('.nav-link').forEach(btn=>btn.classList.toggle('active',btn.dataset.go===path));
  el('sidebar').classList.remove('open');el('mobile-overlay').classList.remove('show');
  window.scrollTo(0,0);
