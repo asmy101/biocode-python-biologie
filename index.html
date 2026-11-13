@@ -203,6 +203,18 @@
 .a2-rules span{font-size:13px;color:#345b4b}
 @media(max-width:730px){.a2-grid,.a2-grid.three{grid-template-columns:1fr}}
 
+
+/* Exercices corrigés de l'algorithmique A2 */
+.a2-exercise{background:#f8fbf8;border:1px solid #d5e8da;border-radius:14px;padding:18px;margin:15px 0}
+.a2-exercise h3{font-size:17px;margin:0 0 12px;color:#236145}
+.a2-exercise p{font-size:13px}
+.a2-formula{background:#e7f3ec;border:1px solid #c4dfce;padding:13px;text-align:center;color:#21583f;font-size:16px;font-weight:750;border-radius:10px;margin:12px 0;overflow-wrap:anywhere}
+.a2-correction{margin-top:13px;border:1px solid #c7e4d2;border-radius:10px;background:#fff;overflow:hidden}
+.a2-correction summary{cursor:pointer;padding:12px 15px;background:#eaf6ee;color:#1e6448;font-size:13px;font-weight:800}
+.a2-correction[open]{padding-bottom:13px}.a2-correction[open]>p,.a2-correction[open]>pre,.a2-correction[open]>div,.a2-correction[open]>table{margin:12px 14px}
+.a2-correction pre{overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;padding:12px;border-radius:9px;background:#102e28;color:#e8f7ef;font:12px/1.55 Consolas,Monaco,monospace}
+@media print{.a2-correction:not([open])>summary{display:none}.a2-correction:not([open]){display:none}}
+
 </style>
 </head>
 <body>
@@ -480,7 +492,8 @@ const algoChapters = [
    "Appliquer les règles de nommage des identifiants.",
    "Reconnaître les types Entier, Réel, Chaîne et Booléen.",
    "Distinguer variable et constante avec un exemple simple.",
-   "Écrire Lire, Écrire et ← et suivre l'évolution des variables."
+   "Écrire Lire, Écrire et ← et suivre l'évolution des variables.",
+   "Résoudre des exercices complets de moyenne pondérée, surface et concentration avec analyse du problème et pseudo-code."
   ],
   "sections": [
    {
@@ -509,6 +522,11 @@ const algoChapters = [
     "pseudo": "Algorithme SurfaceCercle\nConstantes\n    PI = 3.14\nVariables\n    rayon, surface : Réel\nDébut\n    rayon ← 10\n    surface ← PI × rayon × rayon\n    Écrire surface\nFin",
     "code": "PI = 3.14\nrayon = 10\nsurface = PI * rayon * rayon\nprint(surface)",
     "output": "314.0"
+   },
+   {
+    "title": "Exercices d’application après les variables : moyennes et surfaces",
+    "body": "<p>Appliquer la méthode <strong>Problème → Entrées → Traitement → Sortie → Algorithme</strong>. Les corrigés sont masqués au départ : essayez de résoudre les exercices avant de les afficher.</p>\n<div class=\"a2-exercise\">\n<h3>Exercice 1 — Moyenne pondérée de deux notes</h3>\n<p><strong>Problème :</strong> calculer la moyenne de deux notes <code>N1</code> et <code>N2</code> ayant des coefficients <code>C1</code> et <code>C2</code> différents.</p>\n<div class=\"a2-formula\">M = (N1 × C1 + N2 × C2) / (C1 + C2)</div>\n<p><strong>Travail demandé :</strong> identifier les entrées, la sortie et le traitement, puis écrire un algorithme complet avec les instructions de lecture et d'affichage.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 1</summary>\n<p><strong>Entrées :</strong> N1, N2 : Réel ; C1, C2 : Entier. <strong>Sortie :</strong> M : Réel. Il faut vérifier que la somme des coefficients est positive.</p>\n<pre>Algorithme MoyennePonderee\nVariables\n    N1, N2, M : Réel\n    C1, C2 : Entier\nDébut\n    Lire N1, N2, C1, C2\n    Si C1 &lt; 0 OU C2 &lt; 0 OU C1 + C2 = 0 Alors\n        Écrire \"Coefficients invalides\"\n    Sinon\n        M ← (N1 × C1 + N2 × C2) / (C1 + C2)\n        Écrire M\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> N1 = 12, C1 = 2, N2 = 16, C2 = 3 → M = <strong>14,4</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 2 — Surface d’un rectangle</h3>\n<p><strong>Problème :</strong> calculer la surface d'un rectangle connaissant sa longueur <code>L</code> et sa largeur <code>l</code>.</p>\n<div class=\"a2-formula\">S = L × l</div>\n<p><strong>Travail demandé :</strong> identifier les données et écrire un algorithme qui lit les dimensions, calcule la surface et l'affiche.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 2</summary>\n<p><strong>Entrées :</strong> L et l (Réel) ; <strong>traitement :</strong> L × l ; <strong>sortie :</strong> S (Réel).</p>\n<pre>Algorithme SurfaceRectangle\nVariables\n    L, l, S : Réel\nDébut\n    Lire L, l\n    Si L &lt;= 0 OU l &lt;= 0 Alors\n        Écrire \"Dimensions invalides\"\n    Sinon\n        S ← L × l\n        Écrire S\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> L = 8 et l = 5 → S = <strong>40 unités²</strong>.</p></details>\n</div>\n<div class=\"a2-exercise\">\n<h3>Exercice 3 — Concentration massique (application biologique)</h3>\n<p>Un échantillon contient une masse de soluté <code>m</code> exprimée en grammes et un volume <code>Vml</code> exprimé en millilitres. Écrire l'algorithme qui calcule la concentration en g/L.</p>\n<p><strong>Indice :</strong> 1 L = 1 000 mL.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Exercice 3</summary>\n<pre>Algorithme Concentration\nVariables\n    m, Vml, Vl, C : Réel\nDébut\n    Lire m, Vml\n    Si Vml &lt;= 0 Alors\n        Écrire \"Volume invalide\"\n    Sinon\n        Vl ← Vml / 1000\n        C ← m / Vl\n        Écrire C\n    FinSi\nFin</pre>\n<p><strong>Test :</strong> m = 5 g et Vml = 250 mL → Vl = 0,25 L → C = <strong>20 g/L</strong>.</p></details>\n</div>",
+    "note": "Pour calculer une moyenne pondérée, ne pas oublier le dénominateur C1 + C2 ; pour une surface, préciser les unités au carré ; pour une concentration, convertir les mL en L."
    },
    {
     "title": "Lire et Écrire",
@@ -621,6 +639,16 @@ const algoChapters = [
     ],
     "correct": 2,
     "why": "La seconde affectation utilise l'ancienne valeur (3) puis ajoute 1."
+   },
+   {
+    "q": "Deux notes N1=12 (coefficient 2) et N2=16 (coefficient 3) donnent quelle moyenne pondérée ?",
+    "choices": [
+     "14",
+     "14,4",
+     "15"
+    ],
+    "correct": 1,
+    "why": "(12 × 2 + 16 × 3) / (2 + 3) = 72 / 5 = 14,4."
    }
   ]
  },
