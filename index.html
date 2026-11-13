@@ -238,6 +238,14 @@
 .a2-trace-table td:first-child{text-align:left;font-weight:700}
 @media(max-width:760px){.a2-instruction-cards{grid-template-columns:1fr}.a2-example-line{grid-template-columns:1fr}.a2-affect-syntax,.a2-instruction-flow{flex-direction:column}.a2-change{flex-direction:column}}
 
+
+/* A3 : tableau des mentions */
+.a3-mention-table{max-width:100%;overflow-x:auto;margin:15px 0}
+.a3-mention-table table{width:100%;border-collapse:collapse;min-width:310px;font-size:13px}
+.a3-mention-table th{background:#dff0e5;color:#235b44;font-weight:800}
+.a3-mention-table td,.a3-mention-table th{border:1px solid #d5e5d9;padding:10px 12px;text-align:left}
+.a3-mention-table tbody tr:nth-child(even){background:#f5faf6}
+
 </style>
 </head>
 <body>
@@ -761,13 +769,14 @@ const algoChapters = [
   "num": "A3",
   "icon": "◇",
   "title": "Conditions : Si, Alors, Sinon",
-  "short": "Prendre des décisions avec des tests logiques et éviter les calculs invalides.",
-  "time": "60 min",
+  "short": "Structures Si, Sinon Si, Sinon, validation des valeurs et calcul de mentions par moyenne.",
+  "time": "75 min",
   "level": "Initiation",
   "objectives": [
    "Écrire une structure conditionnelle avec Si/Alors/Sinon.",
    "Employer correctement >, <, = et les opérateurs logiques.",
-   "Traduire une décision biologique en Python."
+   "Traduire une décision biologique en Python.",
+   "Calculer la moyenne de trois notes et attribuer la mention avec une structure conditionnelle multiple."
   ],
   "sections": [
    {
@@ -782,6 +791,11 @@ const algoChapters = [
     "pseudo": "Algorithme ClassifierPH\nDébut\n    Lire ph\n    Si ph < 0 OU ph > 14 Alors\n        Écrire \"Hors plage pédagogique\"\n    Sinon Si ph < 7 Alors\n        Écrire \"Acide\"\n    Sinon Si ph = 7 Alors\n        Écrire \"Neutre\"\n    Sinon\n        Écrire \"Basique\"\n    FinSi\nFin",
     "code": "ph = float(input('pH : '))\nif ph < 0 or ph > 14:\n    print('Hors plage pédagogique')\nelif ph < 7:\n    print('Acide')\nelif ph == 7:\n    print('Neutre')\nelse:\n    print('Basique')",
     "note": "Le point neutre varie avec la température. Les seuils utilisés ici constituent un exemple d'introduction aux conditions, non une méthode analytique universelle."
+   },
+   {
+    "title": "Exemple 6 — Moyenne de trois notes et mention (condition multiple)",
+    "body": "<div class=\"a2-exercise\"><h3>Exercice 6 — Calculer une moyenne et attribuer une mention</h3>\n<p><strong>Problème :</strong> écrire un algorithme qui demande à l’utilisateur de saisir <strong>trois notes entre 0 et 20</strong>, calcule leur moyenne arithmétique, l’affiche et détermine la <strong>mention</strong> correspondante.</p>\n<div class=\"a2-formula\">moyenne = (note1 + note2 + note3) / 3</div>\n<p><strong>Critères de classement :</strong></p>\n<div class=\"a3-mention-table\"><table><thead><tr><th>Intervalle de la moyenne</th><th>Mention</th></tr></thead><tbody>\n<tr><td>0 ≤ moyenne &lt; 10</td><td>Insuffisant</td></tr>\n<tr><td>10 ≤ moyenne &lt; 12</td><td>Passable</td></tr>\n<tr><td>12 ≤ moyenne &lt; 14</td><td>Assez bien</td></tr>\n<tr><td>14 ≤ moyenne &lt; 16</td><td>Bien</td></tr>\n<tr><td>16 ≤ moyenne ≤ 20</td><td>Très bien</td></tr>\n</tbody></table></div>\n<p><strong>Travail demandé :</strong> identifier les entrées et les sorties, déclarer les variables, puis utiliser une <strong>structure conditionnelle multiple</strong> (<em>Si / Sinon Si / Sinon / FinSi</em>). Tester les seuils 10, 12, 14 et 16.</p>\n<details class=\"a2-correction\"><summary>Afficher le corrigé — Algorithme en pseudo-code</summary>\n<p><strong>Entrées :</strong> note1, note2, note3 (Réel). <strong>Sorties :</strong> moyenne (Réel), mention (Chaîne).</p>\n<pre>Algorithme Mention\nVariables\n    note1, note2, note3, moyenne : Réel\n    mention : Chaîne\nDébut\n    Écrire \"Entrez la première note :\"\n    Lire note1\n    Écrire \"Entrez la deuxième note :\"\n    Lire note2\n    Écrire \"Entrez la troisième note :\"\n    Lire note3\n\n    Si note1 &lt; 0 OU note1 > 20 OU\n       note2 &lt; 0 OU note2 > 20 OU\n       note3 &lt; 0 OU note3 > 20 Alors\n        Écrire \"Notes invalides\"\n    Sinon\n        moyenne ← (note1 + note2 + note3) / 3\n\n        Si moyenne &lt; 10 Alors\n            mention ← \"Insuffisant\"\n        Sinon Si moyenne &lt; 12 Alors\n            mention ← \"Passable\"\n        Sinon Si moyenne &lt; 14 Alors\n            mention ← \"Assez bien\"\n        Sinon Si moyenne &lt; 16 Alors\n            mention ← \"Bien\"\n        Sinon\n            mention ← \"Très bien\"\n        FinSi\n\n        Écrire \"La moyenne est :\", moyenne\n        Écrire \"La mention est :\", mention\n    FinSi\nFin</pre>\n<p><strong>Remarque :</strong> le test de validité des notes (0 à 20) est une amélioration ajoutée au pseudo-code des diapositives pour éviter les entrées hors intervalle.</p></details>\n<details class=\"a2-correction\"><summary>Afficher la traduction en Python</summary>\n<pre>note1 = float(input(\"Première note : \"))\nnote2 = float(input(\"Deuxième note : \"))\nnote3 = float(input(\"Troisième note : \"))\n\nif not all(0 &lt;= n &lt;= 20 for n in (note1, note2, note3)):\n    print(\"Notes invalides\")\nelse:\n    moyenne = (note1 + note2 + note3) / 3\n    if moyenne &lt; 10:\n        mention = \"Insuffisant\"\n    elif moyenne &lt; 12:\n        mention = \"Passable\"\n    elif moyenne &lt; 14:\n        mention = \"Assez bien\"\n    elif moyenne &lt; 16:\n        mention = \"Bien\"\n    else:\n        mention = \"Très bien\"\n\n    print(\"La moyenne est :\", round(moyenne, 2))\n    print(\"La mention est :\", mention)</pre>\n<p>Cette version suppose des saisies numériques. La gestion des entrées non numériques avec <code>try/except</code> est une amélioration possible.</p></details>\n<details class=\"a2-correction\"><summary>Afficher des jeux d’essai et leurs résultats</summary>\n<div class=\"a3-mention-table\"><table><thead><tr><th>Notes</th><th>Moyenne</th><th>Mention</th></tr></thead><tbody>\n<tr><td>8, 9, 10</td><td>9</td><td>Insuffisant</td></tr>\n<tr><td>10, 10, 10</td><td>10</td><td>Passable</td></tr>\n<tr><td>12, 12, 12</td><td>12</td><td>Assez bien</td></tr>\n<tr><td>14, 14, 14</td><td>14</td><td>Bien</td></tr>\n<tr><td>16, 16, 16</td><td>16</td><td>Très bien</td></tr>\n<tr><td>18, 15, 15</td><td>16</td><td>Très bien</td></tr>\n<tr><td>22, 12, 13</td><td>—</td><td>Notes invalides</td></tr>\n</tbody></table></div>\n<p>Les conditions sont vérifiées dans l'ordre ; par exemple, une moyenne égale à 12 ne vérifie pas <code>moyenne &lt; 12</code> et passe donc à la branche « Assez bien ».</p></details>\n</div>",
+    "note": "La structure Si / Sinon Si / Sinon teste les conditions successivement : la première condition vraie sélectionne une branche. Les seuils exacts 10, 12, 14 et 16 doivent être inclus dans la catégorie supérieure."
    },
    {
     "title": "Vérifier les entrées avant un calcul",
@@ -825,6 +839,26 @@ const algoChapters = [
     ],
     "correct": 1,
     "why": "La division par zéro est invalide."
+   },
+   {
+    "q": "Si trois notes donnent une moyenne égale à 12, quelle mention faut-il afficher ?",
+    "choices": [
+     "Passable",
+     "Assez bien",
+     "Bien"
+    ],
+    "correct": 1,
+    "why": "La condition moyenne < 12 est fausse pour 12 ; la branche suivante moyenne < 14 donne Assez bien."
+   },
+   {
+    "q": "Avec une moyenne de 16, quelle mention obtient-on ?",
+    "choices": [
+     "Bien",
+     "Très bien",
+     "Assez bien"
+    ],
+    "correct": 1,
+    "why": "Dès 16 inclus, la mention est Très bien."
    }
   ]
  },
