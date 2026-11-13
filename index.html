@@ -1024,6 +1024,53 @@ function updateSimulator(){
  el('trace-prev').disabled=i===0;el('trace-next').disabled=i===d.states.length-1;
 }
 
+
+const translationExercises=[
+{id:'affect',title:"Affectation",level:"Débutant",pseudo:"Début\n  masse ← 5\n  Écrire masse\nFin",prompt:"Écrivez une ligne d’affectation et une ligne d’affichage de la variable masse.",solution:"masse = 5\nprint(masse)",hints:["Le signe d’affectation Python est =.","Pour afficher : print(variable)."],checks:[[/\bmasse\s*=\s*5(?:\.0)?\b/,"Affectation de masse à 5"],[/\bprint\s*\(\s*masse\s*\)/,"Affichage avec print(masse)"]]},
+{id:'volume',title:"Conversion en litres",level:"Débutant",pseudo:"Début\n  volume_ml ← 250\n  volume_l ← volume_ml / 1000\n  Écrire volume_l\nFin",prompt:"Convertissez le volume en mL vers des litres et affichez le résultat.",solution:"volume_ml = 250\nvolume_l = volume_ml / 1000\nprint(volume_l)",hints:["Divisez le volume en mL par 1000.","Écrivez une affectation pour volume_l."],checks:[[/\bvolume_ml\s*=\s*250(?:\.0)?\b/,"Déclaration du volume"],[/\bvolume_l\s*=\s*volume_ml\s*\/\s*1000\b/,"Conversion mL → L"],[/\bprint\s*\(\s*volume_l\s*\)/,"Affichage du résultat"]]},
+{id:'condition',title:"Condition sur le pH",level:"Débutant",pseudo:"Début\n  pH ← 6.5\n  Si pH < 7 Alors\n    Écrire \"Acide\"\n  FinSi\nFin",prompt:"Traduisez la condition en Python (attention aux : et à l’indentation).",solution:"ph = 6.5\nif ph < 7:\n    print('Acide')",hints:["La structure commence par if.","Indentez l’instruction située dans le if."],checks:[[/\bph\s*=\s*6\.5\b/,"Variable ph"],[/\bif\s+ph\s*<\s*7\s*:/,"Condition et deux-points"],[/\bprint\s*\(\s*['"]Acide['"]\s*\)/,"Affichage « Acide »"]]},
+{id:'boucle',title:"Boucle Pour",level:"Débutant",pseudo:"Début\n  Pour i de 1 à 4 Faire\n    Écrire i\n  FinPour\nFin",prompt:"Écrivez une boucle Python affichant 1, 2, 3 et 4.",solution:"for i in range(1, 5):\n    print(i)",hints:["range inclut sa borne de départ mais exclut la borne de fin.","Utilisez for ... in range(1, 5):"],checks:[[/\bfor\s+i\s+in\s+range\s*\(\s*1\s*,\s*5\s*\)\s*:/,"Boucle de 1 à 4"],[/\bprint\s*\(\s*i\s*\)/,"Affichage dans la boucle"]]},
+{id:'adn',title:"Longueur d’une séquence ADN",level:"Application biologie",pseudo:"Début\n  adn ← \"ATGC\"\n  longueur ← longueur(adn)\n  Écrire longueur\nFin",prompt:"Utilisez len() pour calculer la longueur de la séquence ADN.",solution:"adn = 'ATGC'\nlongueur = len(adn)\nprint(longueur)",hints:["Une séquence ADN peut être stockée dans une chaîne str.","La fonction len() donne le nombre de caractères."],checks:[[/\badn\s*=\s*['"]ATGC['"]/,"Initialisation ADN"],[/\blongueur\s*=\s*len\s*\(\s*adn\s*\)/,"Calcul avec len"],[/\bprint\s*\(\s*longueur\s*\)/,"Affichage"]]},
+{id:'germ',title:"Taux de germination",level:"Application biologie",pseudo:"Début\n  semees ← 40\n  germees ← 34\n  taux ← 100 × germees / semees\n  Écrire taux\nFin",prompt:"Calculez et affichez le taux de germination pour cet exemple (données valides).",solution:"semees = 40\ngermees = 34\ntaux = 100 * germees / semees\nprint(taux)",hints:["Déclarez les deux effectifs.","Le symbole × se traduit par * en Python."],checks:[[/\bsemees\s*=\s*40\b/,"Nombre semé"],[/\bgermees\s*=\s*34\b/,"Nombre germé"],[/\btaux\s*=\s*(?:100\s*\*\s*germees\s*\/\s*semees|germees\s*\/\s*semees\s*\*\s*100)\b/,"Calcul de pourcentage"],[/\bprint\s*\(\s*taux\s*\)/,"Affichage"]]}
+];
+const practiceAnswers={};const practiceRevealed=new Set();let practiceScore=null;
+function practicePage(){
+ return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Exercices interactifs</div><span class="eyebrow">Algorithme → Python</span>'
+ +'<h1>Traduire un algorithme en Python</h1><p>Écrivez vos propositions et demandez une vérification. La correction est basée sur des indices de structure et de syntaxe, pas sur une exécution réelle du code. Plusieurs solutions équivalentes sont possibles.</p>'
+ +'<div class="practice-entry"><div><h3>6 exercices progressifs</h3><p>Affectation, unités, conditions, boucles et exemples biologiques.</p></div><div class="practice-links"><a href="#/simulateur" class="btn btn-light">Simulateur ↗</a><button class="btn" id="practice-grade" type="button">Vérifier les 6 réponses</button></div></div>'
+ +'<div id="practice-score" class="practice-feedback" role="status" aria-live="polite">'+(practiceScore===null?'Aucune évaluation enregistrée pour cette session.':'Score indicatif : '+practiceScore+'/6 exercices avec tous les critères reconnus.')+'</div>'
+ +translationExercises.map((e,i)=>'<section class="practice-item"><span class="pill">'+escapeHtml(e.level)+'</span><h3>Exercice '+(i+1)+' — '+escapeHtml(e.title)+'</h3>'
+  +'<p>'+escapeHtml(e.prompt)+'</p>'+codeWindow(e.pseudo,'pseudo-code.txt')
+  +'<label for="practice-'+e.id+'" style="display:block;font-size:12px;font-weight:800;margin-bottom:7px">Votre réponse Python</label>'
+  +'<textarea id="practice-'+e.id+'" spellcheck="false" placeholder="Écrivez votre code Python ici...">'+escapeHtml(practiceAnswers[e.id]||'')+'</textarea>'
+  +'<div class="practice-actions"><button type="button" class="btn btn-small btn-light" data-practice-check="'+e.id+'">Vérifier</button><button type="button" class="btn btn-small btn-ghost" data-practice-hint="'+e.id+'">Indice</button><button type="button" class="btn btn-small btn-ghost" data-practice-solution="'+e.id+'">'+(practiceRevealed.has(e.id)?'Masquer le corrigé':'Afficher le corrigé')+'</button></div>'
+  +'<div id="feedback-'+e.id+'" role="status" aria-live="polite"></div><div id="solution-'+e.id+'" '+(practiceRevealed.has(e.id)?'':'hidden')+'>'+codeWindow(e.solution,'correction.py')+'</div></section>').join('')
+ +'<div class="practice-entry"><div><h3>Réviser avant l’examen ?</h3><p>Testez les connaissances sur les principales notions du cours.</p></div><a href="#/examen" class="btn">Examen blanc ↗</a></div>';
+}
+function exerciseNormalize(code){
+ return String(code).split('\n').map(line=>line.replace(/#.*$/,'')).join('\n');
+}
+function assessExercise(id){
+ const e=translationExercises.find(x=>x.id===id);if(!e)return false;
+ const elCode=el('practice-'+id);if(!elCode)return false;
+ const code=exerciseNormalize(elCode.value);
+ practiceAnswers[id]=elCode.value;
+ const items=e.checks.map(([regexp,name])=>({ok:regexp.test(code),name}));
+ const correct=items.every(x=>x.ok);
+ const f=el('feedback-'+id);
+ f.className='practice-feedback'+(correct?'':' error');
+ f.innerHTML='<strong>'+(correct?'✓ Tous les éléments attendus sont repérés.':'Critères à revoir :')+'</strong><div style="margin-top:6px">'+items.map(x=>'<div>'+(x.ok?'✓ ':'◻ ')+escapeHtml(x.name)+'</div>').join('')+'</div><p style="font-size:12px;margin:8px 0 0">Vérification indicative : testez aussi le code dans un environnement Python.</p>';
+ return correct;
+}
+function evaluatePractice(){
+ let score=0;for(const e of translationExercises){if(assessExercise(e.id))score++;}
+ practiceScore=score;el('practice-score').textContent='Score indicatif : '+score+'/6 exercices avec tous les critères reconnus.';
+}
+function showPracticeHint(id){
+ const e=translationExercises.find(x=>x.id===id),box=el('feedback-'+id);if(!e||!box)return;
+ box.className='practice-feedback';box.innerHTML='<strong>Indices :</strong> '+e.hints.map(escapeHtml).join(' · ');
+}
+
 function searchPage(term){
  const q=term.trim().toLocaleLowerCase('fr');
  const hits=[...allChapters.map(c=>({type:'Cours',name:c.title,desc:c.short,route:'cours/'+c.id,hay:[c.title,c.short,...c.objectives.map(x=>x),...c.sections.map(s=>s.title+' '+s.body)].join(' ')})),...tds.map(t=>({type:'TD',name:t.title,desc:t.intro,route:'td/'+t.id,hay:[t.title,t.intro,...t.exercises.map(e=>e.name+' '+e.statement)].join(' ')})),...tps.map(t=>({type:'TP',name:t.title,desc:t.intro,route:'tp/'+t.id,hay:[t.title,t.intro,...t.steps].join(' ')}))].filter(x=>x.hay.toLocaleLowerCase('fr').includes(q));
@@ -1098,6 +1145,10 @@ function calcLab(id){
 }
 
 document.addEventListener('click',e=>{
+ const graded=e.target.closest('#practice-grade');if(graded){evaluatePractice();return;}
+ const check=e.target.closest('[data-practice-check]');if(check){assessExercise(check.dataset.practiceCheck);return;}
+ const hint=e.target.closest('[data-practice-hint]');if(hint){showPracticeHint(hint.dataset.practiceHint);return;}
+ const sol=e.target.closest('[data-practice-solution]');if(sol){const id=sol.dataset.practiceSolution;const box=el('solution-'+id);if(box){box.hidden=!box.hidden;if(box.hidden)practiceRevealed.delete(id);else practiceRevealed.add(id);sol.textContent=box.hidden?'Afficher le corrigé':'Masquer le corrigé';}return;}
  const trace=e.target.closest('#trace-next, #trace-prev, #trace-reset');if(trace){const d=simulatorCatalog[simulatorCurrent];if(trace.id==='trace-next')simulatorStep=Math.min(d.states.length-1,simulatorStep+1);else if(trace.id==='trace-prev')simulatorStep=Math.max(0,simulatorStep-1);else simulatorStep=0;updateSimulator();return;}
  const run=e.target.closest('#atelier-run');if(run){computeAtelier();return;}
  const go=e.target.closest('[data-go]');if(go){location.hash='/'+go.dataset.go;return;}
