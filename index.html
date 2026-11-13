@@ -377,6 +377,27 @@ function calcLab(id){
    const n=Number(el('lab-pop').value),k=Number(el('lab-etapes').value);if(!Number.isSafeInteger(n)||n<=0||!Number.isInteger(k)||k<0||k>20){setLabResult('⚠ Utilisez une population initiale entière positive et 0 à 20 doublements.',true);return;}
    const result=n*(2**k);if(!Number.isSafeInteger(result)){setLabResult('⚠ Valeur trop grande pour un calcul entier exact dans le navigateur.',true);return;}
    setLabResult(`<strong>${result.toLocaleString('fr-FR')} cellules</strong>${k} doublement(s) depuis ${n.toLocaleString('fr-FR')} cellules<br><small>Modèle idéal : N = N₀ × 2ᵏ, sans limitation de ressources.</small>`);
+ }else if(id==='transcription'){
+   const seq=el('lab-transcription').value.toUpperCase().replace(/\s/g,'');
+   if(!seq||!/^[ATCG]+$/.test(seq)){setLabResult('⚠ Séquence ADN requise : A, T, C et G uniquement.',true);return;}
+   setLabResult('<strong>ARNm : '+seq.replace(/T/g,'U')+'</strong>ADN codant (5′→3′) : '+seq+'<br><small>Correspondance du brin codant à l’ARNm (5′→3′).</small>');
+ }else if(id==='germination'){
+   const a=el('lab-semees').value,b=el('lab-germees').value,s=Number(a),g=Number(b);
+   if(!a.trim()||!b.trim()||!Number.isSafeInteger(s)||!Number.isSafeInteger(g)||s<=0||g<0||g>s){setLabResult('⚠ Semées > 0 et 0 ≤ germées ≤ semées ; effectifs entiers requis.',true);return;}
+   setLabResult('<strong>'+fixed2(100*g/s)+' %</strong>'+g+' graines germées sur '+s+' semées.');
+ }else if(id==='statistiques'){
+   const raw=el('lab-mesures').value.trim();if(!raw){setLabResult('⚠ Entrez au moins une mesure.',true);return;}
+   const parts=raw.split(';').map(t=>t.trim().replace(',','.'));
+   if(parts.length>200||parts.some(t=>!t||!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(t))){setLabResult('⚠ Entrez 1 à 200 nombres séparés par des points-virgules.',true);return;}
+   const x=parts.map(Number);if(x.some(t=>!Number.isFinite(t))){setLabResult('⚠ Nombre invalide.',true);return;}
+   const min=Math.min(...x),max=Math.max(...x),mean=x.reduce((a,b)=>a+b,0)/x.length;
+   if(!Number.isFinite(mean)||!Number.isFinite(max-min)){setLabResult('⚠ Nombres trop grands.',true);return;}
+   setLabResult('<strong>Moyenne : '+fixed2(mean)+'</strong>'+x.length+' mesure(s) · Min : '+fixed2(min)+' · Max : '+fixed2(max)+'<br>Étendue : '+fixed2(max-min));
+ }else if(id==='dilution2'){
+   const raw=['lab-c1','lab-c2','lab-v2'].map(k=>el(k).value);const [c1,c2,v2]=raw.map(Number);
+   if(raw.some(t=>!t.trim())||![c1,c2,v2].every(Number.isFinite)||c1<=0||c2<=0||v2<=0||c2>c1){setLabResult('⚠ Dilution impossible : 0 < C2 ≤ C1 et V2 > 0.',true);return;}
+   const v1=c2*v2/c1;if(!Number.isFinite(v1)||!Number.isFinite(v2-v1)){setLabResult('⚠ Valeurs trop grandes.',true);return;}
+   setLabResult('<strong>'+fixed2(v1)+' mL de solution mère</strong>'+fixed2(v2-v1)+' mL de diluant ; volume final : '+fixed2(v2)+' mL.<br><small>C1×V1 = C2×V2 ; volumes supposés additifs.</small>');
  }else if(id==='dilution'){
    const m=Number(el('lab-masse').value),v=Number(el('lab-volume').value);if(el('lab-masse').value===''||el('lab-volume').value===''||!Number.isFinite(m)||!Number.isFinite(v)||m<0||v<=0){setLabResult('⚠ Masse ≥ 0 g et volume strictement positif requis.',true);return;}
    setLabResult(`<strong>${fixed2(m/(v/1000))} g/L</strong>Masse : ${fixed2(m)} g · Volume : ${fixed2(v)} mL<br><small>Conversion : ${fixed2(v/1000)} L ; C = m / V.</small>`);
