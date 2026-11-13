@@ -29,6 +29,375 @@
 </div>
 </div>
 <script>'use strict';
+const algoChapters = [
+ {
+  "id": "algo-concepts",
+  "num": "A1",
+  "icon": "◇",
+  "title": "Qu'est-ce qu'un algorithme ?",
+  "short": "Comprendre le problème, identifier les entrées, les traitements et les sorties.",
+  "time": "50 min",
+  "level": "Initiation",
+  "objectives": [
+   "Définir un algorithme et le distinguer d’un programme.",
+   "Identifier les données d’entrée, le traitement et le résultat attendu.",
+   "Décomposer un problème biologique en étapes finies."
+  ],
+  "sections": [
+   {
+    "title": "Un algorithme, avant le code",
+    "body": "<p>Un <strong>algorithme</strong> est une suite d’instructions <strong>précises</strong>, <strong>ordonnées</strong> et <strong>finies</strong> qui résout un problème. Il peut être décrit en français structuré, avec un organigramme ou en <em>pseudo-code</em>.</p><p>Un <strong>programme</strong> est sa traduction dans un langage de programmation (par exemple Python). L’algorithme décrit <em>quoi faire</em> ; le programme permet à l’ordinateur de l’exécuter.</p><div class=\"info-box\"><strong>Exemple quotidien :</strong> pour préparer une solution : vérifier le matériel → mesurer → mélanger → étiqueter. L’ordre et les conditions comptent.</div>"
+   },
+   {
+    "title": "Entrées → traitement → sorties",
+    "body": "<p>Pour chaque problème, poser trois questions : <strong>quelles données reçoit-on ?</strong> <strong>quel calcul fait-on ?</strong> <strong>quel résultat veut-on ?</strong></p><p><strong>Cas biologique :</strong> parmi 40 graines semées, 34 ont germé. On souhaite calculer le taux de germination.</p><table><thead><tr><th>Entrées</th><th>Traitement</th><th>Sortie</th></tr></thead><tbody><tr><td>semées = 40, germées = 34</td><td>(34 / 40) × 100</td><td>85 %</td></tr></tbody></table>",
+    "pseudo": "Algorithme TauxGermination\nEntrées : semees, germees\nDébut\n    taux ← (germees / semees) × 100\n    Écrire taux, \"%\"\nFin",
+    "note": "Avant de diviser, il faudra vérifier que le nombre de graines semées est strictement positif. Nous apprendrons cette condition au chapitre A3."
+   },
+   {
+    "title": "Comment représenter un algorithme ?",
+    "body": "<p>Le <strong>pseudo-code</strong> est une écriture lisible par les humains : les mots <em>Début</em>, <em>Lire</em>, <em>Si</em>, <em>Pour</em> y expriment les actions. Il ne s’exécute pas directement comme un script Python.</p><p>Un <strong>organigramme</strong> décrit visuellement le déroulement : ellipse pour Début/Fin, parallélogramme pour Lire/Écrire, rectangle pour un traitement, losange pour une décision.</p><div class=\"info-box\"><strong>Chaîne de résolution :</strong> Problème → Analyse (entrées/sorties) → Algorithme → Traduction en Python → Tests → Résultat.</div>"
+   },
+   {
+    "title": "Qualités d'une bonne solution",
+    "body": "<p>Un algorithme doit avoir des étapes sans ambiguïté, se terminer, être correct pour les entrées prévues et gérer les cas limites. On le vérifie sur des <strong>jeux d’essai</strong> : un cas normal, un cas limite, une entrée invalide.</p><p><strong>À essayer :</strong> avec 10 graines semées et 0 germée, le taux attendu est 0 %. Avec 0 graine semée, le calcul est impossible sans message d’erreur.</p>"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Un algorithme doit-il obligatoirement être écrit en Python ?",
+    "choices": [
+     "Oui",
+     "Non",
+     "Seulement en biologie"
+    ],
+    "correct": 1,
+    "why": "Le raisonnement algorithmique est indépendant du langage de programmation."
+   },
+   {
+    "q": "Dans l'exemple de germination, quelle est la sortie ?",
+    "choices": [
+     "34 graines",
+     "85 %",
+     "40 graines"
+    ],
+    "correct": 1,
+    "why": "Le résultat est le taux de germination calculé à partir des entrées."
+   },
+   {
+    "q": "Pourquoi tester le nombre de graines semées ?",
+    "choices": [
+     "Pour éviter une division par zéro",
+     "Pour changer le nom du programme",
+     "Pour accélérer l'ordinateur"
+    ],
+    "correct": 0,
+    "why": "La formule comporte une division par le nombre de graines semées."
+   }
+  ]
+ },
+ {
+  "id": "algo-sequence",
+  "num": "A2",
+  "icon": "↳",
+  "title": "Variables et instructions séquentielles",
+  "short": "Lire, affecter, calculer et afficher une valeur avec le pseudo-code.",
+  "time": "60 min",
+  "level": "Initiation",
+  "objectives": [
+   "Comprendre variables, types et affectation.",
+   "Écrire Lire, Écrire et ← en pseudo-code.",
+   "Effectuer une trace pas à pas d'un calcul de laboratoire."
+  ],
+  "sections": [
+   {
+    "title": "Variables et types",
+    "body": "<p>Une <strong>variable</strong> est un nom associé à une valeur. Les types fréquents sont <strong>Entier</strong> (un effectif), <strong>Réel</strong> (une concentration), <strong>Chaîne</strong> (un nom d’espèce) et <strong>Booléen</strong> (vrai/faux).</p><p>L’écriture <code class=\"inline\">x ← 5</code> signifie « affecter 5 à x ». En Python, on écrira <code class=\"inline\">x = 5</code>. L’affectation ne signifie pas une égalité mathématique définitive.</p>",
+    "pseudo": "Algorithme Variables\nVariables nb_graines : Entier\n          temperature : Réel\n          espece : Chaîne\nDébut\n    nb_graines ← 40\n    temperature ← 22.5\n    espece ← \"Olea europaea\"\n    Écrire espece, nb_graines\nFin",
+    "code": "nb_graines = 40\ntemperature = 22.5\nespece = 'Olea europaea'\nprint(espece, nb_graines)"
+   },
+   {
+    "title": "Lire et Écrire",
+    "body": "<p><strong>Lire x</strong> : récupérer une donnée fournie. <strong>Écrire x</strong> : communiquer une valeur. Ces instructions sont différentes du calcul lui-même.</p><p>Dans Python, on utilise <code class=\"inline\">input()</code> pour la saisie et <code class=\"inline\">print()</code> pour l’affichage. Une conversion de type sera souvent nécessaire car input() renvoie du texte.</p>",
+    "pseudo": "Algorithme ConversionVolume\nVariables volume_ml, volume_l : Réel\nDébut\n    Lire volume_ml\n    volume_l ← volume_ml / 1000\n    Écrire volume_l, \"L\"\nFin",
+    "code": "volume_ml = float(input('Volume (mL) : '))\nvolume_l = volume_ml / 1000\nprint(volume_l, 'L')",
+    "output": "Pour 250 mL : 0.25 L"
+   },
+   {
+    "title": "Trace d'exécution (table de valeurs)",
+    "body": "<p>Pour vérifier un algorithme, on suit les valeurs des variables <em>instruction après instruction</em>.</p><table><thead><tr><th>Étape</th><th>a</th><th>b</th></tr></thead><tbody><tr><td>a ← 3</td><td>3</td><td>—</td></tr><tr><td>b ← a + 2</td><td>3</td><td>5</td></tr><tr><td>a ← b × 2</td><td>10</td><td>5</td></tr></tbody></table>",
+    "pseudo": "Début\n    a ← 3\n    b ← a + 2\n    a ← b × 2\n    Écrire a, b\nFin",
+    "note": "La dernière valeur de a est 10, et celle de b est 5. Ce n'est pas une équation à résoudre : c'est une suite d'affectations."
+   },
+   {
+    "title": "Séquence et unités biologiques",
+    "body": "<p>Les instructions séquentielles s’exécutent de haut en bas. Pour une concentration en g/L, convertir d’abord le volume mL → L, puis appliquer C = m / V. Les vérifications d’erreurs seront ajoutées au chapitre A3.</p>",
+    "pseudo": "Algorithme Concentration (volume > 0 supposé)\nDébut\n    masse_g ← 5\n    volume_ml ← 250\n    volume_l ← volume_ml / 1000\n    concentration ← masse_g / volume_l\n    Écrire concentration, \"g/L\"\nFin",
+    "code": "masse_g = 5\nvolume_ml = 250\nvolume_l = volume_ml / 1000\nconcentration = masse_g / volume_l\nprint(concentration, 'g/L')",
+    "output": "20.0 g/L"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Que signifie x ← 10 en pseudo-code ?",
+    "choices": [
+     "Afficher 10",
+     "Affecter 10 à x",
+     "Comparer x avec 10"
+    ],
+    "correct": 1,
+    "why": "La flèche ← est le symbole d'affectation dans cette convention."
+   },
+   {
+    "q": "Quel volume correspond à 500 mL ?",
+    "choices": [
+     "0,5 L",
+     "5 L",
+     "500 L"
+    ],
+    "correct": 0,
+    "why": "On divise les millilitres par 1 000."
+   },
+   {
+    "q": "Que devient a après a ← 3 puis a ← a + 1 ?",
+    "choices": [
+     "3",
+     "1",
+     "4"
+    ],
+    "correct": 2,
+    "why": "La seconde affectation utilise l'ancienne valeur (3) puis ajoute 1."
+   }
+  ]
+ },
+ {
+  "id": "algo-conditions",
+  "num": "A3",
+  "icon": "◇",
+  "title": "Conditions : Si, Alors, Sinon",
+  "short": "Prendre des décisions avec des tests logiques et éviter les calculs invalides.",
+  "time": "60 min",
+  "level": "Initiation",
+  "objectives": [
+   "Écrire une structure conditionnelle avec Si/Alors/Sinon.",
+   "Employer correctement >, <, = et les opérateurs logiques.",
+   "Traduire une décision biologique en Python."
+  ],
+  "sections": [
+   {
+    "title": "Pourquoi une condition ?",
+    "body": "<p>Une condition permet d’effectuer des instructions <strong>uniquement si un test est vérifié</strong>. Le résultat du test est vrai ou faux.</p><p>Dans notre pseudo-code pédagogique, on écrit <em>Si ... Alors ... Sinon ... FinSi</em>. En Python, on utilise <code class=\"inline\">if</code>, <code class=\"inline\">elif</code>, <code class=\"inline\">else</code> et l’indentation.</p>",
+    "pseudo": "Algorithme TestTemperature\nDébut\n    Lire temperature\n    Si temperature > 30 Alors\n        Écrire \"Température élevée\"\n    Sinon\n        Écrire \"Température ≤ 30\"\n    FinSi\nFin",
+    "code": "temperature = float(input('Température (°C) : '))\nif temperature > 30:\n    print('Température élevée')\nelse:\n    print('Température ≤ 30')"
+   },
+   {
+    "title": "Choix multiples : classification scolaire du pH",
+    "body": "<p>Pour une classification pédagogique usuelle <strong>à 25 °C</strong> : pH &lt; 7 → acide, pH = 7 → neutre, pH &gt; 7 → basique. On traite d'abord les valeurs hors de la plage scolaire simplifiée 0 à 14.</p>",
+    "pseudo": "Algorithme ClassifierPH\nDébut\n    Lire ph\n    Si ph < 0 OU ph > 14 Alors\n        Écrire \"Hors plage pédagogique\"\n    Sinon Si ph < 7 Alors\n        Écrire \"Acide\"\n    Sinon Si ph = 7 Alors\n        Écrire \"Neutre\"\n    Sinon\n        Écrire \"Basique\"\n    FinSi\nFin",
+    "code": "ph = float(input('pH : '))\nif ph < 0 or ph > 14:\n    print('Hors plage pédagogique')\nelif ph < 7:\n    print('Acide')\nelif ph == 7:\n    print('Neutre')\nelse:\n    print('Basique')",
+    "note": "Le point neutre varie avec la température. Les seuils utilisés ici constituent un exemple d'introduction aux conditions, non une méthode analytique universelle."
+   },
+   {
+    "title": "Vérifier les entrées avant un calcul",
+    "body": "<p>Un <strong>cas limite</strong> est une donnée qui met à l’épreuve la validité d’une formule. Exemple : diviser une masse par un volume nul n’est pas autorisé.</p>",
+    "pseudo": "Algorithme ConcentrationSure\nDébut\n    Lire masse_g, volume_l\n    Si volume_l <= 0 OU masse_g < 0 Alors\n        Écrire \"Mesures invalides\"\n    Sinon\n        c ← masse_g / volume_l\n        Écrire c, \"g/L\"\n    FinSi\nFin",
+    "code": "masse_g = 5\nvolume_l = 0.25\nif volume_l <= 0 or masse_g < 0:\n    print('Mesures invalides')\nelse:\n    print(masse_g / volume_l, 'g/L')",
+    "output": "20.0 g/L"
+   },
+   {
+    "title": "Logique : ET, OU, NON",
+    "body": "<p><strong>ET</strong> exige que les deux conditions soient vraies ; <strong>OU</strong> exige qu’au moins l’une le soit ; <strong>NON</strong> inverse un test. En Python, ces mots deviennent <code class=\"inline\">and</code>, <code class=\"inline\">or</code>, <code class=\"inline\">not</code>.</p><p><strong>Exemple :</strong> si température ≥ 20 ET température ≤ 30, le résultat est « dans l'intervalle de l'exercice ».</p>"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel opérateur Python compare deux valeurs ?",
+    "choices": [
+     "=",
+     "==",
+     "←"
+    ],
+    "correct": 1,
+    "why": "En Python, == compare ; = affecte une valeur."
+   },
+   {
+    "q": "Si ph = 6,5, quelle branche est exécutée ?",
+    "choices": [
+     "Acide",
+     "Neutre",
+     "Basique"
+    ],
+    "correct": 0,
+    "why": "6,5 est inférieur à 7."
+   },
+   {
+    "q": "Si volume_l vaut 0, que doit faire l’algorithme ?",
+    "choices": [
+     "Diviser quand même",
+     "Signaler une erreur",
+     "Afficher 0 g/L sans calcul"
+    ],
+    "correct": 1,
+    "why": "La division par zéro est invalide."
+   }
+  ]
+ },
+ {
+  "id": "algo-boucles",
+  "num": "A4",
+  "icon": "↻",
+  "title": "Boucles et tableaux de données",
+  "short": "Répéter une opération et traiter plusieurs mesures ou nucléotides.",
+  "time": "65 min",
+  "level": "Initiation",
+  "objectives": [
+   "Différencier Pour et TantQue.",
+   "Parcourir un tableau de mesures.",
+   "Prévenir les boucles infinies et les calculs sur tableaux vides."
+  ],
+  "sections": [
+   {
+    "title": "Boucle Pour : répétitions connues",
+    "body": "<p>Une boucle <strong>Pour</strong> convient lorsque le nombre de répétitions est connu. Dans notre pseudo-code, « Pour i de 1 à 4 » inclut 1 et 4 ; en Python, <code class=\"inline\">range(1, 5)</code> produit 1, 2, 3, 4.</p>",
+    "pseudo": "Algorithme CompterEchantillons\nDébut\n    Pour i de 1 à 4 Faire\n        Écrire \"Échantillon\", i\n    FinPour\nFin",
+    "code": "for i in range(1, 5):\n    print('Échantillon', i)",
+    "output": "Échantillon 1\nÉchantillon 2\nÉchantillon 3\nÉchantillon 4"
+   },
+   {
+    "title": "Boucle TantQue : condition d'arrêt",
+    "body": "<p><strong>TantQue</strong> répète un traitement tant qu’une condition est vraie. La variable de contrôle doit évoluer pour que la boucle se termine.</p>",
+    "pseudo": "Algorithme Doublement\nDébut\n    population ← 100\n    etape ← 0\n    TantQue etape < 3 Faire\n        population ← population × 2\n        etape ← etape + 1\n    FinTantQue\n    Écrire population\nFin",
+    "code": "population = 100\netape = 0\nwhile etape < 3:\n    population = population * 2\n    etape += 1\nprint(population)",
+    "output": "800",
+    "note": "Le doublement à chaque étape est un modèle didactique idéal, pas une loi de croissance réelle applicable à toutes les cultures."
+   },
+   {
+    "title": "Tableau et moyenne des mesures",
+    "body": "<p>Un <strong>tableau</strong> conserve plusieurs valeurs : températures, tailles, masses. On peut additionner ses éléments puis diviser par le nombre de mesures. Il faut éviter le cas du tableau vide.</p>",
+    "pseudo": "Algorithme Moyenne\nVariables mesures : Tableau de Réels\nDébut\n    mesures ← [18, 20, 22, 24]\n    somme ← 0\n    Pour chaque valeur dans mesures Faire\n        somme ← somme + valeur\n    FinPour\n    moyenne ← somme / 4\n    Écrire moyenne\nFin",
+    "code": "mesures = [18, 20, 22, 24]\nif mesures:\n    somme = 0\n    for valeur in mesures:\n        somme += valeur\n    print(somme / len(mesures))",
+    "output": "21.0"
+   },
+   {
+    "title": "Compter une base dans une séquence ADN",
+    "body": "<p>Une chaîne de caractères se parcourt comme une suite de bases. Ici, chaque caractère est examiné et le compteur augmente lorsque la base est <code class=\"inline\">G</code>.</p>",
+    "pseudo": "Algorithme CompterG\nDébut\n    adn ← \"AGCTGC\"\n    compteur ← 0\n    Pour chaque base dans adn Faire\n        Si base = \"G\" Alors\n            compteur ← compteur + 1\n        FinSi\n    FinPour\n    Écrire compteur\nFin",
+    "code": "adn = 'AGCTGC'\ncompteur = 0\nfor base in adn:\n    if base == 'G':\n        compteur += 1\nprint(compteur)",
+    "output": "2"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Combien de fois s’exécute Pour i de 1 à 4 ?",
+    "choices": [
+     "3",
+     "4",
+     "5"
+    ],
+    "correct": 1,
+    "why": "Les bornes sont inclusives dans notre pseudo-code : 1, 2, 3, 4."
+   },
+   {
+    "q": "Quel est le risque d’un TantQue sans évolution de sa condition ?",
+    "choices": [
+     "Une boucle infinie",
+     "Un tableau vide",
+     "Un commentaire"
+    ],
+    "correct": 0,
+    "why": "Une condition toujours vraie empêche l'arrêt."
+   },
+   {
+    "q": "Quelle précaution avant moyenne = somme/n ?",
+    "choices": [
+     "Tester n > 0",
+     "Tester n < 0",
+     "Supprimer le tableau"
+    ],
+    "correct": 0,
+    "why": "Le nombre de mesures doit être strictement positif."
+   }
+  ]
+ },
+ {
+  "id": "algo-python",
+  "num": "A5",
+  "icon": "⇄",
+  "title": "Passer de l'algorithme à Python",
+  "short": "Traduire chaque instruction, tester un programme et comparer les résultats.",
+  "time": "70 min",
+  "level": "Passerelle vers Python",
+  "objectives": [
+   "Associer les principales instructions de pseudo-code à Python.",
+   "Traduire un algorithme complet avec entrées, conditions et boucles.",
+   "Tester des cas normaux et limites avant de poursuivre le cours Python."
+  ],
+  "sections": [
+   {
+    "title": "Le pseudo-code n’est pas un langage unique",
+    "body": "<p>Il n’existe <strong>pas une syntaxe universelle unique</strong> du pseudo-code. Les conventions varient selon l’enseignant. L’essentiel est d’exprimer correctement les étapes et la logique avant de choisir un langage.</p><p>Python nécessite une syntaxe exacte : des <code class=\"inline\">:</code> pour les blocs, une indentation, des appels à <code class=\"inline\">print()</code> et <code class=\"inline\">input()</code>, et <code class=\"inline\">==</code> pour comparer.</p><table><thead><tr><th>Pseudo-code</th><th>Python</th></tr></thead><tbody><tr><td>x ← 5</td><td><code>x = 5</code></td></tr><tr><td>Lire x</td><td><code>x = input(...)</code> puis conversion</td></tr><tr><td>Écrire x</td><td><code>print(x)</code></td></tr><tr><td>Si / Sinon</td><td><code>if / else</code></td></tr><tr><td>Pour i de 1 à 4</td><td><code>for i in range(1, 5)</code></td></tr><tr><td>TantQue</td><td><code>while</code></td></tr><tr><td>ET / OU / NON</td><td><code>and / or / not</code></td></tr></tbody></table>"
+   },
+   {
+    "title": "Exemple complet : taux de germination",
+    "body": "<p>On veut calculer un taux en pourcentage sans accepter de nombres incohérents. Lire les entrées, valider les contraintes, puis seulement calculer.</p>",
+    "pseudo": "Algorithme GerminationValidee\nVariables semees, germees : Entiers\n          taux : Réel\nDébut\n    Lire semees, germees\n    Si semees <= 0 OU germees < 0 OU germees > semees Alors\n        Écrire \"Effectifs invalides\"\n    Sinon\n        taux ← (germees / semees) × 100\n        Écrire taux, \"%\"\n    FinSi\nFin",
+    "code": "semees = int(input('Graines semées : '))\ngermees = int(input('Graines germées : '))\nif semees <= 0 or germees < 0 or germees > semees:\n    print('Effectifs invalides')\nelse:\n    taux = 100 * germees / semees\n    print(round(taux, 2), '%')",
+    "note": "Cet exemple suppose des saisies d'entiers valides. Un programme plus robuste utiliserait try/except pour capturer une erreur de conversion."
+   },
+   {
+    "title": "Teste le résultat, pas seulement la syntaxe",
+    "body": "<p>Un programme peut s’exécuter sans erreur tout en donnant un mauvais résultat. Comparer la <strong>sortie attendue</strong> à la sortie observée.</p><table><thead><tr><th>Semées</th><th>Germées</th><th>Résultat attendu</th></tr></thead><tbody><tr><td>40</td><td>34</td><td>85 %</td></tr><tr><td>10</td><td>0</td><td>0 %</td></tr><tr><td>0</td><td>0</td><td>Effectifs invalides</td></tr><tr><td>10</td><td>15</td><td>Effectifs invalides</td></tr></tbody></table><p><strong>Erreurs à chercher :</strong> division par zéro, mauvais opérateur, erreur d’unité, oubli de deux-points, mauvaise indentation.</p>"
+   },
+   {
+    "title": "Votre parcours en deux étapes",
+    "body": "<p><strong>Étape 1 — Algorithmique :</strong> analyser, écrire Lire / Écrire / Si / Pour, prévoir le résultat à la main.</p><p><strong>Étape 2 — Python :</strong> transcrire ces étapes, exécuter le programme, corriger, tester et interpréter les résultats biologiques.</p><div class=\"info-box\"><strong>Prêt pour Python ?</strong> Vous pouvez maintenant ouvrir le chapitre 01 « Introduction à Python » et reproduire les algorithmes avec <code class=\"inline\">input()</code>, <code class=\"inline\">print()</code> et des variables.</div>"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Comment écrire x ← x + 1 en Python ?",
+    "choices": [
+     "x = x + 1",
+     "x == x + 1",
+     "Lire x + 1"
+    ],
+    "correct": 0,
+    "why": "En Python, = affecte la nouvelle valeur calculée."
+   },
+   {
+    "q": "Quelle instruction Python traduit Sinon ?",
+    "choices": [
+     "for",
+     "else",
+     "print"
+    ],
+    "correct": 1,
+    "why": "else indique l'alternative."
+   },
+   {
+    "q": "Pour i de 1 à 4 (inclus) se traduit par...",
+    "choices": [
+     "range(4, 1)",
+     "range(1, 4)",
+     "range(1, 5)"
+    ],
+    "correct": 2,
+    "why": "La borne supérieure de range() est exclue."
+   },
+   {
+    "q": "Si le programme s'exécute, les résultats sont-ils nécessairement corrects ?",
+    "choices": [
+     "Oui",
+     "Non",
+     "Toujours en Python"
+    ],
+    "correct": 1,
+    "why": "Il faut comparer à des résultats attendus et tester les cas limites."
+   }
+  ]
+ }
+];
+
 const chapters = [
 {
  id:'introduction',num:'01',icon:'⌘',title:'Introduction à Python',short:'Comprendre le programme, écrire et exécuter ses premières instructions.',time:'45 min',level:'Débutant',
