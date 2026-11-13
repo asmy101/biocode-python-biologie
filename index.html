@@ -128,6 +128,19 @@
 @media(max-width:900px){.bio-impact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.bio-impact-grid{grid-template-columns:1fr}.bio-plus,.bio-workflow>b{display:none}.bio-overview,.bio-workflow{display:grid;grid-template-columns:1fr}.bio-pillar,.bio-workflow div{min-width:0}}
 
+
+.loop-table-scroll{overflow-x:auto;margin:18px 0}
+.loop-comparison{width:100%;border-collapse:collapse;min-width:570px;font-size:12px;line-height:1.6}
+.loop-comparison th{background:#e4f1e9;color:#214e3e;text-align:left;padding:11px 12px;border-bottom:2px solid #bad8c4}
+.loop-comparison td{padding:11px 12px;border-bottom:1px solid #dce9df;vertical-align:top;color:#3c5852}
+.loop-comparison tbody tr:nth-child(even){background:#f7faf7}
+.loop-compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:17px 0}
+.loop-compare-grid>div{border:1px solid #d7e7d9;border-radius:12px;padding:13px;background:#f5faf6;min-width:0}
+.loop-compare-grid strong{display:block;color:#205840;font-size:13px}
+.loop-compare-grid span{display:block;color:#5c7969;font-size:11px;margin:5px 0 10px}
+.loop-compare-grid code{display:block;overflow-wrap:anywhere;color:#165f4a;font-size:11px}
+@media(max-width:720px){.loop-compare-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -444,16 +457,21 @@ const algoChapters = [
   "id": "algo-boucles",
   "num": "A4",
   "icon": "↻",
-  "title": "Boucles et tableaux de données",
-  "short": "Répéter une opération et traiter plusieurs mesures ou nucléotides.",
-  "time": "65 min",
+  "title": "Les boucles : Pour, TantQue et Répéter…Jusqu'à",
+  "short": "Comparer les trois boucles et choisir la bonne structure avant de traiter des données biologiques.",
+  "time": "80 min",
   "level": "Initiation",
   "objectives": [
-   "Différencier Pour et TantQue.",
-   "Parcourir un tableau de mesures.",
-   "Prévenir les boucles infinies et les calculs sur tableaux vides."
+   "Comparer les boucles Pour, TantQue et Répéter…Jusqu'à et savoir quand utiliser chacune.",
+   "Distinguer un test effectué avant d'entrer dans la boucle d'un test effectué après.",
+   "Écrire les trois structures en pseudo-code et connaître leur traduction en Python.",
+   "Parcourir une liste de mesures et éviter les boucles infinies."
   ],
   "sections": [
+   {
+    "title": "Comparaison : Pour, TantQue et Répéter…Jusqu'à",
+    "body": "<p>Les trois boucles permettent de <strong>répéter des instructions</strong>, mais elles ne testent pas leur condition au même moment. Pour choisir la bonne structure, on se demande : <em>connaît-on le nombre de répétitions ?</em> et <em>faut-il exécuter le traitement au moins une fois ?</em></p>\n<div class=\"loop-table-scroll\"><table class=\"loop-comparison\"><thead><tr><th>Boucle</th><th>Quand l'utiliser ?</th><th>Test de la condition</th><th>Nombre d'exécutions</th></tr></thead><tbody>\n<tr><td><strong>Pour (for)</strong></td><td>Nombre de répétitions connu ou parcours d'une collection (4 échantillons, bases ADN).</td><td>Progression par compteur ou éléments.</td><td>Peut être <strong>0</strong> si la collection est vide.</td></tr>\n<tr><td><strong>TantQue (while)</strong></td><td>Nombre de répétitions inconnu ; répéter <strong>tant que</strong> la condition est vraie.</td><td><strong>Avant</strong> chaque itération.</td><td><strong>0 ou plus</strong>.</td></tr>\n<tr><td><strong>Répéter…Jusqu'à</strong></td><td>Faire au moins un essai puis recommencer <strong>jusqu'à ce que</strong> la condition devienne vraie.</td><td><strong>Après</strong> chaque itération.</td><td><strong>Au moins 1</strong>.</td></tr></tbody></table></div>\n<div class=\"loop-compare-grid\"><div><strong>Pour</strong><span>Compter ou parcourir</span><code>Pour i de 1 à 4 Faire</code></div><div><strong>TantQue</strong><span>Continuer si vrai</span><code>TantQue condition Faire</code></div><div><strong>Répéter…Jusqu'à</strong><span>Arrêter si vrai</span><code>Répéter … Jusqu'à condition</code></div></div>\n<div class=\"info-box\"><strong>Distinction essentielle :</strong> <em>TantQue</em> continue quand sa condition est <strong>vraie</strong> ; <em>Répéter…Jusqu'à</em> s'arrête quand sa condition devient <strong>vraie</strong>. En Python, il n'existe pas d'instruction native <code class=\"inline\">repeat...until</code> : on utilise généralement <code class=\"inline\">while True</code> avec <code class=\"inline\">break</code>.</div>"
+   },
    {
     "title": "Boucle Pour : répétitions connues",
     "body": "<p>Une boucle <strong>Pour</strong> convient lorsque le nombre de répétitions est connu. Dans notre pseudo-code, « Pour i de 1 à 4 » inclut 1 et 4 ; en Python, <code class=\"inline\">range(1, 5)</code> produit 1, 2, 3, 4.</p>",
@@ -468,6 +486,14 @@ const algoChapters = [
     "code": "population = 100\netape = 0\nwhile etape < 3:\n    population = population * 2\n    etape += 1\nprint(population)",
     "output": "800",
     "note": "Le doublement à chaque étape est un modèle didactique idéal, pas une loi de croissance réelle applicable à toutes les cultures."
+   },
+   {
+    "title": "Boucle Répéter…Jusqu'à : test après l'exécution",
+    "body": "<p><strong>Répéter…Jusqu'à</strong> exécute d'abord les instructions, puis teste la condition d'arrêt. C'est utile lorsqu'il faut <strong>effectuer au moins un essai</strong>, par exemple vérifier une valeur saisie avant de l'accepter.</p><p><strong>Exemple biologique :</strong> parmi trois saisies fictives du nombre de graines semées (0, −2, 40), conserver la première valeur strictement positive. Le tableau contient volontairement une valeur valide afin que l'exemple se termine.</p>",
+    "pseudo": "Algorithme SaisieGraines\nDébut\n    essais ← [0, -2, 40]\n    i ← 0\n    Répéter\n        semees ← essais[i]\n        Écrire \"Essai :\", semees\n        i ← i + 1\n    Jusqu'à semees > 0\n    Écrire \"Valeur acceptée :\", semees\nFin",
+    "code": "essais = [0, -2, 40]\ni = 0\nwhile True:\n    semees = essais[i]\n    print('Essai :', semees)\n    i += 1\n    if semees > 0:\n        break\nprint('Valeur acceptée :', semees)",
+    "output": "Essai : 0\nEssai : -2\nEssai : 40\nValeur acceptée : 40",
+    "note": "Dans un programme de saisie réel, on lirait une nouvelle valeur avec input() à chaque essai et on gérerait les erreurs de conversion. Ici, les essais sont prédéfinis pour montrer clairement le mécanisme."
    },
    {
     "title": "Tableau et moyenne des mesures",
@@ -514,6 +540,26 @@ const algoChapters = [
     ],
     "correct": 0,
     "why": "Le nombre de mesures doit être strictement positif."
+   },
+   {
+    "q": "Quelle boucle s'exécute au moins une fois, même si la condition d'arrêt est déjà vraie ?",
+    "choices": [
+     "Pour",
+     "TantQue",
+     "Répéter…Jusqu'à"
+    ],
+    "correct": 2,
+    "why": "Répéter…Jusqu'à teste la condition après le premier passage."
+   },
+   {
+    "q": "Avec Répéter…Jusqu'à condition, que se passe-t-il lorsque la condition devient vraie ?",
+    "choices": [
+     "La boucle s'arrête",
+     "La boucle continue",
+     "Le compteur revient à zéro"
+    ],
+    "correct": 0,
+    "why": "La condition de Jusqu'à est une condition d'arrêt."
    }
   ]
  },
@@ -692,240 +738,437 @@ const algoChapters = [
 ];
 
 const chapters = [
-{
- "id": "introduction",
- "num": "01",
- "icon": "🐍",
- "title": "Introduction à la programmation Python",
- "short": "Découvrir Python 3, écrire ses premiers scripts et appliquer le langage aux données biologiques.",
- "time": "55 min",
- "level": "Débutant",
- "objectives": [
-  "Présenter Python et expliquer son intérêt pour les applications biologiques.",
-  "Exécuter un premier programme avec print() et utiliser des commentaires.",
-  "Manipuler une séquence ADN avec len() et count().",
-  "Traduire un calcul simple du pseudo-code vers Python.",
-  "Lire des valeurs avec input() et connaître le rôle de l’indentation."
- ],
- "sections": [
-  {
-   "title": "Présentation de Python",
-   "body": "<p><strong>Python</strong> est un langage de programmation de haut niveau, créé par <strong>Guido van Rossum</strong>, dont la première version publique date de <strong>1991</strong>. Sa syntaxe est généralement lisible, ce qui en fait un bon choix pour apprendre la programmation.</p><p>En biologie, Python peut servir à <strong>automatiser des calculs</strong>, <strong>analyser des séquences</strong>, <strong>traiter des tableaux de mesures</strong> et <strong>visualiser des données</strong>. Selon le niveau du projet, on peut ensuite utiliser des bibliothèques spécialisées telles que Biopython, pandas ou Matplotlib.</p><div class=\"bio-impact-grid\"><article class=\"bio-impact\"><span>📖</span><h3>Lisible</h3><p>Des instructions relativement simples, comme <code class=\"inline\">print()</code>.</p></article><article class=\"bio-impact\"><span>🛠️</span><h3>Polyvalent</h3><p>Scripts, automatisation, calcul scientifique et données.</p></article><article class=\"bio-impact\"><span>🧬</span><h3>Utile en biologie</h3><p>ADN, données expérimentales, statistiques et graphiques.</p></article></div><p><strong>Versions :</strong> Python 2 n’est plus maintenu depuis 2020 ; pour ce cours, nous utilisons <strong>Python 3</strong>. Pour écrire et exécuter les programmes, les étudiants peuvent utiliser Thonny, IDLE, VS Code ou un notebook Jupyter.</p>",
-   "code": "print(\"Bonjour, la biologie !\")",
-   "output": "Bonjour, la biologie !"
-  },
-  {
-   "title": "Première application : analyser une séquence ADN",
-   "body": "<p>Une <strong>séquence d’ADN</strong> peut être représentée par une chaîne de caractères (<code class=\"inline\">str</code>). Python permet de mesurer sa longueur avec <code class=\"inline\">len()</code> et de compter l’apparition d’une base avec <code class=\"inline\">count()</code>.</p><p>Dans l’exemple suivant, nous comptons les nucléotides d’une courte séquence fictive et calculons son pourcentage de G et C.</p>",
-   "code": "adn = \"ATGCGATACG\"\nprint(\"Séquence :\", adn)\nprint(\"Longueur :\", len(adn))\nprint(\"Nombre de A :\", adn.count(\"A\"))\ngc = 100 * (adn.count(\"G\") + adn.count(\"C\")) / len(adn)\nprint(\"GC (%) :\", gc)",
-   "output": "Séquence : ATGCGATACG\nLongueur : 10\nNombre de A : 3\nGC (%) : 50.0",
-   "note": "Cet exemple utilise une séquence non vide composée des caractères A, T, C et G. Dans une vraie analyse, il faut contrôler et nettoyer les séquences avant de calculer des indicateurs."
-  },
-  {
-   "title": "De l’algorithme à Python : hauteurs de plantes",
-   "body": "<p>L’<strong>algorithme</strong> décrit la succession d’étapes permettant de résoudre un problème. Le <strong>programme Python</strong> est une traduction exécutable de ces étapes.</p><p><strong>Problème :</strong> calculer la moyenne de trois hauteurs de plantes (en cm). La traduction conserve le calcul, mais utilise les règles de syntaxe de Python.</p><div class=\"bio-workflow\"><div><span>Étape 1</span><strong>Décrire le calcul</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 2</span><strong>Écrire en Python</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 3</span><strong>Tester et interpréter</strong></div></div>",
-   "pseudo": "Algorithme MoyenneHauteurs\nDébut\n    hauteur1 ← 12\n    hauteur2 ← 15\n    hauteur3 ← 18\n    moyenne ← (hauteur1 + hauteur2 + hauteur3) / 3\n    Écrire moyenne\nFin",
-   "code": "hauteur1 = 12\nhauteur2 = 15\nhauteur3 = 18\nmoyenne = (hauteur1 + hauteur2 + hauteur3) / 3\nprint(\"Hauteur moyenne :\", moyenne, \"cm\")",
-   "output": "Hauteur moyenne : 15.0 cm",
-   "note": "Vous trouverez aussi un schéma et un atelier interactif dans la rubrique « Algorithme → Python » du site."
-  },
-  {
-   "title": "Le premier programme Python",
-   "body": "<p>La fonction <code class=\"inline\">print()</code> affiche un message ou une valeur. Une ligne commençant par <code class=\"inline\">#</code> est un commentaire ignoré lors de l’exécution.</p><p>Testez ce programme, puis modifiez le nom de l’espèce ou le nombre d’arbres.</p>",
-   "code": "# Premier programme de biologie\nespece = \"Olea europaea\"\nnombre_arbres = 12\nprint(\"Espèce :\", espece)\nprint(\"Nombre d'arbres :\", nombre_arbres)",
-   "output": "Espèce : Olea europaea\nNombre d'arbres : 12"
-  },
-  {
-   "title": "Lire une donnée et respecter la syntaxe",
-   "body": "<p><code class=\"inline\">input()</code> lit du texte saisi par l’utilisateur ; <code class=\"inline\">int()</code> transforme ce texte en entier lorsque la saisie est valide. Python distingue majuscules et minuscules ; l’<strong>indentation</strong> délimite les blocs d’instructions.</p><p>Les prochains chapitres approfondissent les variables, les types, les conditions et les boucles.</p>",
-   "code": "nom = input(\"Nom de l'échantillon : \")\nreplicats = int(input(\"Nombre de répétitions : \"))\nprint(\"Échantillon :\", nom)\nprint(\"Répétitions :\", replicats)",
-   "note": "Pour commencer, utilisez Python 3 dans IDLE, Thonny ou VS Code. Les exemples de base n’exigent aucune bibliothèque externe."
-  }
- ],
- "quiz": [
-  {
-   "q": "Quel langage utilise-t-on dans ce module ?",
-   "choices": [
-    "Python 2",
-    "Python 3",
-    "HTML uniquement"
-   ],
-   "correct": 1,
-   "why": "Python 3 est utilisé pour apprendre à programmer et analyser des données."
-  },
-  {
-   "q": "Que renvoie len('ATGCA') ?",
-   "choices": [
-    "4",
-    "5",
-    "ATGCA"
-   ],
-   "correct": 1,
-   "why": "len() renvoie le nombre de caractères."
-  },
-  {
-   "q": "Que renvoie 'ATGCGATACG'.count('A') ?",
-   "choices": [
-    "2",
-    "3",
-    "4"
-   ],
-   "correct": 1,
-   "why": "La base A apparaît trois fois dans cette séquence."
-  },
-  {
-   "q": "Quelle instruction affiche un résultat ?",
-   "choices": [
-    "input()",
-    "print()",
-    "len()"
-   ],
-   "correct": 1,
-   "why": "print() affiche une valeur ou un message."
-  },
-  {
-   "q": "Quelle différence existe entre algorithme et Python ?",
-   "choices": [
-    "Ce sont deux termes identiques",
-    "Un algorithme décrit des étapes, Python est un langage pour les programmer",
-    "Python ne sert qu’à faire des calculs manuels"
-   ],
-   "correct": 1,
-   "why": "L’algorithme exprime la logique ; le langage de programmation en permet l’exécution."
-  },
-  {
-   "q": "Que renvoie input() en Python ?",
-   "choices": [
-    "Une chaîne de caractères (str)",
-    "Toujours un entier",
-    "Un fichier"
-   ],
-   "correct": 0,
-   "why": "input() produit du texte, que l’on peut convertir ensuite."
-  }
- ]
-},
-{
- id:'types-operateurs',num:'02',icon:'∑',title:'Types et opérateurs',short:'Manipuler nombres, textes et calculs biologiques sans confondre les unités.',time:'50 min',level:'Débutant',
- objectives:['Distinguer int, float, str et bool.','Utiliser +, -, *, /, ** et les comparaisons.','Écrire un calcul de concentration avec des unités cohérentes.'],
- sections:[
-  {title:'Types de données',body:`<p>Une variable stocke une valeur. Les types les plus utiles au début sont <code class="inline">int</code> (entier), <code class="inline">float</code> (décimal), <code class="inline">str</code> (texte) et <code class="inline">bool</code> (vrai/faux).</p>`,code:`nombre_cellules = 250        # int
-temperature = 36.5         # float
-espece = "E. coli"        # str
-culture_active = True      # bool
-print(type(temperature))`,output:`<class 'float'>`},
-  {title:'Opérations et priorité',body:`<p>Les opérateurs numériques comprennent <code class="inline">+</code>, <code class="inline">-</code>, <code class="inline">*</code>, <code class="inline">/</code>, <code class="inline">//</code>, <code class="inline">%</code> et <code class="inline">**</code>. Les parenthèses permettent d’expliciter l’ordre de calcul.</p><p>Pour une concentration massique : <strong>C = m / V</strong>, avec la masse en grammes et le volume en litres ; le résultat est alors en g/L.</p>`,code:`masse_g = 2.5
-volume_l = 0.5
-concentration = masse_g / volume_l
-print("Concentration :", concentration, "g/L")`,output:`Concentration : 5.0 g/L`,note:'Toujours écrire les unités : 500 mL = 0,5 L. Diviser des grammes par des millilitres ne donne pas directement des g/L.'},
-  {title:'Comparaisons et booléens',body:`<p>Les tests <code class="inline">&lt;</code>, <code class="inline">&gt;</code>, <code class="inline">==</code>, <code class="inline">!=</code>, <code class="inline">&lt;=</code> et <code class="inline">&gt;=</code> renvoient <code class="inline">True</code> ou <code class="inline">False</code>. Attention : <code class="inline">=</code> affecte, tandis que <code class="inline">==</code> compare.</p>`,code:`temperature = 22.0
-print(temperature > 20)
-print(temperature == 25)`,output:`True
-False`}
- ],
- quiz:[{q:'Quel type Python permet de stocker 7.25 ?',choices:['str','float','bool'],correct:1,why:'float représente les nombres décimaux.'},{q:'Quel est le résultat de 2 ** 3 ?',choices:['6','8','5'],correct:1,why:'** est l’opérateur d’exponentiation.'}]
-},
-{
- id:'structures',num:'03',icon:'≡',title:'Structures de données',short:'Organiser des séries de mesures, des listes et des séquences ADN.',time:'60 min',level:'Débutant',
- objectives:['Manipuler les caractères d’une chaîne ADN.','Stocker plusieurs mesures dans une liste.','Associer des propriétés à un échantillon dans un dictionnaire.'],
- sections:[
-  {title:'Chaînes de caractères (str)',body:`<p>Une séquence d’ADN peut être représentée par une chaîne. <code class="inline">len()</code> donne la longueur ; <code class="inline">count()</code> compte les occurrences. Les indices commencent à 0.</p>`,code:`adn = "ATGCGATC"
-print("Longueur :", len(adn))
-print("Première base :", adn[0])
-print("Guanines :", adn.count("G"))`,output:`Longueur : 8
-Première base : A
-Guanines : 2`},
-  {title:'Listes de mesures',body:`<p>Une <strong>liste</strong> stocke plusieurs valeurs dans un ordre déterminé. On peut accéder à un élément avec son indice, ajouter une valeur avec <code class="inline">append()</code> et calculer la moyenne avec <code class="inline">sum() / len()</code>.</p>`,code:`temperatures = [21.5, 22.0, 23.5]
-temperatures.append(22.5)
-moyenne = sum(temperatures) / len(temperatures)
-print("Moyenne :", moyenne, "°C")`,output:`Moyenne : 22.375 °C`},
-  {title:'Dictionnaires d’échantillons',body:`<p>Un <strong>dictionnaire</strong> stocke des couples clé-valeur. C’est pratique pour décrire un échantillon, une parcelle ou une mesure.</p>`,code:`echantillon = {
-    "code": "E01",
-    "espece": "Olea europaea",
-    "ph": 6.8
-}
-print(echantillon["espece"])
-print(echantillon["ph"])`,output:`Olea europaea
-6.8`,note:'Une chaîne ADN doit être contrôlée : seules les bases A, T, C et G sont attendues pour les exemples simplifiés du cours.'}
- ],
- quiz:[{q:'Quel est le premier indice d’une liste ?',choices:['1','0','-2'],correct:1,why:'Les indices Python commencent à 0.'},{q:'Quelle structure associe une clé à une valeur ?',choices:['Dictionnaire','float','bool'],correct:0,why:'Un dictionnaire utilise des paires clé-valeur.'}]
-},
-{
- id:'conditions',num:'04',icon:'◇',title:'Structures conditionnelles',short:'Décider automatiquement selon une mesure : if, elif et else.',time:'50 min',level:'Débutant',
- objectives:['Formuler des conditions avec if / elif / else.','Combiner des tests avec and, or et not.','Construire une classification simple de mesures.'],
- sections:[
-  {title:'Écrire une condition',body:`<p>Une condition permet d’exécuter des instructions uniquement si un test est vrai. Chaque bloc Python est indenté, généralement avec 4 espaces.</p>`,code:`ph = 6.8
-if ph < 7:
-    print("Solution acide")
-elif ph == 7:
-    print("Solution neutre")
-else:
-    print("Solution basique")`,output:`Solution acide`,note:'Il s’agit ici de la classification usuelle du pH à 25 °C, sans conclure sur la qualité biologique ou sanitaire de l’échantillon.'},
-  {title:'Combiner plusieurs critères',body:`<p><code class="inline">and</code> exige deux conditions vraies. <code class="inline">or</code> demande au moins une condition vraie ; <code class="inline">not</code> inverse le résultat.</p>`,code:`temperature = 24
-dans_intervalle = temperature >= 20 and temperature <= 30
-if dans_intervalle:
-    print("Dans l'intervalle de l'exercice")
-else:
-    print("Hors de l'intervalle")`,output:`Dans l'intervalle de l'exercice`},
-  {title:'Détecter une saisie impossible',body:`<p>Avant d’interpréter une mesure, un programme peut rejeter des valeurs incohérentes. Pour le pH, l’intervalle 0–14 est une simplification d’enseignement et non une limite physique universelle.</p>`,code:`ph = -2
-if ph < 0 or ph > 14:
-    print("Valeur hors de la plage pédagogique")
-else:
-    print("Valeur acceptée dans cet exercice")`,output:`Valeur hors de la plage pédagogique`}
- ],
- quiz:[{q:'Quel mot-clé s’exécute quand if est faux et qu’aucun elif n’est vrai ?',choices:['print','else','for'],correct:1,why:'else couvre le cas restant.'},{q:'L’expression (5 > 3 and 2 > 4) vaut :',choices:['True','False','None'],correct:1,why:'and exige que les deux comparaisons soient vraies.'}]
-},
-{
- id:'boucles',num:'05',icon:'↻',title:'Boucles et itérations',short:'Répéter des calculs sur une collection d’échantillons ou une séquence.',time:'60 min',level:'Débutant',
- objectives:['Utiliser for et range() pour répéter une instruction.','Comprendre les conditions d’arrêt avec while.','Compter les nucléotides dans une séquence.'],
- sections:[
-  {title:'La boucle for',body:`<p><code class="inline">for</code> parcourt une collection ou une suite d’entiers. <code class="inline">range(5)</code> génère 0, 1, 2, 3 et 4.</p>`,code:`for numero in range(1, 4):
-    print("Échantillon", numero)`,output:`Échantillon 1
-Échantillon 2
-Échantillon 3`},
-  {title:'Compter les bases ADN',body:`<p>Une boucle peut parcourir chaque caractère d’une chaîne et incrémenter un compteur.</p>`,code:`adn = "ATGCGATC"
-nb_c = 0
-for base in adn:
-    if base == "C":
-        nb_c = nb_c + 1
-print("Cytosines :", nb_c)`,output:`Cytosines : 2`},
-  {title:'La boucle while et la condition d’arrêt',body:`<p><code class="inline">while</code> répète un bloc tant qu’une condition reste vraie. Il faut faire évoluer les variables dans la boucle pour éviter une répétition infinie.</p>`,code:`population = 100
-jour = 0
-while population < 400:
-    population = population * 2
-    jour += 1
-print("Étapes :", jour)
-print("Population :", population)`,output:`Étapes : 2
-Population : 400`,note:'La croissance par doublement est un modèle didactique idéal : une population réelle ne double pas nécessairement à chaque étape.'}
- ],
- quiz:[{q:'Combien de valeurs produit range(4) ?',choices:['3','4','5'],correct:1,why:'range(4) produit 0, 1, 2 et 3.'},{q:'Quel est le risque d’un while sans condition d’arrêt atteignable ?',choices:['Une boucle infinie','Un dictionnaire','Un commentaire'],correct:0,why:'Il faut veiller à ce que la condition devienne fausse.'}]
-},
-{
- id:'fonctions',num:'06',icon:'ƒ',title:'Fonctions en Python',short:'Écrire des calculs réutilisables et organiser un mini-programme biologique.',time:'60 min',level:'Intermédiaire',
- objectives:['Définir une fonction avec def, paramètres et return.','Réutiliser un calcul dans différents échantillons.','Traiter un cas limite avant toute division.'],
- sections:[
-  {title:'Définir et appeler une fonction',body:`<p>Une fonction rassemble des instructions sous un nom. Les <strong>paramètres</strong> sont les données d’entrée, et <code class="inline">return</code> renvoie un résultat au programme appelant.</p>`,code:`def concentration(masse_g, volume_l):
-    if volume_l <= 0:
-        raise ValueError("Volume non valide")
-    return masse_g / volume_l
-
-resultat = concentration(5, 2)
-print(resultat, "g/L")`,output:`2.5 g/L`},
-  {title:'Fonction de pourcentage GC',body:`<p>Le pourcentage GC désigne la proportion de nucléotides G et C dans une séquence ADN. On peut encapsuler ce calcul dans une fonction.</p>`,code:`def pourcentage_gc(adn):
-    adn = adn.upper()
-    if len(adn) == 0:
-        return 0.0
-    gc = adn.count("G") + adn.count("C")
-    return (gc / len(adn)) * 100
-
-print(pourcentage_gc("ATGC"))`,output:`50.0`,note:'Cette première version suppose que la séquence ne contient que A, T, C et G. En TP, ajoutez une validation explicite des caractères.'},
-  {title:'Pourquoi tester ses fonctions ?',body:`<p>Un petit test compare la valeur calculée à une valeur attendue. Cela aide à repérer les erreurs quand le code évolue.</p>`,code:`assert pourcentage_gc("AAAA") == 0.0
-assert pourcentage_gc("GGCC") == 100.0
-assert pourcentage_gc("ATGC") == 50.0
-print("Tests réussis")`,output:`Tests réussis`}
- ],
- quiz:[{q:'Quel mot-clé crée une fonction Python ?',choices:['def','for','classify'],correct:0,why:'def introduit la définition d’une fonction.'},{q:'Quel mot-clé renvoie une valeur depuis une fonction ?',choices:['input','return','print'],correct:1,why:'return transmet une valeur au code appelant.'}]
-}
+ {
+  "id": "introduction",
+  "num": "01",
+  "icon": "🐍",
+  "title": "Introduction à la programmation Python",
+  "short": "Découvrir Python 3, écrire ses premiers scripts et appliquer le langage aux données biologiques.",
+  "time": "55 min",
+  "level": "Débutant",
+  "objectives": [
+   "Présenter Python et expliquer son intérêt pour les applications biologiques.",
+   "Exécuter un premier programme avec print() et utiliser des commentaires.",
+   "Manipuler une séquence ADN avec len() et count().",
+   "Traduire un calcul simple du pseudo-code vers Python.",
+   "Lire des valeurs avec input() et connaître le rôle de l’indentation."
+  ],
+  "sections": [
+   {
+    "title": "Présentation de Python",
+    "body": "<p><strong>Python</strong> est un langage de programmation de haut niveau, créé par <strong>Guido van Rossum</strong>, dont la première version publique date de <strong>1991</strong>. Sa syntaxe est généralement lisible, ce qui en fait un bon choix pour apprendre la programmation.</p><p>En biologie, Python peut servir à <strong>automatiser des calculs</strong>, <strong>analyser des séquences</strong>, <strong>traiter des tableaux de mesures</strong> et <strong>visualiser des données</strong>. Selon le niveau du projet, on peut ensuite utiliser des bibliothèques spécialisées telles que Biopython, pandas ou Matplotlib.</p><div class=\"bio-impact-grid\"><article class=\"bio-impact\"><span>📖</span><h3>Lisible</h3><p>Des instructions relativement simples, comme <code class=\"inline\">print()</code>.</p></article><article class=\"bio-impact\"><span>🛠️</span><h3>Polyvalent</h3><p>Scripts, automatisation, calcul scientifique et données.</p></article><article class=\"bio-impact\"><span>🧬</span><h3>Utile en biologie</h3><p>ADN, données expérimentales, statistiques et graphiques.</p></article></div><p><strong>Versions :</strong> Python 2 n’est plus maintenu depuis 2020 ; pour ce cours, nous utilisons <strong>Python 3</strong>. Pour écrire et exécuter les programmes, les étudiants peuvent utiliser Thonny, IDLE, VS Code ou un notebook Jupyter.</p>",
+    "code": "print(\"Bonjour, la biologie !\")",
+    "output": "Bonjour, la biologie !"
+   },
+   {
+    "title": "Première application : analyser une séquence ADN",
+    "body": "<p>Une <strong>séquence d’ADN</strong> peut être représentée par une chaîne de caractères (<code class=\"inline\">str</code>). Python permet de mesurer sa longueur avec <code class=\"inline\">len()</code> et de compter l’apparition d’une base avec <code class=\"inline\">count()</code>.</p><p>Dans l’exemple suivant, nous comptons les nucléotides d’une courte séquence fictive et calculons son pourcentage de G et C.</p>",
+    "code": "adn = \"ATGCGATACG\"\nprint(\"Séquence :\", adn)\nprint(\"Longueur :\", len(adn))\nprint(\"Nombre de A :\", adn.count(\"A\"))\ngc = 100 * (adn.count(\"G\") + adn.count(\"C\")) / len(adn)\nprint(\"GC (%) :\", gc)",
+    "output": "Séquence : ATGCGATACG\nLongueur : 10\nNombre de A : 3\nGC (%) : 50.0",
+    "note": "Cet exemple utilise une séquence non vide composée des caractères A, T, C et G. Dans une vraie analyse, il faut contrôler et nettoyer les séquences avant de calculer des indicateurs."
+   },
+   {
+    "title": "De l’algorithme à Python : hauteurs de plantes",
+    "body": "<p>L’<strong>algorithme</strong> décrit la succession d’étapes permettant de résoudre un problème. Le <strong>programme Python</strong> est une traduction exécutable de ces étapes.</p><p><strong>Problème :</strong> calculer la moyenne de trois hauteurs de plantes (en cm). La traduction conserve le calcul, mais utilise les règles de syntaxe de Python.</p><div class=\"bio-workflow\"><div><span>Étape 1</span><strong>Décrire le calcul</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 2</span><strong>Écrire en Python</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 3</span><strong>Tester et interpréter</strong></div></div>",
+    "pseudo": "Algorithme MoyenneHauteurs\nDébut\n    hauteur1 ← 12\n    hauteur2 ← 15\n    hauteur3 ← 18\n    moyenne ← (hauteur1 + hauteur2 + hauteur3) / 3\n    Écrire moyenne\nFin",
+    "code": "hauteur1 = 12\nhauteur2 = 15\nhauteur3 = 18\nmoyenne = (hauteur1 + hauteur2 + hauteur3) / 3\nprint(\"Hauteur moyenne :\", moyenne, \"cm\")",
+    "output": "Hauteur moyenne : 15.0 cm",
+    "note": "Vous trouverez aussi un schéma et un atelier interactif dans la rubrique « Algorithme → Python » du site."
+   },
+   {
+    "title": "Le premier programme Python",
+    "body": "<p>La fonction <code class=\"inline\">print()</code> affiche un message ou une valeur. Une ligne commençant par <code class=\"inline\">#</code> est un commentaire ignoré lors de l’exécution.</p><p>Testez ce programme, puis modifiez le nom de l’espèce ou le nombre d’arbres.</p>",
+    "code": "# Premier programme de biologie\nespece = \"Olea europaea\"\nnombre_arbres = 12\nprint(\"Espèce :\", espece)\nprint(\"Nombre d'arbres :\", nombre_arbres)",
+    "output": "Espèce : Olea europaea\nNombre d'arbres : 12"
+   },
+   {
+    "title": "Lire une donnée et respecter la syntaxe",
+    "body": "<p><code class=\"inline\">input()</code> lit du texte saisi par l’utilisateur ; <code class=\"inline\">int()</code> transforme ce texte en entier lorsque la saisie est valide. Python distingue majuscules et minuscules ; l’<strong>indentation</strong> délimite les blocs d’instructions.</p><p>Les prochains chapitres approfondissent les variables, les types, les conditions et les boucles.</p>",
+    "code": "nom = input(\"Nom de l'échantillon : \")\nreplicats = int(input(\"Nombre de répétitions : \"))\nprint(\"Échantillon :\", nom)\nprint(\"Répétitions :\", replicats)",
+    "note": "Pour commencer, utilisez Python 3 dans IDLE, Thonny ou VS Code. Les exemples de base n’exigent aucune bibliothèque externe."
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel langage utilise-t-on dans ce module ?",
+    "choices": [
+     "Python 2",
+     "Python 3",
+     "HTML uniquement"
+    ],
+    "correct": 1,
+    "why": "Python 3 est utilisé pour apprendre à programmer et analyser des données."
+   },
+   {
+    "q": "Que renvoie len('ATGCA') ?",
+    "choices": [
+     "4",
+     "5",
+     "ATGCA"
+    ],
+    "correct": 1,
+    "why": "len() renvoie le nombre de caractères."
+   },
+   {
+    "q": "Que renvoie 'ATGCGATACG'.count('A') ?",
+    "choices": [
+     "2",
+     "3",
+     "4"
+    ],
+    "correct": 1,
+    "why": "La base A apparaît trois fois dans cette séquence."
+   },
+   {
+    "q": "Quelle instruction affiche un résultat ?",
+    "choices": [
+     "input()",
+     "print()",
+     "len()"
+    ],
+    "correct": 1,
+    "why": "print() affiche une valeur ou un message."
+   },
+   {
+    "q": "Quelle différence existe entre algorithme et Python ?",
+    "choices": [
+     "Ce sont deux termes identiques",
+     "Un algorithme décrit des étapes, Python est un langage pour les programmer",
+     "Python ne sert qu’à faire des calculs manuels"
+    ],
+    "correct": 1,
+    "why": "L’algorithme exprime la logique ; le langage de programmation en permet l’exécution."
+   },
+   {
+    "q": "Que renvoie input() en Python ?",
+    "choices": [
+     "Une chaîne de caractères (str)",
+     "Toujours un entier",
+     "Un fichier"
+    ],
+    "correct": 0,
+    "why": "input() produit du texte, que l’on peut convertir ensuite."
+   }
+  ]
+ },
+ {
+  "id": "types-operateurs",
+  "num": "02",
+  "icon": "∑",
+  "title": "Types et opérateurs",
+  "short": "Manipuler nombres, textes et calculs biologiques sans confondre les unités.",
+  "time": "50 min",
+  "level": "Débutant",
+  "objectives": [
+   "Distinguer int, float, str et bool.",
+   "Utiliser +, -, *, /, ** et les comparaisons.",
+   "Écrire un calcul de concentration avec des unités cohérentes."
+  ],
+  "sections": [
+   {
+    "title": "Types de données",
+    "body": "<p>Une variable stocke une valeur. Les types les plus utiles au début sont <code class=\"inline\">int</code> (entier), <code class=\"inline\">float</code> (décimal), <code class=\"inline\">str</code> (texte) et <code class=\"inline\">bool</code> (vrai/faux).</p>",
+    "code": "nombre_cellules = 250        # int\ntemperature = 36.5         # float\nespece = \"E. coli\"        # str\nculture_active = True      # bool\nprint(type(temperature))",
+    "output": "<class 'float'>"
+   },
+   {
+    "title": "Opérations et priorité",
+    "body": "<p>Les opérateurs numériques comprennent <code class=\"inline\">+</code>, <code class=\"inline\">-</code>, <code class=\"inline\">*</code>, <code class=\"inline\">/</code>, <code class=\"inline\">//</code>, <code class=\"inline\">%</code> et <code class=\"inline\">**</code>. Les parenthèses permettent d’expliciter l’ordre de calcul.</p><p>Pour une concentration massique : <strong>C = m / V</strong>, avec la masse en grammes et le volume en litres ; le résultat est alors en g/L.</p>",
+    "code": "masse_g = 2.5\nvolume_l = 0.5\nconcentration = masse_g / volume_l\nprint(\"Concentration :\", concentration, \"g/L\")",
+    "output": "Concentration : 5.0 g/L",
+    "note": "Toujours écrire les unités : 500 mL = 0,5 L. Diviser des grammes par des millilitres ne donne pas directement des g/L."
+   },
+   {
+    "title": "Comparaisons et booléens",
+    "body": "<p>Les tests <code class=\"inline\">&lt;</code>, <code class=\"inline\">&gt;</code>, <code class=\"inline\">==</code>, <code class=\"inline\">!=</code>, <code class=\"inline\">&lt;=</code> et <code class=\"inline\">&gt;=</code> renvoient <code class=\"inline\">True</code> ou <code class=\"inline\">False</code>. Attention : <code class=\"inline\">=</code> affecte, tandis que <code class=\"inline\">==</code> compare.</p>",
+    "code": "temperature = 22.0\nprint(temperature > 20)\nprint(temperature == 25)",
+    "output": "True\nFalse"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel type Python permet de stocker 7.25 ?",
+    "choices": [
+     "str",
+     "float",
+     "bool"
+    ],
+    "correct": 1,
+    "why": "float représente les nombres décimaux."
+   },
+   {
+    "q": "Quel est le résultat de 2 ** 3 ?",
+    "choices": [
+     "6",
+     "8",
+     "5"
+    ],
+    "correct": 1,
+    "why": "** est l’opérateur d’exponentiation."
+   }
+  ]
+ },
+ {
+  "id": "structures",
+  "num": "03",
+  "icon": "≡",
+  "title": "Structures de données",
+  "short": "Organiser des séries de mesures, des listes et des séquences ADN.",
+  "time": "60 min",
+  "level": "Débutant",
+  "objectives": [
+   "Manipuler les caractères d’une chaîne ADN.",
+   "Stocker plusieurs mesures dans une liste.",
+   "Associer des propriétés à un échantillon dans un dictionnaire."
+  ],
+  "sections": [
+   {
+    "title": "Chaînes de caractères (str)",
+    "body": "<p>Une séquence d’ADN peut être représentée par une chaîne. <code class=\"inline\">len()</code> donne la longueur ; <code class=\"inline\">count()</code> compte les occurrences. Les indices commencent à 0.</p>",
+    "code": "adn = \"ATGCGATC\"\nprint(\"Longueur :\", len(adn))\nprint(\"Première base :\", adn[0])\nprint(\"Guanines :\", adn.count(\"G\"))",
+    "output": "Longueur : 8\nPremière base : A\nGuanines : 2"
+   },
+   {
+    "title": "Listes de mesures",
+    "body": "<p>Une <strong>liste</strong> stocke plusieurs valeurs dans un ordre déterminé. On peut accéder à un élément avec son indice, ajouter une valeur avec <code class=\"inline\">append()</code> et calculer la moyenne avec <code class=\"inline\">sum() / len()</code>.</p>",
+    "code": "temperatures = [21.5, 22.0, 23.5]\ntemperatures.append(22.5)\nmoyenne = sum(temperatures) / len(temperatures)\nprint(\"Moyenne :\", moyenne, \"°C\")",
+    "output": "Moyenne : 22.375 °C"
+   },
+   {
+    "title": "Dictionnaires d’échantillons",
+    "body": "<p>Un <strong>dictionnaire</strong> stocke des couples clé-valeur. C’est pratique pour décrire un échantillon, une parcelle ou une mesure.</p>",
+    "code": "echantillon = {\n    \"code\": \"E01\",\n    \"espece\": \"Olea europaea\",\n    \"ph\": 6.8\n}\nprint(echantillon[\"espece\"])\nprint(echantillon[\"ph\"])",
+    "output": "Olea europaea\n6.8",
+    "note": "Une chaîne ADN doit être contrôlée : seules les bases A, T, C et G sont attendues pour les exemples simplifiés du cours."
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel est le premier indice d’une liste ?",
+    "choices": [
+     "1",
+     "0",
+     "-2"
+    ],
+    "correct": 1,
+    "why": "Les indices Python commencent à 0."
+   },
+   {
+    "q": "Quelle structure associe une clé à une valeur ?",
+    "choices": [
+     "Dictionnaire",
+     "float",
+     "bool"
+    ],
+    "correct": 0,
+    "why": "Un dictionnaire utilise des paires clé-valeur."
+   }
+  ]
+ },
+ {
+  "id": "conditions",
+  "num": "04",
+  "icon": "◇",
+  "title": "Structures conditionnelles",
+  "short": "Décider automatiquement selon une mesure : if, elif et else.",
+  "time": "50 min",
+  "level": "Débutant",
+  "objectives": [
+   "Formuler des conditions avec if / elif / else.",
+   "Combiner des tests avec and, or et not.",
+   "Construire une classification simple de mesures."
+  ],
+  "sections": [
+   {
+    "title": "Écrire une condition",
+    "body": "<p>Une condition permet d’exécuter des instructions uniquement si un test est vrai. Chaque bloc Python est indenté, généralement avec 4 espaces.</p>",
+    "code": "ph = 6.8\nif ph < 7:\n    print(\"Solution acide\")\nelif ph == 7:\n    print(\"Solution neutre\")\nelse:\n    print(\"Solution basique\")",
+    "output": "Solution acide",
+    "note": "Il s’agit ici de la classification usuelle du pH à 25 °C, sans conclure sur la qualité biologique ou sanitaire de l’échantillon."
+   },
+   {
+    "title": "Combiner plusieurs critères",
+    "body": "<p><code class=\"inline\">and</code> exige deux conditions vraies. <code class=\"inline\">or</code> demande au moins une condition vraie ; <code class=\"inline\">not</code> inverse le résultat.</p>",
+    "code": "temperature = 24\ndans_intervalle = temperature >= 20 and temperature <= 30\nif dans_intervalle:\n    print(\"Dans l'intervalle de l'exercice\")\nelse:\n    print(\"Hors de l'intervalle\")",
+    "output": "Dans l'intervalle de l'exercice"
+   },
+   {
+    "title": "Détecter une saisie impossible",
+    "body": "<p>Avant d’interpréter une mesure, un programme peut rejeter des valeurs incohérentes. Pour le pH, l’intervalle 0–14 est une simplification d’enseignement et non une limite physique universelle.</p>",
+    "code": "ph = -2\nif ph < 0 or ph > 14:\n    print(\"Valeur hors de la plage pédagogique\")\nelse:\n    print(\"Valeur acceptée dans cet exercice\")",
+    "output": "Valeur hors de la plage pédagogique"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel mot-clé s’exécute quand if est faux et qu’aucun elif n’est vrai ?",
+    "choices": [
+     "print",
+     "else",
+     "for"
+    ],
+    "correct": 1,
+    "why": "else couvre le cas restant."
+   },
+   {
+    "q": "L’expression (5 > 3 and 2 > 4) vaut :",
+    "choices": [
+     "True",
+     "False",
+     "None"
+    ],
+    "correct": 1,
+    "why": "and exige que les deux comparaisons soient vraies."
+   }
+  ]
+ },
+ {
+  "id": "boucles",
+  "num": "05",
+  "icon": "↻",
+  "title": "Boucles : for, while et Répéter…Jusqu'à",
+  "short": "Comprendre les trois logiques de répétition et les appliquer aux données biologiques en Python.",
+  "time": "75 min",
+  "level": "Débutant",
+  "objectives": [
+   "Comparer Pour, TantQue et Répéter…Jusqu'à et identifier leur usage.",
+   "Programmer avec for/range() et while en Python.",
+   "Traduire une boucle Répéter…Jusqu'à avec while True et break.",
+   "Parcourir des séquences biologiques et éviter les boucles infinies."
+  ],
+  "sections": [
+   {
+    "title": "Comparaison des trois boucles et choix de la structure",
+    "body": "<p>En Python, <code class=\"inline\">for</code> et <code class=\"inline\">while</code> sont les constructions natives. La boucle <strong>Répéter…Jusqu'à</strong> est une structure de pseudo-code que nous traduirons avec <code class=\"inline\">while True</code> et <code class=\"inline\">break</code>.</p><p>Les trois boucles permettent de <strong>répéter des instructions</strong>, mais elles ne testent pas leur condition au même moment. Pour choisir la bonne structure, on se demande : <em>connaît-on le nombre de répétitions ?</em> et <em>faut-il exécuter le traitement au moins une fois ?</em></p>\n<div class=\"loop-table-scroll\"><table class=\"loop-comparison\"><thead><tr><th>Boucle</th><th>Quand l'utiliser ?</th><th>Test de la condition</th><th>Nombre d'exécutions</th></tr></thead><tbody>\n<tr><td><strong>Pour (for)</strong></td><td>Nombre de répétitions connu ou parcours d'une collection (4 échantillons, bases ADN).</td><td>Progression par compteur ou éléments.</td><td>Peut être <strong>0</strong> si la collection est vide.</td></tr>\n<tr><td><strong>TantQue (while)</strong></td><td>Nombre de répétitions inconnu ; répéter <strong>tant que</strong> la condition est vraie.</td><td><strong>Avant</strong> chaque itération.</td><td><strong>0 ou plus</strong>.</td></tr>\n<tr><td><strong>Répéter…Jusqu'à</strong></td><td>Faire au moins un essai puis recommencer <strong>jusqu'à ce que</strong> la condition devienne vraie.</td><td><strong>Après</strong> chaque itération.</td><td><strong>Au moins 1</strong>.</td></tr></tbody></table></div>\n<div class=\"loop-compare-grid\"><div><strong>Pour</strong><span>Compter ou parcourir</span><code>Pour i de 1 à 4 Faire</code></div><div><strong>TantQue</strong><span>Continuer si vrai</span><code>TantQue condition Faire</code></div><div><strong>Répéter…Jusqu'à</strong><span>Arrêter si vrai</span><code>Répéter … Jusqu'à condition</code></div></div>\n<div class=\"info-box\"><strong>Distinction essentielle :</strong> <em>TantQue</em> continue quand sa condition est <strong>vraie</strong> ; <em>Répéter…Jusqu'à</em> s'arrête quand sa condition devient <strong>vraie</strong>. En Python, il n'existe pas d'instruction native <code class=\"inline\">repeat...until</code> : on utilise généralement <code class=\"inline\">while True</code> avec <code class=\"inline\">break</code>.</div>"
+   },
+   {
+    "title": "Exemple 1 — Pour (for) : nombre de répétitions connu",
+    "body": "<p><code class=\"inline\">for</code> parcourt une collection ou une suite d’entiers. <code class=\"inline\">range(5)</code> génère 0, 1, 2, 3 et 4.</p>",
+    "code": "for numero in range(1, 4):\n    print(\"Échantillon\", numero)",
+    "output": "Échantillon 1\nÉchantillon 2\nÉchantillon 3"
+   },
+   {
+    "title": "Exemple 2 — TantQue (while) : test avant chaque répétition",
+    "body": "<p><code class=\"inline\">while</code> répète un bloc tant qu’une condition reste vraie. Il faut faire évoluer les variables dans la boucle pour éviter une répétition infinie.</p>",
+    "code": "population = 100\njour = 0\nwhile population < 400:\n    population = population * 2\n    jour += 1\nprint(\"Étapes :\", jour)\nprint(\"Population :\", population)",
+    "output": "Étapes : 2\nPopulation : 400",
+    "note": "La croissance par doublement est un modèle didactique idéal : une population réelle ne double pas nécessairement à chaque étape."
+   },
+   {
+    "title": "Exemple 3 — Répéter…Jusqu'à : au moins un passage",
+    "body": "<p>Python possède <code class=\"inline\">for</code> et <code class=\"inline\">while</code>, mais <strong>pas de boucle native <code class=\"inline\">repeat…until</code></strong>. Pour reproduire le test effectué <em>après</em> l'exécution, on peut utiliser <code class=\"inline\">while True</code> puis <code class=\"inline\">break</code> quand la condition d'arrêt est vraie.</p><p><strong>Application biologique :</strong> répéter une tentative d'entrée jusqu'à obtenir un nombre de graines strictement positif. Les trois valeurs de l'exemple sont prédéfinies pour voir toutes les étapes.</p>",
+    "pseudo": "Algorithme EntrerEffectif\nDébut\n    essais ← [0, -2, 40]\n    i ← 0\n    Répéter\n        effectif ← essais[i]\n        i ← i + 1\n    Jusqu'à effectif > 0\n    Écrire effectif\nFin",
+    "code": "essais = [0, -2, 40]\nindice = 0\nwhile True:\n    effectif = essais[indice]\n    print('Valeur testée :', effectif)\n    indice += 1\n    if effectif > 0:\n        break\nprint('Effectif accepté :', effectif)",
+    "output": "Valeur testée : 0\nValeur testée : -2\nValeur testée : 40\nEffectif accepté : 40",
+    "note": "La condition d'arrêt est testée après le traitement. Dans un vrai formulaire de saisie, il faut aussi gérer les entrées non numériques (ValueError) et la possibilité d'annulation."
+   },
+   {
+    "title": "Compter les bases ADN",
+    "body": "<p>Une boucle peut parcourir chaque caractère d’une chaîne et incrémenter un compteur.</p>",
+    "code": "adn = \"ATGCGATC\"\nnb_c = 0\nfor base in adn:\n    if base == \"C\":\n        nb_c = nb_c + 1\nprint(\"Cytosines :\", nb_c)",
+    "output": "Cytosines : 2"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Combien de valeurs produit range(4) ?",
+    "choices": [
+     "3",
+     "4",
+     "5"
+    ],
+    "correct": 1,
+    "why": "range(4) produit 0, 1, 2 et 3."
+   },
+   {
+    "q": "Quel est le risque d’un while sans condition d’arrêt atteignable ?",
+    "choices": [
+     "Une boucle infinie",
+     "Un dictionnaire",
+     "Un commentaire"
+    ],
+    "correct": 0,
+    "why": "Il faut veiller à ce que la condition devienne fausse."
+   },
+   {
+    "q": "Comment traduire en Python une boucle Répéter…Jusqu'à ?",
+    "choices": [
+     "Avec repeat ... until directement",
+     "Avec while True et break quand la condition est atteinte",
+     "Toujours avec print uniquement"
+    ],
+    "correct": 1,
+    "why": "Python n'a pas de mot-clé repeat...until ; une boucle while True et une condition break reproduisent la logique."
+   },
+   {
+    "q": "Quelle boucle convient pour parcourir les bases d'une séquence ADN ?",
+    "choices": [
+     "for base in adn",
+     "repeat base until adn",
+     "break sans boucle"
+    ],
+    "correct": 0,
+    "why": "for parcourt directement les caractères d'une chaîne."
+   }
+  ]
+ },
+ {
+  "id": "fonctions",
+  "num": "06",
+  "icon": "ƒ",
+  "title": "Fonctions en Python",
+  "short": "Écrire des calculs réutilisables et organiser un mini-programme biologique.",
+  "time": "60 min",
+  "level": "Intermédiaire",
+  "objectives": [
+   "Définir une fonction avec def, paramètres et return.",
+   "Réutiliser un calcul dans différents échantillons.",
+   "Traiter un cas limite avant toute division."
+  ],
+  "sections": [
+   {
+    "title": "Définir et appeler une fonction",
+    "body": "<p>Une fonction rassemble des instructions sous un nom. Les <strong>paramètres</strong> sont les données d’entrée, et <code class=\"inline\">return</code> renvoie un résultat au programme appelant.</p>",
+    "code": "def concentration(masse_g, volume_l):\n    if volume_l <= 0:\n        raise ValueError(\"Volume non valide\")\n    return masse_g / volume_l\n\nresultat = concentration(5, 2)\nprint(resultat, \"g/L\")",
+    "output": "2.5 g/L"
+   },
+   {
+    "title": "Fonction de pourcentage GC",
+    "body": "<p>Le pourcentage GC désigne la proportion de nucléotides G et C dans une séquence ADN. On peut encapsuler ce calcul dans une fonction.</p>",
+    "code": "def pourcentage_gc(adn):\n    adn = adn.upper()\n    if len(adn) == 0:\n        return 0.0\n    gc = adn.count(\"G\") + adn.count(\"C\")\n    return (gc / len(adn)) * 100\n\nprint(pourcentage_gc(\"ATGC\"))",
+    "output": "50.0",
+    "note": "Cette première version suppose que la séquence ne contient que A, T, C et G. En TP, ajoutez une validation explicite des caractères."
+   },
+   {
+    "title": "Pourquoi tester ses fonctions ?",
+    "body": "<p>Un petit test compare la valeur calculée à une valeur attendue. Cela aide à repérer les erreurs quand le code évolue.</p>",
+    "code": "assert pourcentage_gc(\"AAAA\") == 0.0\nassert pourcentage_gc(\"GGCC\") == 100.0\nassert pourcentage_gc(\"ATGC\") == 50.0\nprint(\"Tests réussis\")",
+    "output": "Tests réussis"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quel mot-clé crée une fonction Python ?",
+    "choices": [
+     "def",
+     "for",
+     "classify"
+    ],
+    "correct": 0,
+    "why": "def introduit la définition d’une fonction."
+   },
+   {
+    "q": "Quel mot-clé renvoie une valeur depuis une fonction ?",
+    "choices": [
+     "input",
+     "return",
+     "print"
+    ],
+    "correct": 1,
+    "why": "return transmet une valeur au code appelant."
+   }
+  ]
+ }
 ];
 
 const tds = [
