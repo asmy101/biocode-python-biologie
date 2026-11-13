@@ -100,8 +100,8 @@
 .print-toolbar button{font-size:12px;border:1px solid #bfd8c9;background:#eff7f0;border-radius:9px;color:#19654c;padding:8px 13px;font-weight:750}
 @media print{
  .print-toolbar,.topbar,.sidebar,.footer,.page-actions,.nav-link,.btn{display:none!important}
- body.teacher-print .solution[hidden]{display:block!important}
- body:not(.teacher-print) .solution[hidden]{display:none!important}
+ body.teacher-print .solution{display:block!important}
+ body:not(.teacher-print) .solution{display:none!important}
  .breadcrumb{margin-bottom:18px}
  .lesson-section,.exercise,.practice-item{break-inside:avoid}
  .lesson-layout{display:block}
@@ -518,6 +518,101 @@ const algoChapters = [
   ]
  },
  {
+  "id": "algo-donnees",
+  "num": "A5",
+  "icon": "▤",
+  "title": "Tableaux, listes, tuples et dictionnaires",
+  "short": "Organiser les données biologiques : tableau algorithmique, liste, tuple et dictionnaire Python.",
+  "time": "75 min",
+  "level": "Débutant",
+  "objectives": [
+   "Reconnaître un tableau dans un algorithme et une liste en Python.",
+   "Différencier liste modifiable, tuple non modifiable et dictionnaire clé–valeur.",
+   "Lire, modifier et parcourir des données d'échantillons avec des exemples."
+  ],
+  "sections": [
+   {
+    "title": "Du tableau algorithmique à la liste Python",
+    "body": "<p>En algorithmique, un <strong>tableau</strong> regroupe plusieurs valeurs. Dans les exercices, nous utiliserons les tableaux indexés à partir de <strong>0</strong>, comme les listes Python. En Python, une <strong>liste</strong> est ordonnée et modifiable.</p><div class=\"data-visual\"><div class=\"visual-title\">Visualiser les indices d'une liste</div><div class=\"array-cells\"><div><span>index 0</span><b>18</b></div><div><span>index 1</span><b>20</b></div><div><span>index 2</span><b>22</b></div><div><span>index 3</span><b>24</b></div></div><p class=\"diagram-note\">températures = [18, 20, 22, 24] · températures[1] vaut 20</p></div>",
+    "pseudo": "Algorithme Temperature\nDébut\n    temperatures ← [18, 20, 22, 24]\n    Écrire temperatures[1]\n    temperatures[2] ← 23\n    Écrire temperatures\nFin",
+    "code": "temperatures = [18, 20, 22, 24]\nprint(temperatures[1])\ntemperatures[2] = 23\nprint(temperatures)",
+    "output": "20\n[18, 20, 23, 24]",
+    "note": "Un tableau algorithmique et une liste Python ne sont pas toujours exactement le même type de structure selon le langage : ici, on utilise une convention pédagogique simple."
+   },
+   {
+    "title": "Les listes [ ] : ordonnées et modifiables",
+    "body": "<p>Une <strong>liste</strong> contient plusieurs valeurs et peut évoluer : on ajoute avec <code class=\"inline\">append()</code>, on retire avec <code class=\"inline\">remove()</code> et on accède à l'élément d'indice i avec <code class=\"inline\">liste[i]</code>.</p><p><strong>Biologie :</strong> conserver les températures observées dans plusieurs tubes ou les bases d'une courte séquence.</p>",
+    "code": "temperatures = [18, 20, 22]\ntemperatures.append(24)\ntemperatures[0] = 19\nprint(temperatures)\nprint('Nombre de mesures :', len(temperatures))",
+    "output": "[19, 20, 22, 24]\nNombre de mesures : 4"
+   },
+   {
+    "title": "Les tuples ( ) : données regroupées mais non modifiables",
+    "body": "<p>Un <strong>tuple</strong> conserve les éléments dans un ordre déterminé, mais ses positions ne peuvent pas être réaffectées après sa création. Il convient pour une paire de coordonnées ou un ensemble de valeurs que l'on souhaite garder fixes.</p><div class=\"info-box\"><strong>Attention :</strong> un tuple peut contenir des objets modifiables, comme une liste. L'immuabilité concerne les positions du tuple lui-même.</div>",
+    "code": "coordonnees = (30.4, -9.6)\nprint(coordonnees[0])\nlot = ('Lot A', 34)\nprint(lot[0], lot[1])\n# coordonnees[0] = 30.5  # TypeError",
+    "output": "30.4\nLot A 34"
+   },
+   {
+    "title": "Les dictionnaires { } : associer une clé à une valeur",
+    "body": "<p>Un <strong>dictionnaire</strong> mémorise des associations <strong>clé → valeur</strong>. Plutôt que de chercher un nombre par position, on utilise un nom de clé, par exemple <code class=\"inline\">lot['germees']</code>. Les dictionnaires sont modifiables et conservent l'ordre d'insertion dans les versions modernes de Python.</p><div class=\"data-visual\"><div class=\"visual-title\">Un échantillon décrit par ses attributs</div><div class=\"dict-visual\"><span>« espece »</span><b>Olivier</b><span>« age »</span><b>12 ans</b><span>« parcelle »</span><b>A</b></div></div>",
+    "code": "lot = {'semees': 40, 'germees': 34}\nprint(lot['germees'])\nlot['germees'] = 35\nlot['taux'] = 100 * lot['germees'] / lot['semees']\nprint(lot['taux'])",
+    "output": "34\n87.5"
+   },
+   {
+    "title": "Schéma : quelle structure choisir ?",
+    "body": "<div class=\"data-comparison\"><div><div class=\"compare-symbol\">[ ]</div><h3>Liste</h3><p>Plusieurs valeurs <strong>ordonnées et modifiables</strong>.</p><code>mesures = [18, 20, 22]</code></div><div><div class=\"compare-symbol\">( )</div><h3>Tuple</h3><p>Groupe <strong>ordonné, non réaffectable</strong> par position.</p><code>point = (30.4, -9.6)</code></div><div><div class=\"compare-symbol\">{ }</div><h3>Dictionnaire</h3><p>Données <strong>nommées par clés</strong>.</p><code>lot = {'n': 40}</code></div></div><div class=\"info-box\"><strong>Exercice :</strong> stocker 5 températures → liste ; garder une paire de coordonnées → tuple ; décrire un échantillon avec des propriétés → dictionnaire.</div>"
+   },
+   {
+    "title": "Parcourir plusieurs mesures",
+    "body": "<p>Une boucle <strong>Pour</strong> permet de traiter chaque élément d'une liste. Avant une moyenne, vérifier que l'effectif est non nul.</p>",
+    "pseudo": "Algorithme MoyenneMesures\nDébut\n    mesures ← [18, 20, 22, 24]\n    somme ← 0\n    Pour chaque valeur dans mesures Faire\n        somme ← somme + valeur\n    FinPour\n    moyenne ← somme / 4\n    Écrire moyenne\nFin",
+    "code": "mesures = [18, 20, 22, 24]\nif mesures:\n    moyenne = sum(mesures) / len(mesures)\n    print('Moyenne :', moyenne)\nelse:\n    print('Aucune mesure')",
+    "output": "Moyenne : 21.0"
+   }
+  ],
+  "quiz": [
+   {
+    "q": "Quelle structure permet d'ajouter une nouvelle température avec append() ?",
+    "choices": [
+     "Liste",
+     "Tuple",
+     "Chaîne seule"
+    ],
+    "correct": 0,
+    "why": "Une liste est modifiable et dispose d'append()."
+   },
+   {
+    "q": "Peut-on remplacer directement la première valeur d'un tuple ?",
+    "choices": [
+     "Oui",
+     "Non",
+     "Seulement après print()"
+    ],
+    "correct": 1,
+    "why": "Les éléments d'un tuple ne peuvent pas être réaffectés."
+   },
+   {
+    "q": "Comment lire le nombre de graines germées dans lot = {'germees': 34} ?",
+    "choices": [
+     "lot[0]",
+     "lot['germees']",
+     "lot(34)"
+    ],
+    "correct": 1,
+    "why": "Le dictionnaire utilise des clés nommées."
+   },
+   {
+    "q": "Quelle valeur renvoie [18, 20, 22][1] ?",
+    "choices": [
+     "18",
+     "20",
+     "22"
+    ],
+    "correct": 1,
+    "why": "L'indexation démarre à 0."
+   }
+  ]
+ },
+ {
   "id": "algo-python",
   "num": "A6",
   "icon": "⇄",
@@ -594,101 +689,6 @@ const algoChapters = [
    }
   ]
  }
-,{
- "id": "algo-donnees",
- "num": "A5",
- "icon": "▤",
- "title": "Tableaux, listes, tuples et dictionnaires",
- "short": "Organiser les données biologiques : tableau algorithmique, liste, tuple et dictionnaire Python.",
- "time": "75 min",
- "level": "Débutant",
- "objectives": [
-  "Reconnaître un tableau dans un algorithme et une liste en Python.",
-  "Différencier liste modifiable, tuple non modifiable et dictionnaire clé–valeur.",
-  "Lire, modifier et parcourir des données d'échantillons avec des exemples."
- ],
- "sections": [
-  {
-   "title": "Du tableau algorithmique à la liste Python",
-   "body": "<p>En algorithmique, un <strong>tableau</strong> regroupe plusieurs valeurs. Dans les exercices, nous utiliserons les tableaux indexés à partir de <strong>0</strong>, comme les listes Python. En Python, une <strong>liste</strong> est ordonnée et modifiable.</p><div class=\"data-visual\"><div class=\"visual-title\">Visualiser les indices d'une liste</div><div class=\"array-cells\"><div><span>index 0</span><b>18</b></div><div><span>index 1</span><b>20</b></div><div><span>index 2</span><b>22</b></div><div><span>index 3</span><b>24</b></div></div><p class=\"diagram-note\">températures = [18, 20, 22, 24] · températures[1] vaut 20</p></div>",
-   "pseudo": "Algorithme Temperature\nDébut\n    temperatures ← [18, 20, 22, 24]\n    Écrire temperatures[1]\n    temperatures[2] ← 23\n    Écrire temperatures\nFin",
-   "code": "temperatures = [18, 20, 22, 24]\nprint(temperatures[1])\ntemperatures[2] = 23\nprint(temperatures)",
-   "output": "20\n[18, 20, 23, 24]",
-   "note": "Un tableau algorithmique et une liste Python ne sont pas toujours exactement le même type de structure selon le langage : ici, on utilise une convention pédagogique simple."
-  },
-  {
-   "title": "Les listes [ ] : ordonnées et modifiables",
-   "body": "<p>Une <strong>liste</strong> contient plusieurs valeurs et peut évoluer : on ajoute avec <code class=\"inline\">append()</code>, on retire avec <code class=\"inline\">remove()</code> et on accède à l'élément d'indice i avec <code class=\"inline\">liste[i]</code>.</p><p><strong>Biologie :</strong> conserver les températures observées dans plusieurs tubes ou les bases d'une courte séquence.</p>",
-   "code": "temperatures = [18, 20, 22]\ntemperatures.append(24)\ntemperatures[0] = 19\nprint(temperatures)\nprint('Nombre de mesures :', len(temperatures))",
-   "output": "[19, 20, 22, 24]\nNombre de mesures : 4"
-  },
-  {
-   "title": "Les tuples ( ) : données regroupées mais non modifiables",
-   "body": "<p>Un <strong>tuple</strong> conserve les éléments dans un ordre déterminé, mais ses positions ne peuvent pas être réaffectées après sa création. Il convient pour une paire de coordonnées ou un ensemble de valeurs que l'on souhaite garder fixes.</p><div class=\"info-box\"><strong>Attention :</strong> un tuple peut contenir des objets modifiables, comme une liste. L'immuabilité concerne les positions du tuple lui-même.</div>",
-   "code": "coordonnees = (30.4, -9.6)\nprint(coordonnees[0])\nlot = ('Lot A', 34)\nprint(lot[0], lot[1])\n# coordonnees[0] = 30.5  # TypeError",
-   "output": "30.4\nLot A 34"
-  },
-  {
-   "title": "Les dictionnaires { } : associer une clé à une valeur",
-   "body": "<p>Un <strong>dictionnaire</strong> mémorise des associations <strong>clé → valeur</strong>. Plutôt que de chercher un nombre par position, on utilise un nom de clé, par exemple <code class=\"inline\">lot['germees']</code>. Les dictionnaires sont modifiables et conservent l'ordre d'insertion dans les versions modernes de Python.</p><div class=\"data-visual\"><div class=\"visual-title\">Un échantillon décrit par ses attributs</div><div class=\"dict-visual\"><span>« espece »</span><b>Olivier</b><span>« age »</span><b>12 ans</b><span>« parcelle »</span><b>A</b></div></div>",
-   "code": "lot = {'semees': 40, 'germees': 34}\nprint(lot['germees'])\nlot['germees'] = 35\nlot['taux'] = 100 * lot['germees'] / lot['semees']\nprint(lot['taux'])",
-   "output": "34\n87.5"
-  },
-  {
-   "title": "Schéma : quelle structure choisir ?",
-   "body": "<div class=\"data-comparison\"><div><div class=\"compare-symbol\">[ ]</div><h3>Liste</h3><p>Plusieurs valeurs <strong>ordonnées et modifiables</strong>.</p><code>mesures = [18, 20, 22]</code></div><div><div class=\"compare-symbol\">( )</div><h3>Tuple</h3><p>Groupe <strong>ordonné, non réaffectable</strong> par position.</p><code>point = (30.4, -9.6)</code></div><div><div class=\"compare-symbol\">{ }</div><h3>Dictionnaire</h3><p>Données <strong>nommées par clés</strong>.</p><code>lot = {'n': 40}</code></div></div><div class=\"info-box\"><strong>Exercice :</strong> stocker 5 températures → liste ; garder une paire de coordonnées → tuple ; décrire un échantillon avec des propriétés → dictionnaire.</div>"
-  },
-  {
-   "title": "Parcourir plusieurs mesures",
-   "body": "<p>Une boucle <strong>Pour</strong> permet de traiter chaque élément d'une liste. Avant une moyenne, vérifier que l'effectif est non nul.</p>",
-   "pseudo": "Algorithme MoyenneMesures\nDébut\n    mesures ← [18, 20, 22, 24]\n    somme ← 0\n    Pour chaque valeur dans mesures Faire\n        somme ← somme + valeur\n    FinPour\n    moyenne ← somme / 4\n    Écrire moyenne\nFin",
-   "code": "mesures = [18, 20, 22, 24]\nif mesures:\n    moyenne = sum(mesures) / len(mesures)\n    print('Moyenne :', moyenne)\nelse:\n    print('Aucune mesure')",
-   "output": "Moyenne : 21.0"
-  }
- ],
- "quiz": [
-  {
-   "q": "Quelle structure permet d'ajouter une nouvelle température avec append() ?",
-   "choices": [
-    "Liste",
-    "Tuple",
-    "Chaîne seule"
-   ],
-   "correct": 0,
-   "why": "Une liste est modifiable et dispose d'append()."
-  },
-  {
-   "q": "Peut-on remplacer directement la première valeur d'un tuple ?",
-   "choices": [
-    "Oui",
-    "Non",
-    "Seulement après print()"
-   ],
-   "correct": 1,
-   "why": "Les éléments d'un tuple ne peuvent pas être réaffectés."
-  },
-  {
-   "q": "Comment lire le nombre de graines germées dans lot = {'germees': 34} ?",
-   "choices": [
-    "lot[0]",
-    "lot['germees']",
-    "lot(34)"
-   ],
-   "correct": 1,
-   "why": "Le dictionnaire utilise des clés nommées."
-  },
-  {
-   "q": "Quelle valeur renvoie [18, 20, 22][1] ?",
-   "choices": [
-    "18",
-    "20",
-    "22"
-   ],
-   "correct": 1,
-   "why": "L'indexation démarre à 0."
-  }
- ]
-}
 ];
 
 const chapters = [
@@ -928,52 +928,203 @@ print("Tests réussis")`,output:`Tests réussis`}
 }
 ];
 
-const tds=[
-{id:'td1',num:'TD 01',title:'Premiers algorithmes et calculs',duration:'60 min',intro:'Variables, affectation, expressions et premières opérations dans un contexte biologique.',chapters:'Chapitres 1–2',exercises:[
- {name:'Exercice 1 — Trace d’un algorithme',statement:'Sans utiliser Python, donnez la valeur finale de a et b après : a = 3 ; b = a + 2 ; a = b * 2.',solution:'Après b = a + 2, b vaut 5. Après a = b * 2, a vaut 10. Valeurs finales : a = 10 ; b = 5.'},
- {name:'Exercice 2 — Concentration massique',statement:'Écrire un algorithme qui demande une masse en grammes et un volume en litres, puis affiche la concentration en g/L. Tester avec 6 g et 0,3 L.',solution:'Entrées : masse = 6 et volume = 0,3 ; vérifier que volume > 0 ; C = masse / volume ; afficher C. Résultat : 20 g/L.',code:`masse = 6
-volume = 0.3
-if volume > 0:
-    print(masse / volume, "g/L")`},
- {name:'Exercice 3 — Conversion',statement:'Un laboratoire dispose de 250 mL de solution. Écrire un programme qui convertit ce volume en litres.',solution:'volume_l = 250 / 1000 = 0,25 L.',code:`volume_ml = 250
-volume_l = volume_ml / 1000
-print(volume_l, "L")`},
- {name:'Exercice 4 — Types et expressions',statement:'Identifier les types des valeurs suivantes : 12 ; 12.0 ; "12" ; True. Préciser la différence entre = et ==.',solution:'12 : int ; 12.0 : float ; "12" : str ; True : bool. = affecte une valeur ; == effectue une comparaison.'}
-]},
-{id:'td2',num:'TD 02',title:'Tests et structures conditionnelles',duration:'60 min',intro:'Raisonner avec les comparaisons et les choix conditionnels.',chapters:'Chapitre 4',exercises:[
- {name:'Exercice 1 — Classification pH',statement:'Écrire un programme qui affiche « acide » si pH < 7, « neutre » si pH = 7, sinon « basique ». Tester 5.6, 7 et 8.2.',solution:'Les résultats attendus sont acide, neutre, basique.',code:`ph = 8.2
-if ph < 7:
-    print("Acide")
-elif ph == 7:
-    print("Neutre")
-else:
-    print("Basique")`},
- {name:'Exercice 2 — Validation de données',statement:'Pour un exercice scolaire, demander une température et afficher un message si elle est hors de l’intervalle fictif 15–35 °C.',solution:'On utilise if temperature < 15 or temperature > 35. Ce seuil est choisi pour l’exercice, pas comme norme biologique.',code:`temperature = 37
-if temperature < 15 or temperature > 35:
-    print("Hors intervalle de l'exercice")
-else:
-    print("Dans l'intervalle")`},
- {name:'Exercice 3 — Booléens',statement:'Avec pH = 6.5 et température = 22, calculer la valeur de (pH < 7) and (temperature > 25).',solution:'True and False donne False.'},
- {name:'Exercice 4 — Corriger l’erreur',statement:'Pourquoi le code « if ph = 7: » n’est-il pas valide ?',solution:'L’opérateur de comparaison est ==, pas =. Écrire if ph == 7: suivi d’un bloc indenté.'}
-]},
-{id:'td3',num:'TD 03',title:'Boucles, listes et fonctions',duration:'75 min',intro:'Lire des ensembles de mesures et réutiliser des calculs dans plusieurs expériences.',chapters:'Chapitres 3, 5–6',exercises:[
- {name:'Exercice 1 — Moyenne',statement:'Avec temperatures = [20, 22, 24, 26], calculer la moyenne sans bibliothèque externe.',solution:'Somme = 92, effectif = 4, moyenne = 23 °C.',code:`temperatures = [20, 22, 24, 26]
-print(sum(temperatures) / len(temperatures))`},
- {name:'Exercice 2 — Comptage des bases',statement:'Parcourir « AGCTGC » avec une boucle for et compter le nombre de G.',solution:'On rencontre deux G.',code:`adn = "AGCTGC"
-compteur = 0
-for base in adn:
-    if base == "G":
-        compteur += 1
-print(compteur)`},
- {name:'Exercice 3 — Fonction biologique',statement:'Créer une fonction longueur_adn(sequence) qui renvoie sa longueur, puis la tester avec « ATGC ».',solution:'La fonction utilise return len(sequence). Résultat : 4.',code:`def longueur_adn(sequence):
-    return len(sequence)
-
-assert longueur_adn("ATGC") == 4`},
- {name:'Exercice 4 — Cas limite',statement:'Pourquoi une moyenne calculée par somme / len(liste) pose-t-elle un problème avec une liste vide ?',solution:'len([]) vaut 0 : une division par zéro produit une erreur. Il faut tester que la liste n’est pas vide avant le calcul.'}
-]},
-{"id":"td4","num":"TD 04","title":"Séquences ADN et ARN","duration":"75 min","intro":"Manipuler et valider les séquences nucléotidiques avec des chaînes Python.","chapters":"Chapitres 3, 5–6","exercises":[{"name":"1 — Composition ADN","statement":"Pour ATGCCGTA, donner longueur, nombre de G et pourcentage GC.","solution":"8 bases ; G = 2 ; C = 2 ; GC = 50 %.","code":"adn = 'ATGCCGTA'\nprint(len(adn), adn.count('G'))\nprint(100*(adn.count('G')+adn.count('C'))/len(adn))"},{"name":"2 — Transcription","statement":"Transcrire le brin codant ADN 5′-ATGCTT-3′ en ARNm 5′→3′.","solution":"Remplacer T par U : AUGCUU.","code":"adn = 'ATGCTT'\nprint(adn.replace('T', 'U'))"},{"name":"3 — Complément inversé","statement":"Trouver le complément inversé du brin 5′-ATGC-3′.","solution":"Complément : TACG ; complément inversé (5′→3′) : GCAT.","code":"adn = 'ATGC'\nprint(adn.translate(str.maketrans('ATCG','TAGC'))[::-1])"},{"name":"4 — Validation","statement":"Pourquoi ATNX ne convient-il pas à un exercice acceptant seulement A/T/C/G ?","solution":"N signifie base indéterminée et X est non standard. Le programme doit refuser cette entrée.","code":"seq = 'ATNX'\nprint(bool(seq) and all(b in 'ATCG' for b in seq))"}]},
-{"id":"td5","num":"TD 05","title":"Statistiques et germination","duration":"75 min","intro":"Analyser des mesures biologiques et calculer des taux en vérifiant les effectifs.","chapters":"Chapitres 2–3, 5–6","exercises":[{"name":"1 — Moyenne","statement":"Calculer la moyenne de 18, 20, 22 et 24 °C.","solution":"(18+20+22+24)/4 = 21 °C.","code":"mesures = [18, 20, 22, 24]\nprint(sum(mesures)/len(mesures))"},{"name":"2 — Étendue","statement":"Donner min, max et étendue pour [3.2, 4.0, 3.7, 4.5].","solution":"Minimum 3,2 ; maximum 4,5 ; étendue 1,3.","code":"x = [3.2, 4.0, 3.7, 4.5]\nprint(min(x), max(x), max(x)-min(x))"},{"name":"3 — Germination","statement":"34 graines sur 40 ont germé. Calculer le taux.","solution":"34/40 × 100 = 85 %.","code":"semees, germees = 40, 34\nprint(100*germees/semees, '%')"},{"name":"4 — Erreurs possibles","statement":"Que tester avant une moyenne ou un taux de germination ?","solution":"Refuser une liste vide, un nombre semé nul ou négatif, et germées > semées."}]},
-{"id":"td6","num":"TD 06","title":"Dilution et fonctions","duration":"75 min","intro":"Utiliser C1V1=C2V2 et créer une fonction Python sécurisant les calculs.","chapters":"Chapitres 2, 4, 6","exercises":[{"name":"1 — Volume à prélever","statement":"C1=10 mg/mL, C2=2 mg/mL, V2=50 mL : calculer V1 et le volume de diluant.","solution":"V1=10 mL de solution mère, et 40 mL de diluant.","code":"c1,c2,v2 = 10,2,50\nv1 = c2*v2/c1\nprint(v1, v2-v1)"},{"name":"2 — Faisabilité","statement":"Peut-on obtenir 5 mg/mL à partir de 3 mg/mL par simple dilution ?","solution":"Non : la cible est plus concentrée que la solution mère."},{"name":"3 — Fonction","statement":"Écrire volume_mere(c1,c2,v2) qui refuse les valeurs impossibles.","solution":"Vérifier 0 < c2 ≤ c1 et v2 > 0, puis renvoyer c2*v2/c1.","code":"def volume_mere(c1,c2,v2):\n    if c1 <= 0 or c2 <= 0 or c2 > c1 or v2 <= 0:\n        raise ValueError('Dilution impossible')\n    return c2*v2/c1\nprint(volume_mere(10,2,50))"},{"name":"4 — Unités","statement":"Pourquoi utiliser la même unité de concentration pour C1 et C2 ?","solution":"Le rapport C2/C1 doit être sans unité ; sinon le volume obtenu est erroné."}]}
+const tds = [
+ {
+  "id": "td1",
+  "num": "TD 01",
+  "title": "Premiers algorithmes et calculs",
+  "duration": "60 min",
+  "intro": "Variables, affectation, expressions et premières opérations dans un contexte biologique.",
+  "chapters": "Algorithmique A1–A2 · Python 01–02",
+  "exercises": [
+   {
+    "name": "Exercice 1 — Trace d’un algorithme",
+    "statement": "Sans utiliser Python, donnez la valeur finale de a et b après : a = 3 ; b = a + 2 ; a = b * 2.",
+    "solution": "Après b = a + 2, b vaut 5. Après a = b * 2, a vaut 10. Valeurs finales : a = 10 ; b = 5."
+   },
+   {
+    "name": "Exercice 2 — Concentration massique",
+    "statement": "Écrire un algorithme qui demande une masse en grammes et un volume en litres, puis affiche la concentration en g/L. Tester avec 6 g et 0,3 L.",
+    "solution": "Entrées : masse = 6 et volume = 0,3 ; vérifier que volume > 0 ; C = masse / volume ; afficher C. Résultat : 20 g/L.",
+    "code": "masse = 6\nvolume = 0.3\nif volume > 0:\n    print(masse / volume, \"g/L\")"
+   },
+   {
+    "name": "Exercice 3 — Conversion",
+    "statement": "Un laboratoire dispose de 250 mL de solution. Écrire un programme qui convertit ce volume en litres.",
+    "solution": "volume_l = 250 / 1000 = 0,25 L.",
+    "code": "volume_ml = 250\nvolume_l = volume_ml / 1000\nprint(volume_l, \"L\")"
+   },
+   {
+    "name": "Exercice 4 — Types et expressions",
+    "statement": "Identifier les types des valeurs suivantes : 12 ; 12.0 ; \"12\" ; True. Préciser la différence entre = et ==.",
+    "solution": "12 : int ; 12.0 : float ; \"12\" : str ; True : bool. = affecte une valeur ; == effectue une comparaison."
+   }
+  ]
+ },
+ {
+  "id": "td2",
+  "num": "TD 02",
+  "title": "Tests et structures conditionnelles",
+  "duration": "60 min",
+  "intro": "Raisonner avec les comparaisons et les choix conditionnels.",
+  "chapters": "Algorithmique A3 · Python 04",
+  "exercises": [
+   {
+    "name": "Exercice 1 — Classification pH",
+    "statement": "Écrire un programme qui affiche « acide » si pH < 7, « neutre » si pH = 7, sinon « basique ». Tester 5.6, 7 et 8.2.",
+    "solution": "Les résultats attendus sont acide, neutre, basique.",
+    "code": "ph = 8.2\nif ph < 7:\n    print(\"Acide\")\nelif ph == 7:\n    print(\"Neutre\")\nelse:\n    print(\"Basique\")"
+   },
+   {
+    "name": "Exercice 2 — Validation de données",
+    "statement": "Pour un exercice scolaire, demander une température et afficher un message si elle est hors de l’intervalle fictif 15–35 °C.",
+    "solution": "On utilise if temperature < 15 or temperature > 35. Ce seuil est choisi pour l’exercice, pas comme norme biologique.",
+    "code": "temperature = 37\nif temperature < 15 or temperature > 35:\n    print(\"Hors intervalle de l'exercice\")\nelse:\n    print(\"Dans l'intervalle\")"
+   },
+   {
+    "name": "Exercice 3 — Booléens",
+    "statement": "Avec pH = 6.5 et température = 22, calculer la valeur de (pH < 7) and (temperature > 25).",
+    "solution": "True and False donne False."
+   },
+   {
+    "name": "Exercice 4 — Corriger l’erreur",
+    "statement": "Pourquoi le code « if ph = 7: » n’est-il pas valide ?",
+    "solution": "L’opérateur de comparaison est ==, pas =. Écrire if ph == 7: suivi d’un bloc indenté."
+   }
+  ]
+ },
+ {
+  "id": "td3",
+  "num": "TD 03",
+  "title": "Boucles, listes et fonctions",
+  "duration": "75 min",
+  "intro": "Lire des ensembles de mesures et réutiliser des calculs dans plusieurs expériences.",
+  "chapters": "Algorithmique A4–A5 · Python 03, 05–06",
+  "exercises": [
+   {
+    "name": "Exercice 1 — Moyenne",
+    "statement": "Avec temperatures = [20, 22, 24, 26], calculer la moyenne sans bibliothèque externe.",
+    "solution": "Somme = 92, effectif = 4, moyenne = 23 °C.",
+    "code": "temperatures = [20, 22, 24, 26]\nprint(sum(temperatures) / len(temperatures))"
+   },
+   {
+    "name": "Exercice 2 — Comptage des bases",
+    "statement": "Parcourir « AGCTGC » avec une boucle for et compter le nombre de G.",
+    "solution": "On rencontre deux G.",
+    "code": "adn = \"AGCTGC\"\ncompteur = 0\nfor base in adn:\n    if base == \"G\":\n        compteur += 1\nprint(compteur)"
+   },
+   {
+    "name": "Exercice 3 — Fonction biologique",
+    "statement": "Créer une fonction longueur_adn(sequence) qui renvoie sa longueur, puis la tester avec « ATGC ».",
+    "solution": "La fonction utilise return len(sequence). Résultat : 4.",
+    "code": "def longueur_adn(sequence):\n    return len(sequence)\n\nassert longueur_adn(\"ATGC\") == 4"
+   },
+   {
+    "name": "Exercice 4 — Cas limite",
+    "statement": "Pourquoi une moyenne calculée par somme / len(liste) pose-t-elle un problème avec une liste vide ?",
+    "solution": "len([]) vaut 0 : une division par zéro produit une erreur. Il faut tester que la liste n’est pas vide avant le calcul."
+   }
+  ]
+ },
+ {
+  "id": "td4",
+  "num": "TD 04",
+  "title": "Séquences ADN et ARN",
+  "duration": "75 min",
+  "intro": "Manipuler et valider les séquences nucléotidiques avec des chaînes Python.",
+  "chapters": "Python 03, 05–06",
+  "exercises": [
+   {
+    "name": "1 — Composition ADN",
+    "statement": "Pour ATGCCGTA, donner longueur, nombre de G et pourcentage GC.",
+    "solution": "8 bases ; G = 2 ; C = 2 ; GC = 50 %.",
+    "code": "adn = 'ATGCCGTA'\nprint(len(adn), adn.count('G'))\nprint(100*(adn.count('G')+adn.count('C'))/len(adn))"
+   },
+   {
+    "name": "2 — Transcription",
+    "statement": "Transcrire le brin codant ADN 5′-ATGCTT-3′ en ARNm 5′→3′.",
+    "solution": "Remplacer T par U : AUGCUU.",
+    "code": "adn = 'ATGCTT'\nprint(adn.replace('T', 'U'))"
+   },
+   {
+    "name": "3 — Complément inversé",
+    "statement": "Trouver le complément inversé du brin 5′-ATGC-3′.",
+    "solution": "Complément : TACG ; complément inversé (5′→3′) : GCAT.",
+    "code": "adn = 'ATGC'\nprint(adn.translate(str.maketrans('ATCG','TAGC'))[::-1])"
+   },
+   {
+    "name": "4 — Validation",
+    "statement": "Pourquoi ATNX ne convient-il pas à un exercice acceptant seulement A/T/C/G ?",
+    "solution": "N signifie base indéterminée et X est non standard. Le programme doit refuser cette entrée.",
+    "code": "seq = 'ATNX'\nprint(bool(seq) and all(b in 'ATCG' for b in seq))"
+   }
+  ]
+ },
+ {
+  "id": "td5",
+  "num": "TD 05",
+  "title": "Statistiques et germination",
+  "duration": "75 min",
+  "intro": "Analyser des mesures biologiques et calculer des taux en vérifiant les effectifs.",
+  "chapters": "Algorithmique A5 · Python 02–03, 05–06",
+  "exercises": [
+   {
+    "name": "1 — Moyenne",
+    "statement": "Calculer la moyenne de 18, 20, 22 et 24 °C.",
+    "solution": "(18+20+22+24)/4 = 21 °C.",
+    "code": "mesures = [18, 20, 22, 24]\nprint(sum(mesures)/len(mesures))"
+   },
+   {
+    "name": "2 — Étendue",
+    "statement": "Donner min, max et étendue pour [3.2, 4.0, 3.7, 4.5].",
+    "solution": "Minimum 3,2 ; maximum 4,5 ; étendue 1,3.",
+    "code": "x = [3.2, 4.0, 3.7, 4.5]\nprint(min(x), max(x), max(x)-min(x))"
+   },
+   {
+    "name": "3 — Germination",
+    "statement": "34 graines sur 40 ont germé. Calculer le taux.",
+    "solution": "34/40 × 100 = 85 %.",
+    "code": "semees, germees = 40, 34\nprint(100*germees/semees, '%')"
+   },
+   {
+    "name": "4 — Erreurs possibles",
+    "statement": "Que tester avant une moyenne ou un taux de germination ?",
+    "solution": "Refuser une liste vide, un nombre semé nul ou négatif, et germées > semées."
+   }
+  ]
+ },
+ {
+  "id": "td6",
+  "num": "TD 06",
+  "title": "Dilution et fonctions",
+  "duration": "75 min",
+  "intro": "Utiliser C1V1=C2V2 et créer une fonction Python sécurisant les calculs.",
+  "chapters": "Algorithmique A3 · Python 02, 04, 06",
+  "exercises": [
+   {
+    "name": "1 — Volume à prélever",
+    "statement": "C1=10 mg/mL, C2=2 mg/mL, V2=50 mL : calculer V1 et le volume de diluant.",
+    "solution": "V1=10 mL de solution mère, et 40 mL de diluant.",
+    "code": "c1,c2,v2 = 10,2,50\nv1 = c2*v2/c1\nprint(v1, v2-v1)"
+   },
+   {
+    "name": "2 — Faisabilité",
+    "statement": "Peut-on obtenir 5 mg/mL à partir de 3 mg/mL par simple dilution ?",
+    "solution": "Non : la cible est plus concentrée que la solution mère."
+   },
+   {
+    "name": "3 — Fonction",
+    "statement": "Écrire volume_mere(c1,c2,v2) qui refuse les valeurs impossibles.",
+    "solution": "Vérifier 0 < c2 ≤ c1 et v2 > 0, puis renvoyer c2*v2/c1.",
+    "code": "def volume_mere(c1,c2,v2):\n    if c1 <= 0 or c2 <= 0 or c2 > c1 or v2 <= 0:\n        raise ValueError('Dilution impossible')\n    return c2*v2/c1\nprint(volume_mere(10,2,50))"
+   },
+   {
+    "name": "4 — Unités",
+    "statement": "Pourquoi utiliser la même unité de concentration pour C1 et C2 ?",
+    "solution": "Le rapport C2/C1 doit être sans unité ; sinon le volume obtenu est erroné."
+   }
+  ]
+ }
 ];
 
 const tps=[
@@ -1053,9 +1204,9 @@ function home(){
  return `<section class="hero"><div class="hero-copy"><span class="eyebrow">Plateforme d'apprentissage · Sciences de la vie</span><div class="teacher-signature"><span>Cours présenté par</span><strong>Pr. Asma EL MEJDI</strong></div><h1>Comprendre l'algorithmique, programmer en Python.</h1><p>De la découverte de la bio-informatique à l'algorithmique puis à Python : cours, applications biologiques, TD corrigés et TP guidés.</p><div class="hero-actions"><a class="btn btn-primary" href="#/cours/bioinformatique">Commencer par la bio-informatique <span>↗</span></a><a class="btn btn-outline" href="#/laboratoire">Essayer le mini-labo</a></div></div>${heroGraphic()}</section>
  <div class="metrics"><div class="metric"><strong>13</strong><span>Chapitres de cours</span></div><div class="metric"><strong>06</strong><span>TD avec corrigés</span></div><div class="metric"><strong>08</strong><span>TP guidés</span></div><div class="metric"><strong>${allChapters.filter(c=>done.has(c.id)).length}/13</strong><span>Chapitres terminés</span></div></div>
  <div class="section-head"><div><h2>Pour commencer — Introduction à la bio-informatique</h2><p>Comprendre l’utilité des outils informatiques en biologie avant d’apprendre à programmer.</p></div><span class="pill">Chapitre 00 · Découverte</span></div><div class="card-grid">${bioinformaticsChapters.map(courseCard).join('')}</div>
- <div class="section-head"><div><h2>Partie II — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div>
+ <div class="section-head"><div><h2>Partie I — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div>
  <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
- <div class="section-head"><div><h2>Partie III — Programmation Python</h2><p>Découvrir la bio-informatique, puis apprendre à programmer en Python avec des exemples du vivant.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
+ <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Découvrir la bio-informatique, puis apprendre à programmer en Python avec des exemples du vivant.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
  <div class="practice-entry"><div><h3>Apprendre par la pratique</h3><p>Suivez les variables étape par étape, puis entraînez-vous à traduire des algorithmes en Python.</p></div><div class="practice-links"><a class="btn" href="#/simulateur">Simulateur pas à pas ↗</a><a class="btn btn-light" href="#/exercices">Exercices interactifs ↗</a></div></div>
  <div class="practice-entry"><div><h3>Réviser et mettre en pratique</h3><p>Examen blanc sur 20 et mini-projets guidés en biologie.</p></div><div class="practice-links"><a class="btn btn-light" href="#/examen">Examen blanc ↗</a><a class="btn btn-light" href="#/projets">Mini-projets ↗</a></div></div>
  <div class="section-head"><div><h2>Travaux dirigés avec corrigés</h2><p>Six TD d'algorithmique et de Python appliqués à la biologie.</p></div><span class="pill">06 TD</span></div><div class="activity-grid">${tds.map(t=>activityCard(t,'td')).join('')}</div>
@@ -1068,8 +1219,8 @@ function chapterPage(c){
  const quiz=c.quiz.map((q,i)=>{let key=c.id+'-'+i;let selected=answers[key];return `<article class="quiz-card" id="question-${i}"><span class="eyebrow">Question ${i+1}/${c.quiz.length}</span><h3>${escapeHtml(q.q)}</h3>${q.choices.map((choice,j)=>`<button class="choice ${selected!==undefined?(j===q.correct?'correct':j===selected?'incorrect':''):''}" data-answer="${c.id}|${i}|${j}" type="button" ${selected!==undefined?'disabled':''}>${String.fromCharCode(65+j)}. ${escapeHtml(choice)}</button>`).join('')}${selected!==undefined?`<div class="quiz-result ${selected===q.correct?'good':'bad'}">${selected===q.correct?'✓ Bonne réponse.':'Réponse correcte : '+escapeHtml(q.choices[q.correct])+'.'} ${escapeHtml(q.why)}</div>`:''}</article>`}).join('');
  return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Cours / Chapitre ${c.num}</div><div class="print-toolbar"><button type="button" data-print-mode="student">Imprimer / PDF du cours</button></div><div class="chapter-banner"><div><span class="eyebrow">Cours · Chapitre ${c.num}</span><h1>${escapeHtml(c.title)}</h1><p>${escapeHtml(c.short)}</p></div><span class="pill orange">⌛ ${c.time}</span></div><div class="lesson-layout"><article class="lesson-article"><div class="objectives"><h3>🎯 Objectifs pédagogiques</h3><ul>${c.objectives.map(o=>`<li>${escapeHtml(o)}</li>`).join('')}</ul></div>${mainSections}<section class="lesson-section" id="quiz"><span class="eyebrow">Évaluation rapide</span><h2>Vérifiez vos acquis</h2><p>Répondez aux questions pour vérifier la compréhension du chapitre. Les réponses sont commentées.</p>${quiz}</section><div class="page-actions"><button class="btn ${done.has(c.id)?'complete':'btn-light'}" type="button" data-complete="${c.id}">${done.has(c.id)?'✓ Chapitre terminé · Annuler':'✓ Marquer ce chapitre comme terminé'}</button>${idx<allChapters.length-1?`<a class="btn" href="#/cours/${allChapters[idx+1].id}">Chapitre suivant →</a>`:`<a class="btn" href="#/td/td1">Passer aux TD →</a>`}</div></article><aside class="lesson-aside"><div class="toc"><h4>Dans ce chapitre</h4>${toc}<a href="#quiz" data-section="quiz">Quiz de révision</a></div><div class="aside-help"><strong>Astuce d'apprentissage</strong> Lire le pseudo-code avant Python, prévoir le résultat puis comparer le programme aux exemples attendus.</div></aside></div>`;
 }
-function tdPage(t){return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Travaux dirigés / ${t.num}</div><div class="print-toolbar"><button type="button" data-print-mode="student">PDF étudiant (sans corrigés)</button><button type="button" data-print-mode="teacher">PDF enseignant (avec corrigés)</button></div><section class="activity-hero"><span class="eyebrow">${t.num} · Exercices d'application</span><h1>${escapeHtml(t.title)}</h1><p>${escapeHtml(t.intro)}</p><div class="task-tags"><span class="pill">⌛ ${t.duration}</span><span class="pill">${escapeHtml(t.chapters)}</span><span class="pill orange">Corrigés disponibles</span></div></section><div class="lesson-layout"><article class="lesson-article"><div class="lesson-section"><h2>Énoncés et corrections</h2><p>Commencez par raisonner sur papier, puis traduisez votre solution en Python. Affichez les corrigés seulement après l'essai.</p>${t.exercises.map((x,i)=>`<div class="exercise"><h3>${escapeHtml(x.name)}</h3><p>${escapeHtml(x.statement)}</p><div class="solution-wrap"><button type="button" class="btn btn-small btn-ghost" data-solution="sol-${i}" aria-expanded="false">Afficher le corrigé ▾</button><div class="solution" id="sol-${i}" hidden><p>${escapeHtml(x.solution)}</p>${x.code?codeWindow(x.code,'correction.py'):''}</div></div></div>`).join('')}</div><div class="page-actions"><a class="btn btn-ghost" href="#/accueil">← Accueil</a><a class="btn" href="#/tp/tp1">Passer aux TP →</a></div></article><aside class="lesson-aside"><div class="toc"><h4>Conseils TD</h4><p class="small-muted">Identifier les entrées, le traitement et les sorties avant d'écrire le programme. Tester les valeurs limites et préciser les unités.</p></div></aside></div>`;}
-function tpPage(t){return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Travaux pratiques / ${t.num}</div><div class="print-toolbar"><button type="button" data-print-mode="student">PDF étudiant (sans corrigés)</button><button type="button" data-print-mode="teacher">PDF enseignant (avec corrigés)</button></div><section class="activity-hero"><span class="eyebrow">${t.num} · Atelier Python</span><h1>${escapeHtml(t.title)}</h1><p>${escapeHtml(t.intro)}</p><div class="task-tags"><span class="pill">⌛ ${t.duration}</span><span class="pill orange">${escapeHtml(t.difficulty)}</span><span class="pill">Python 3</span></div></section><div class="lesson-layout"><article class="lesson-article"><section class="lesson-section"><h2>Objectifs du TP</h2><ul>${t.objectives.map(o=>`<li>${escapeHtml(o)}</li>`).join('')}</ul></section><section class="lesson-section"><h2>Travail demandé</h2><ol>${t.steps.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ol><div class="instructions"><strong>Livrable conseillé :</strong> un fichier .py, une capture d’exécution et une réponse écrite à la question d'approfondissement.</div></section><section class="lesson-section"><h2>Corrigé Python commenté</h2><p>Consulter ce corrigé après avoir essayé de résoudre le problème par soi-même.</p><div class="solution-wrap"><button class="btn btn-ghost" type="button" data-solution="tp-correction" aria-expanded="false">Afficher le programme corrigé ▾</button><div id="tp-correction" class="solution" hidden>${codeWindow(t.code,t.id+'.py')}<button class="btn btn-small btn-light" data-download="${t.id}" type="button">↓ Télécharger le script .py</button></div></div></section><section class="lesson-section"><h2>Pour aller plus loin</h2><p>${escapeHtml(t.challenge)}</p><div class="info-box"><strong>À rendre :</strong> votre programme, vos observations et une courte interprétation du résultat.</div></section><div class="page-actions"><a class="btn btn-ghost" href="#/accueil">← Accueil</a><a class="btn" href="#/laboratoire">Mini-laboratoire interactif →</a></div></article><aside class="lesson-aside"><div class="toc"><h4>Méthode recommandée</h4><p class="small-muted">1. Lire le problème<br>2. Proposer l'algorithme<br>3. Écrire le script<br>4. Exécuter plusieurs tests<br>5. Interpréter le résultat</p></div></aside></div>`;}
+function tdPage(t){return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Travaux dirigés / ${t.num}</div><div class="print-toolbar"><button type="button" data-print-mode="student">PDF étudiant (sans corrigés)</button><button type="button" data-print-mode="teacher">PDF enseignant (avec corrigés)</button><span class="print-note" title="Site public : les corrigés ne sont pas protégés">Corrigés accessibles publiquement</span></div><section class="activity-hero"><span class="eyebrow">${t.num} · Exercices d'application</span><h1>${escapeHtml(t.title)}</h1><p>${escapeHtml(t.intro)}</p><div class="task-tags"><span class="pill">⌛ ${t.duration}</span><span class="pill">${escapeHtml(t.chapters)}</span><span class="pill orange">Corrigés disponibles</span></div></section><div class="lesson-layout"><article class="lesson-article"><div class="lesson-section"><h2>Énoncés et corrections</h2><p>Commencez par raisonner sur papier, puis traduisez votre solution en Python. Affichez les corrigés seulement après l'essai.</p>${t.exercises.map((x,i)=>`<div class="exercise"><h3>${escapeHtml(x.name)}</h3><p>${escapeHtml(x.statement)}</p><div class="solution-wrap"><button type="button" class="btn btn-small btn-ghost" data-solution="sol-${i}" aria-expanded="false">Afficher le corrigé ▾</button><div class="solution" id="sol-${i}" hidden><p>${escapeHtml(x.solution)}</p>${x.code?codeWindow(x.code,'correction.py'):''}</div></div></div>`).join('')}</div><div class="page-actions"><a class="btn btn-ghost" href="#/accueil">← Accueil</a><a class="btn" href="#/tp/tp1">Passer aux TP →</a></div></article><aside class="lesson-aside"><div class="toc"><h4>Conseils TD</h4><p class="small-muted">Identifier les entrées, le traitement et les sorties avant d'écrire le programme. Tester les valeurs limites et préciser les unités.</p></div></aside></div>`;}
+function tpPage(t){return `<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Travaux pratiques / ${t.num}</div><div class="print-toolbar"><button type="button" data-print-mode="student">PDF étudiant (sans corrigés)</button><button type="button" data-print-mode="teacher">PDF enseignant (avec corrigés)</button><span class="print-note" title="Site public : les corrigés ne sont pas protégés">Corrigés accessibles publiquement</span></div><section class="activity-hero"><span class="eyebrow">${t.num} · Atelier Python</span><h1>${escapeHtml(t.title)}</h1><p>${escapeHtml(t.intro)}</p><div class="task-tags"><span class="pill">⌛ ${t.duration}</span><span class="pill orange">${escapeHtml(t.difficulty)}</span><span class="pill">Python 3</span></div></section><div class="lesson-layout"><article class="lesson-article"><section class="lesson-section"><h2>Objectifs du TP</h2><ul>${t.objectives.map(o=>`<li>${escapeHtml(o)}</li>`).join('')}</ul></section><section class="lesson-section"><h2>Travail demandé</h2><ol>${t.steps.map(s=>`<li>${escapeHtml(s)}</li>`).join('')}</ol><div class="instructions"><strong>Livrable conseillé :</strong> un fichier .py, une capture d’exécution et une réponse écrite à la question d'approfondissement.</div></section><section class="lesson-section"><h2>Corrigé Python commenté</h2><p>Consulter ce corrigé après avoir essayé de résoudre le problème par soi-même.</p><div class="solution-wrap"><button class="btn btn-ghost" type="button" data-solution="tp-correction" aria-expanded="false">Afficher le programme corrigé ▾</button><div id="tp-correction" class="solution" hidden>${codeWindow(t.code,t.id+'.py')}<button class="btn btn-small btn-light" data-download="${t.id}" type="button">↓ Télécharger le script .py</button></div></div></section><section class="lesson-section"><h2>Pour aller plus loin</h2><p>${escapeHtml(t.challenge)}</p><div class="info-box"><strong>À rendre :</strong> votre programme, vos observations et une courte interprétation du résultat.</div></section><div class="page-actions"><a class="btn btn-ghost" href="#/accueil">← Accueil</a><a class="btn" href="#/laboratoire">Mini-laboratoire interactif →</a></div></article><aside class="lesson-aside"><div class="toc"><h4>Méthode recommandée</h4><p class="small-muted">1. Lire le problème<br>2. Proposer l'algorithme<br>3. Écrire le script<br>4. Exécuter plusieurs tests<br>5. Interpréter le résultat</p></div></aside></div>`;}
 
 const labs={
  adn:{title:'Composition d’une séquence ADN',desc:'Calculez la longueur, la composition A/T/C/G, le pourcentage GC et le complément d’une séquence simple.',fields:`<label for="lab-adn">Séquence d’ADN (A, T, C, G uniquement)</label><textarea id="lab-adn" spellcheck="false">ATGCGATC</textarea>`,button:'Analyser la séquence',python:`adn = "ATGCGATC"
