@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="BioCode : cours d'informatique et de Python pour la biologie, TD, TP et laboratoire interactif.">
+<meta name="description" content="BioCode : algorithmique, programmation Python et bio-informatique pour les sciences de la vie, cours, TD, TP et ateliers interactifs.">
 <meta name="theme-color" content="#10352f">
 <title>BioCode — Informatique et Python pour la biologie</title>
 <style>:root{--bg:#f7f8f5;--paper:#fff;--ink:#193432;--muted:#627671;--border:#dce6e0;--brand:#0e5f54;--brand2:#197d6c;--mint:#e6f4ed;--accent:#eaad79;--cream:#fff4df;--sidebar:#10352f;--code:#112824;--shadow:0 18px 50px rgba(12,57,47,.075);--radius:18px;--focus:#e79f54}
@@ -107,6 +107,26 @@
  .lesson-layout{display:block}
  .code-window{print-color-adjust:exact;-webkit-print-color-adjust:exact}
 }
+
+
+/* Chapitre 01 - introduction à la bio-informatique */
+.bio-overview{display:flex;align-items:stretch;gap:8px;margin:17px 0;flex-wrap:wrap}
+.bio-pillar{flex:1 1 145px;background:#f2f8f2;border:1px solid #d3e7dc;border-radius:14px;padding:18px 12px;min-width:125px;text-align:center}
+.bio-pillar>span{font-size:23px;display:block}.bio-pillar strong{font-size:14px;color:#225c4d;display:block;margin:4px 0}.bio-pillar small{font-size:11px;color:#698678;display:block}
+.bio-plus{font-size:22px;font-weight:900;align-self:center;color:#5b9276}
+.bio-summary{padding:14px 18px;background:#e8f5ec;border:1px solid #cde6d2;border-radius:12px;font-size:13px;margin-bottom:17px;color:#30664d}
+.bio-workflow{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap;margin:16px 0}
+.bio-workflow div{flex:1 1 140px;min-width:120px;background:#f4f9f6;border:1px solid #cce0d5;border-radius:12px;padding:15px 13px}
+.bio-workflow div span{display:block;font-size:11px;font-weight:850;color:#37775d;margin-bottom:6px}
+.bio-workflow div strong{font-size:12px;line-height:1.4;display:block}
+.bio-workflow>b{align-self:center;color:#559876;font-size:18px}
+.bio-impact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:17px 0}
+.bio-impact{min-width:0;background:#f7faf6;border:1px solid #dce9df;border-radius:13px;padding:15px}
+.bio-impact>span{font-size:24px}.bio-impact h3{font-size:15px;margin:7px 0;color:#235d49}
+.bio-impact p{font-size:12px;line-height:1.6;margin:0}
+.bio-note{font-size:12px!important;color:#62786a!important}
+@media(max-width:900px){.bio-impact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.bio-impact-grid{grid-template-columns:1fr}.bio-plus,.bio-workflow>b{display:none}.bio-overview,.bio-workflow{display:grid;grid-template-columns:1fr}.bio-pillar,.bio-workflow div{min-width:0}}
 
 </style>
 </head>
@@ -591,22 +611,153 @@ const algoChapters = [
 
 const chapters = [
 {
- id:'introduction',num:'01',icon:'⌘',title:'Introduction à Python',short:'Comprendre le programme, écrire et exécuter ses premières instructions.',time:'45 min',level:'Débutant',
- objectives:['Expliquer la différence entre un algorithme et un programme.','Utiliser print(), les commentaires et les variables.','Savoir pourquoi l’indentation est importante en Python.'],
- sections:[
-  {title:'Pourquoi programmer en biologie ?',body:`<p>Un <strong>algorithme</strong> est une suite finie d’étapes permettant de résoudre un problème. Un <strong>programme</strong> traduit ces étapes dans un langage exécutable, tel que Python.</p><p>En biologie, Python peut faciliter le calcul des concentrations, l’analyse des séquences ADN et la synthèse de mesures expérimentales.</p><div class="info-box"><strong>Exemple :</strong> pour obtenir la longueur d’une séquence ADN, on décrit d’abord les étapes : lire la séquence → compter ses caractères → afficher le résultat.</div>`},
-  {title:'Le premier programme',body:`<p>La fonction <code class="inline">print()</code> affiche un message. Une ligne commençant par <code class="inline">#</code> est un commentaire, ignoré lors de l’exécution.</p>`,code:`# Premier programme de biologie
-espece = "Olea europaea"
-nombre_arbres = 12
-print("Espèce :", espece)
-print("Nombre d'arbres :", nombre_arbres)`,output:`Espèce : Olea europaea
-Nombre d'arbres : 12`},
-  {title:'Lire une donnée et respecter la syntaxe',body:`<p><code class="inline">input()</code> lit du texte saisi par l’utilisateur ; <code class="inline">int()</code> transforme ce texte en nombre entier lorsqu’il est valide. Python distingue majuscules/minuscules et utilise l’indentation pour délimiter des blocs.</p>`,code:`nom = input("Nom de l'échantillon : ")
-replicats = int(input("Nombre de répétitions : "))
-print("Échantillon :", nom)
-print("Répétitions :", replicats)`,note:'Pour démarrer : installer Python 3 et utiliser IDLE, Thonny, VS Code ou un notebook. Les exercices présentés n’exigent aucune bibliothèque externe.'}
+ "id": "introduction",
+ "num": "01",
+ "icon": "🧬",
+ "title": "Introduction à Python et à la bio-informatique",
+ "short": "Découvrir la bio-informatique, ses impacts et les usages de Python en sciences de la vie.",
+ "time": "1 h 30",
+ "level": "Débutant",
+ "objectives": [
+  "Définir la bio-informatique et comprendre son caractère interdisciplinaire.",
+  "Identifier des applications en génomique, en médecine et en biologie végétale.",
+  "Expliquer pourquoi Python est utile pour traiter les données biologiques.",
+  "Écrire et interpréter un premier programme Python sur une séquence ADN.",
+  "Distinguer algorithme, pseudo-code et programme Python."
  ],
- quiz:[{q:'Quelle fonction affiche un résultat ?',choices:['input()','print()','len()'],correct:1,why:'print() affiche du texte ou la valeur d’une variable.'},{q:'Que produit input() ?',choices:['Un texte (str)','Toujours un entier','Un fichier'],correct:0,why:'La réponse saisie est une chaîne de caractères, à convertir si nécessaire.'}]
+ "sections": [
+  {
+   "title": "Présentation de Python et de ses usages en bio-informatique",
+   "body": "<p>La <strong>bio-informatique</strong> associe les connaissances biologiques, les méthodes informatiques et l’analyse mathématique ou statistique. Elle aide à traiter des données issues de l’ADN, des protéines, des expériences et des observations du vivant.</p><div class=\"bio-overview\"><div class=\"bio-pillar\"><span>🧬</span><strong>Biologie</strong><small>Gènes, cellules, protéines, plantes</small></div><span class=\"bio-plus\">+</span><div class=\"bio-pillar\"><span>💻</span><strong>Informatique</strong><small>Algorithmes, programmes, stockage</small></div><span class=\"bio-plus\">+</span><div class=\"bio-pillar\"><span>📊</span><strong>Statistiques</strong><small>Calculs, modèles, validation</small></div></div><div class=\"bio-summary\"><strong>Bio-informatique</strong> : transformer des données biologiques en résultats analysables et interprétables, tout en vérifiant leur qualité.</div><p><strong>Exemple :</strong> un chercheur compare les séquences ADN de 1 000 plantes pour étudier les variations génétiques entre des groupes présentant des tolérances différentes à la sécheresse.</p>"
+  },
+  {
+   "title": "Qu’est-ce que la bio-informatique ?",
+   "body": "<p>C’est une <strong>discipline interdisciplinaire</strong> qui développe et utilise des méthodes numériques pour organiser, comparer, analyser et interpréter les données biologiques.</p><p>Elle ne se limite pas à écrire du code : il faut poser une <strong>question scientifique</strong>, comprendre les données disponibles et interpréter les résultats à la lumière des connaissances biologiques.</p><div class=\"bio-workflow\"><div><span>01 · Données</span><strong>ADN · protéines · mesures</strong></div><b aria-hidden=\"true\">→</b><div><span>02 · Analyse</span><strong>Algorithmes · Python · statistiques</strong></div><b aria-hidden=\"true\">→</b><div><span>03 · Résultats</span><strong>Comparaisons · graphiques · hypothèses</strong></div></div><div class=\"info-box\"><strong>Question pour la classe :</strong> quelles informations faudrait-il collecter pour comparer la croissance de deux groupes de plantes ?</div>"
+  },
+  {
+   "title": "Pourquoi la bio-informatique est-elle nécessaire ?",
+   "body": "<p>Les technologies de séquençage, les laboratoires automatisés et les dispositifs de mesure produisent une <strong>quantité croissante de données biologiques</strong>. Leur analyse manuelle devient lente, répétitive et parfois peu fiable.</p><div class=\"bio-impact-grid\"><article class=\"bio-impact\"><span>🧪</span><h3>Organiser</h3><p>Structurer les résultats expérimentaux et les métadonnées.</p></article><article class=\"bio-impact\"><span>🔎</span><h3>Comparer</h3><p>Repérer des similarités et des différences entre séquences.</p></article><article class=\"bio-impact\"><span>📈</span><h3>Analyser</h3><p>Calculer des indicateurs et construire des graphiques.</p></article><article class=\"bio-impact\"><span>✅</span><h3>Vérifier</h3><p>Contrôler les erreurs, les unités et la reproductibilité.</p></article></div><p><strong>Exemple :</strong> pour 5 000 mesures de croissance végétale, un programme peut calculer rapidement les moyennes de chaque groupe et produire des résumés utiles.</p><div class=\"info-box\"><strong>Attention :</strong> l’automatisation ne garantit pas la fiabilité scientifique. Les données, les méthodes et les conclusions doivent toujours être contrôlées.</div>"
+  },
+  {
+   "title": "L’impact de la bio-informatique",
+   "body": "<p>La bio-informatique joue un rôle important dans plusieurs domaines de la recherche et des applications biologiques.</p><div class=\"bio-impact-grid\"><article class=\"bio-impact\"><span>🧬</span><h3>Génomique</h3><p>Étudier les génomes, comparer les séquences et rechercher des variations génétiques.</p></article><article class=\"bio-impact\"><span>🧫</span><h3>Protéomique</h3><p>Analyser la présence, l’abondance et les interactions des protéines.</p></article><article class=\"bio-impact\"><span>⚗️</span><h3>Métabolomique</h3><p>Étudier les petites molécules issues des processus métaboliques.</p></article><article class=\"bio-impact\"><span>💊</span><h3>Recherche de médicaments</h3><p>Utiliser le criblage virtuel pour sélectionner des molécules à tester expérimentalement.</p></article><article class=\"bio-impact\"><span>🩺</span><h3>Médecine personnalisée</h3><p>Étudier les données génétiques et cliniques pouvant guider certains choix médicaux.</p></article><article class=\"bio-impact\"><span>🌱</span><h3>Biologie végétale</h3><p>Analyser des gènes, la croissance et les caractères liés à la tolérance au stress.</p></article></div><p><strong>Cas d’étude végétal :</strong> comparer des variétés de blé aux réponses différentes au manque d’eau pour identifier des facteurs potentiellement associés à la tolérance à la sécheresse.</p><p class=\"bio-note\">Les résultats informatiques apportent des hypothèses et des indices ; ils ne remplacent ni la validation expérimentale ni, dans le domaine médical, les essais cliniques.</p>"
+  },
+  {
+   "title": "Présentation de Python",
+   "body": "<p><strong>Python</strong> est un langage de programmation de haut niveau, créé par <strong>Guido van Rossum</strong>, dont la première version publique date de <strong>1991</strong>. Sa syntaxe est généralement lisible, ce qui en fait un bon choix pour apprendre la programmation.</p><p>En biologie, Python peut servir à <strong>automatiser des calculs</strong>, <strong>analyser des séquences</strong>, <strong>traiter des tableaux de mesures</strong> et <strong>visualiser des données</strong>. Selon le niveau du projet, on peut ensuite utiliser des bibliothèques spécialisées telles que Biopython, pandas ou Matplotlib.</p><div class=\"bio-impact-grid\"><article class=\"bio-impact\"><span>📖</span><h3>Lisible</h3><p>Des instructions relativement simples, comme <code class=\"inline\">print()</code>.</p></article><article class=\"bio-impact\"><span>🛠️</span><h3>Polyvalent</h3><p>Scripts, automatisation, calcul scientifique et données.</p></article><article class=\"bio-impact\"><span>🧬</span><h3>Utile en biologie</h3><p>ADN, données expérimentales, statistiques et graphiques.</p></article></div><p><strong>Versions :</strong> Python 2 n’est plus maintenu depuis 2020 ; pour ce cours, nous utilisons <strong>Python 3</strong>. Pour écrire et exécuter les programmes, les étudiants peuvent utiliser Thonny, IDLE, VS Code ou un notebook Jupyter.</p>",
+   "code": "print(\"Bonjour, la biologie !\")",
+   "output": "Bonjour, la biologie !"
+  },
+  {
+   "title": "Première application : analyser une séquence ADN",
+   "body": "<p>Une <strong>séquence d’ADN</strong> peut être représentée par une chaîne de caractères (<code class=\"inline\">str</code>). Python permet de mesurer sa longueur avec <code class=\"inline\">len()</code> et de compter l’apparition d’une base avec <code class=\"inline\">count()</code>.</p><p>Dans l’exemple suivant, nous comptons les nucléotides d’une courte séquence fictive et calculons son pourcentage de G et C.</p>",
+   "code": "adn = \"ATGCGATACG\"\nprint(\"Séquence :\", adn)\nprint(\"Longueur :\", len(adn))\nprint(\"Nombre de A :\", adn.count(\"A\"))\ngc = 100 * (adn.count(\"G\") + adn.count(\"C\")) / len(adn)\nprint(\"GC (%) :\", gc)",
+   "output": "Séquence : ATGCGATACG\nLongueur : 10\nNombre de A : 3\nGC (%) : 50.0",
+   "note": "Cet exemple utilise une séquence non vide composée des caractères A, T, C et G. Dans une vraie analyse, il faut contrôler et nettoyer les séquences avant de calculer des indicateurs."
+  },
+  {
+   "title": "De l’algorithme à Python : hauteurs de plantes",
+   "body": "<p>L’<strong>algorithme</strong> décrit la succession d’étapes permettant de résoudre un problème. Le <strong>programme Python</strong> est une traduction exécutable de ces étapes.</p><p><strong>Problème :</strong> calculer la moyenne de trois hauteurs de plantes (en cm). La traduction conserve le calcul, mais utilise les règles de syntaxe de Python.</p><div class=\"bio-workflow\"><div><span>Étape 1</span><strong>Décrire le calcul</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 2</span><strong>Écrire en Python</strong></div><b aria-hidden=\"true\">→</b><div><span>Étape 3</span><strong>Tester et interpréter</strong></div></div>",
+   "pseudo": "Algorithme MoyenneHauteurs\nDébut\n    hauteur1 ← 12\n    hauteur2 ← 15\n    hauteur3 ← 18\n    moyenne ← (hauteur1 + hauteur2 + hauteur3) / 3\n    Écrire moyenne\nFin",
+   "code": "hauteur1 = 12\nhauteur2 = 15\nhauteur3 = 18\nmoyenne = (hauteur1 + hauteur2 + hauteur3) / 3\nprint(\"Hauteur moyenne :\", moyenne, \"cm\")",
+   "output": "Hauteur moyenne : 15.0 cm",
+   "note": "Vous trouverez aussi un schéma et un atelier interactif dans la rubrique « Algorithme → Python » du site."
+  },
+  {
+   "title": "Le premier programme Python",
+   "body": "<p>La fonction <code class=\"inline\">print()</code> affiche un message ou une valeur. Une ligne commençant par <code class=\"inline\">#</code> est un commentaire ignoré lors de l’exécution.</p><p>Testez ce programme, puis modifiez le nom de l’espèce ou le nombre d’arbres.</p>",
+   "code": "# Premier programme de biologie\nespece = \"Olea europaea\"\nnombre_arbres = 12\nprint(\"Espèce :\", espece)\nprint(\"Nombre d'arbres :\", nombre_arbres)",
+   "output": "Espèce : Olea europaea\nNombre d'arbres : 12"
+  },
+  {
+   "title": "Lire une donnée et respecter la syntaxe",
+   "body": "<p><code class=\"inline\">input()</code> lit du texte saisi par l’utilisateur ; <code class=\"inline\">int()</code> transforme ce texte en entier lorsque la saisie est valide. Python distingue majuscules et minuscules ; l’<strong>indentation</strong> délimite les blocs d’instructions.</p><p>Les prochains chapitres approfondissent les variables, les types, les conditions et les boucles.</p>",
+   "code": "nom = input(\"Nom de l'échantillon : \")\nreplicats = int(input(\"Nombre de répétitions : \"))\nprint(\"Échantillon :\", nom)\nprint(\"Répétitions :\", replicats)",
+   "note": "Pour commencer, utilisez Python 3 dans IDLE, Thonny ou VS Code. Les exemples de base n’exigent aucune bibliothèque externe."
+  }
+ ],
+ "quiz": [
+  {
+   "q": "Quel est le rôle principal de la bio-informatique ?",
+   "choices": [
+    "Créer uniquement des pages web",
+    "Traiter et analyser des données biologiques à l’aide de méthodes informatiques",
+    "Remplacer toutes les expériences de laboratoire"
+   ],
+   "correct": 1,
+   "why": "La bio-informatique aide à organiser, analyser et interpréter des données biologiques."
+  },
+  {
+   "q": "Quel domaine étudie principalement les génomes ?",
+   "choices": [
+    "Génomique",
+    "Météorologie",
+    "Électronique"
+   ],
+   "correct": 0,
+   "why": "La génomique étudie les génomes et leurs caractéristiques."
+  },
+  {
+   "q": "Quel langage utilise-t-on dans ce module ?",
+   "choices": [
+    "Python 2",
+    "Python 3",
+    "HTML uniquement"
+   ],
+   "correct": 1,
+   "why": "Python 3 est utilisé pour apprendre à programmer et analyser des données."
+  },
+  {
+   "q": "Que renvoie len('ATGCA') ?",
+   "choices": [
+    "4",
+    "5",
+    "ATGCA"
+   ],
+   "correct": 1,
+   "why": "len() renvoie le nombre de caractères."
+  },
+  {
+   "q": "Que renvoie 'ATGCGATACG'.count('A') ?",
+   "choices": [
+    "2",
+    "3",
+    "4"
+   ],
+   "correct": 1,
+   "why": "La base A apparaît trois fois dans cette séquence."
+  },
+  {
+   "q": "Quelle instruction affiche un résultat ?",
+   "choices": [
+    "input()",
+    "print()",
+    "len()"
+   ],
+   "correct": 1,
+   "why": "print() affiche une valeur ou un message."
+  },
+  {
+   "q": "Quelle différence existe entre algorithme et Python ?",
+   "choices": [
+    "Ce sont deux termes identiques",
+    "Un algorithme décrit des étapes, Python est un langage pour les programmer",
+    "Python ne sert qu’à faire des calculs manuels"
+   ],
+   "correct": 1,
+   "why": "L’algorithme exprime la logique ; le langage de programmation en permet l’exécution."
+  },
+  {
+   "q": "Que renvoie input() en Python ?",
+   "choices": [
+    "Une chaîne de caractères (str)",
+    "Toujours un entier",
+    "Un fichier"
+   ],
+   "correct": 0,
+   "why": "input() produit du texte, que l’on peut convertir ensuite."
+  }
+ ]
 },
 {
  id:'types-operateurs',num:'02',icon:'∑',title:'Types et opérateurs',short:'Manipuler nombres, textes et calculs biologiques sans confondre les unités.',time:'50 min',level:'Débutant',
@@ -857,7 +1008,7 @@ function home(){
  <div class="metrics"><div class="metric"><strong>12</strong><span>Chapitres de cours</span></div><div class="metric"><strong>06</strong><span>TD avec corrigés</span></div><div class="metric"><strong>08</strong><span>TP guidés</span></div><div class="metric"><strong>${allChapters.filter(c=>done.has(c.id)).length}/12</strong><span>Chapitres terminés</span></div></div>
  <div class="section-head"><div><h2>Partie I — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div>
  <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
- <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Transformer les algorithmes en scripts Python et les appliquer à la biologie.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
+ <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Découvrir la bio-informatique, puis apprendre à programmer en Python avec des exemples du vivant.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
  <div class="practice-entry"><div><h3>Apprendre par la pratique</h3><p>Suivez les variables étape par étape, puis entraînez-vous à traduire des algorithmes en Python.</p></div><div class="practice-links"><a class="btn" href="#/simulateur">Simulateur pas à pas ↗</a><a class="btn btn-light" href="#/exercices">Exercices interactifs ↗</a></div></div>
  <div class="practice-entry"><div><h3>Réviser et mettre en pratique</h3><p>Examen blanc sur 20 et mini-projets guidés en biologie.</p></div><div class="practice-links"><a class="btn btn-light" href="#/examen">Examen blanc ↗</a><a class="btn btn-light" href="#/projets">Mini-projets ↗</a></div></div>
  <div class="section-head"><div><h2>Travaux dirigés avec corrigés</h2><p>Six TD d'algorithmique et de Python appliqués à la biologie.</p></div><span class="pill">06 TD</span></div><div class="activity-grid">${tds.map(t=>activityCard(t,'td')).join('')}</div>
