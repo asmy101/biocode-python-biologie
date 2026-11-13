@@ -831,7 +831,7 @@ const escapeHtml=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 const codeWindow=(code,name='exemple.py')=>`<div class="code-window"><div class="code-bar"><span>● &nbsp; ${name==='pseudo-code.txt'?'PSEUDO-CODE':'PYTHON'} &nbsp; / &nbsp; ${escapeHtml(name)}</span><button type="button" data-copy="${encodeURIComponent(code)}" aria-label="Copier le code">Copier</button></div><pre><code>${escapeHtml(code)}</code></pre></div>`;
 const nav=(id,title,num,check=false)=>`<button class="nav-link" data-go="${escapeHtml(id)}" type="button"><span class="nav-number">${num}</span><span>${escapeHtml(title)}</span>${check?'<span class="nav-check" aria-label="Terminé">✓</span>':''}</button>`;
 function renderNav(){
- el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Apprendre en pratiquant</div>${nav('simulateur','Simulateur pas à pas','▶')}${nav('exercices','Algorithme → Python','✎')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
+ el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Apprendre en pratiquant</div>${nav('simulateur','Simulateur pas à pas','▶')}${nav('exercices','Algorithme → Python','✎')}${nav('examen','Examen blanc','✓')}${nav('projets','Mini-projets','⚗')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
  const total=allChapters.length;const count=allChapters.filter(c=>done.has(c.id)).length;
  el('sidebar-progress-label').textContent=count+' / '+total+' chapitres terminés';
  el('sidebar-progress-bar').style.width=Math.round(100*count/total)+'%';
@@ -846,6 +846,7 @@ function home(){
  <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
  <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Transformer les algorithmes en scripts Python et les appliquer à la biologie.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
  <div class="practice-entry"><div><h3>Apprendre par la pratique</h3><p>Suivez les variables étape par étape, puis entraînez-vous à traduire des algorithmes en Python.</p></div><div class="practice-links"><a class="btn" href="#/simulateur">Simulateur pas à pas ↗</a><a class="btn btn-light" href="#/exercices">Exercices interactifs ↗</a></div></div>
+ <div class="practice-entry"><div><h3>Réviser et mettre en pratique</h3><p>Examen blanc sur 20 et mini-projets guidés en biologie.</p></div><div class="practice-links"><a class="btn btn-light" href="#/examen">Examen blanc ↗</a><a class="btn btn-light" href="#/projets">Mini-projets ↗</a></div></div>
  <div class="section-head"><div><h2>Travaux dirigés avec corrigés</h2><p>Six TD d'algorithmique et de Python appliqués à la biologie.</p></div><span class="pill">06 TD</span></div><div class="activity-grid">${tds.map(t=>activityCard(t,'td')).join('')}</div>
   <div class="section-head"><div><h2>Pratiquer sur des cas biologiques</h2><p>Huit TP guidés avec scripts Python téléchargeables.</p></div><a class="text-link" href="#/laboratoire">Laboratoire interactif ↗</a></div><div class="activity-grid">${tps.map(t=>activityCard(t,'tp')).join('')}</div>`;
 }
@@ -1071,6 +1072,46 @@ function showPracticeHint(id){
  box.className='practice-feedback';box.innerHTML='<strong>Indices :</strong> '+e.hints.map(escapeHtml).join(' · ');
 }
 
+
+const examQuestions=[
+{q:"Un algorithme est...",answers:["Un programme forcément écrit en Python","Une suite finie d'étapes pour résoudre un problème","Une image de données"],correct:1,why:"L'algorithme exprime la méthode, indépendamment du langage."},
+{q:"Dans x ← 3 puis x ← x + 2, la valeur finale de x est...",answers:["2","3","5"],correct:2,why:"La seconde affectation utilise l'ancienne valeur de x."},
+{q:"Pour afficher un résultat en Python, on utilise...",answers:["print()","input()","append()"],correct:0,why:"print() sert à afficher."},
+{q:"Quelle expression Python permet de comparer x et 7 ?",answers:["x = 7","x == 7","x ← 7"],correct:1,why:"== compare et = affecte."},
+{q:"Combien d'itérations effectue for i in range(4) ?",answers:["3","4","5"],correct:1,why:"range(4) produit 0,1,2,3."},
+{q:"Laquelle de ces structures est modifiable ?",answers:["Tuple","Liste","Nombre entier"],correct:1,why:"Les listes Python sont modifiables."},
+{q:"Pour accéder au nombre de germinations dans lot={'germees':34}, écrire...",answers:["lot['germees']","lot[0]","lot(34)"],correct:0,why:"Les dictionnaires utilisent des clés."},
+{q:"Une moyenne de températures requiert...",answers:["Au moins une mesure","Une liste vide","Un tuple uniquement"],correct:0,why:"La division par un effectif nul est invalide."},
+{q:"Pour compter le nombre de caractères d'une séquence ADN : ",answers:["count_all()","len()","float()"],correct:1,why:"len(adn) renvoie la longueur de la chaîne."},
+{q:"Si 34 graines sur 40 ont germé, le taux est...",answers:["34 %","85 %","117,6 %"],correct:1,why:"100 × 34 / 40 = 85 %."}
+];
+let examSelections={},examSubmitted=false;
+function examPage(){
+ return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Examen blanc</div><span class="eyebrow">Révision du module · Évaluation formative</span>'
+ +'<h1>Examen blanc — Algorithmique et Python</h1><p>10 questions, 2 points par bonne réponse : <strong>note sur 20</strong>. Cette évaluation est indicative, sans valeur de contrôle universitaire.</p>'
+ +'<div class="practice-entry"><div><h3>Réviser les concepts essentiels</h3><p>Affectation, conditions, boucles, listes, dictionnaires et calculs biologiques.</p></div><button id="exam-reset" class="btn btn-light" type="button">Recommencer</button></div>'
+ +examQuestions.map((q,i)=>'<section class="practice-item"><span class="pill">Question '+(i+1)+'/10 · 2 points</span><h3>'+escapeHtml(q.q)+'</h3><div class="exam-choices">'
+  +q.answers.map((ans,j)=>'<label style="display:flex;align-items:flex-start;gap:11px;margin:11px 0;font-size:13px"><input type="radio" name="exam-'+i+'" value="'+j+'" data-exam-question="'+i+'" '+(examSelections[i]===j?'checked':'')+' '+(examSubmitted?'disabled':'')+'><span>'+escapeHtml(ans)+'</span></label>').join('')
+  +'</div>'+(examSubmitted?'<div class="practice-feedback'+(examSelections[i]===q.correct?'':' error')+'">'+(examSelections[i]===q.correct?'✓ Bonne réponse. ':'Réponse correcte : '+escapeHtml(q.answers[q.correct])+'. ')+escapeHtml(q.why)+'</div>':'')+'</section>').join('')
+ +'<div class="practice-entry"><div><h3>'+(examSubmitted?'Résultat : '+(examQuestions.filter((q,i)=>examSelections[i]===q.correct).length*2)+'/20':'Soumettre vos réponses')+'</h3><p>'+(examSubmitted?'Consultez la correction détaillée ci-dessus.':'Répondez aux 10 questions pour calculer votre note sur 20.')+'</p></div><button class="btn" id="exam-submit" type="button" '+(examSubmitted?'disabled':'')+'>Corriger l’examen</button></div>';
+}
+function submitExam(){
+ examSubmitted=true;el('main').innerHTML=examPage();window.scrollTo(0,0);
+}
+const projectIdeas=[
+{title:"Mini-projet 1 — Analyse de séquences ADN",level:"Intermédiaire",goal:"Valider les bases A/T/C/G, calculer la longueur et le pourcentage GC, puis créer le complément inversé.",steps:["Lire une séquence ADN et supprimer les espaces.","Refuser les caractères autres que A, T, C, G.","Calculer A, T, C, G et la proportion GC.","Afficher le complément inversé et interpréter les résultats."],tests:"ATGC → 4 bases, GC = 50 %, complément inversé GCAT."},
+{title:"Mini-projet 2 — Germination de trois lots",level:"Débutant +",goal:"Comparer les taux de germination de trois lots de graines en Python.",steps:["Créer un dictionnaire pour les lots A, B et C.","Contrôler le nombre de graines semées et germées.","Calculer le pourcentage de chaque lot.","Afficher le lot présentant le taux le plus élevé."],tests:"A=(40,34) → 85 % ; B=(50,45) → 90 % ; C=(30,21) → 70 %."},
+{title:"Mini-projet 3 — Mesures expérimentales CSV",level:"Intermédiaire",goal:"Lire un fichier CSV de températures, vérifier les mesures et calculer moyenne, minimum et maximum.",steps:["Créer un CSV local de cinq températures, avec une ligne d’en-tête.","Lire le fichier avec csv.DictReader.","Convertir les mesures en float et traiter les valeurs invalides.","Afficher le résumé avec unités et tester un fichier vide."],tests:"18;20;22;24;21 → moyenne 21 °C, min 18 °C, max 24 °C."}
+];
+function projectsPage(){
+ return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Mini-projets</div><span class="eyebrow">Travaux à réaliser · Biologie</span><h1>Mini-projets Python</h1>'
+ +'<p>Trois sujets progressifs à réaliser en autonomie ou en petits groupes, à partir des notions vues en cours.</p>'
+ +projectIdeas.map((p,i)=>'<section class="practice-item"><span class="pill">'+escapeHtml(p.level)+'</span><h2>'+escapeHtml(p.title)+'</h2><p><strong>Objectif :</strong> '+escapeHtml(p.goal)+'</p>'
+  +'<h3>Travail demandé</h3><ol>'+p.steps.map(t=>'<li>'+escapeHtml(t)+'</li>').join('')+'</ol>'
+  +'<div class="info-box"><strong>Test attendu :</strong> '+escapeHtml(p.tests)+'</div><p style="margin-top:16px">Livrables : script Python (.py), résultats d’exécution et courte interprétation biologique.</p></section>').join('')
+ +'<div class="practice-entry"><div><h3>Distribuer un sujet aux étudiants</h3><p>Utilisez la fonction d’impression du navigateur pour enregistrer cette page en PDF.</p></div><button type="button" class="btn" id="print-course">Imprimer / PDF</button></div>';
+}
+
 function searchPage(term){
  const q=term.trim().toLocaleLowerCase('fr');
  const hits=[...allChapters.map(c=>({type:'Cours',name:c.title,desc:c.short,route:'cours/'+c.id,hay:[c.title,c.short,...c.objectives.map(x=>x),...c.sections.map(s=>s.title+' '+s.body)].join(' ')})),...tds.map(t=>({type:'TD',name:t.title,desc:t.intro,route:'td/'+t.id,hay:[t.title,t.intro,...t.exercises.map(e=>e.name+' '+e.statement)].join(' ')})),...tps.map(t=>({type:'TP',name:t.title,desc:t.intro,route:'tp/'+t.id,hay:[t.title,t.intro,...t.steps].join(' ')}))].filter(x=>x.hay.toLocaleLowerCase('fr').includes(q));
@@ -1087,6 +1128,8 @@ function render(){
  else if(type==='atelier'||type==='visuel'){html=atelierPage();title='Atelier interactif';}
  else if(type==='simulateur'){html=simulatorPage();title='Simulateur pas à pas';}
  else if(type==='exercices'){html=practicePage();title='Exercices de traduction';}
+ else if(type==='examen'){html=examPage();title='Examen blanc';}
+ else if(type==='projets'){html=projectsPage();title='Mini-projets';}
  else if(type==='recherche'){let term=lastSearch;try{term=sessionStorage.getItem('biocode-last-search')||lastSearch;}catch(e){}html=searchPage(term);title='Recherche';}
  else {html=home();title='Accueil';}
  el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();if(type==='atelier'||type==='visuel')computeAtelier();if(type==='simulateur')updateSimulator();
@@ -1145,6 +1188,9 @@ function calcLab(id){
 }
 
 document.addEventListener('click',e=>{
+ const examSubmit=e.target.closest('#exam-submit');if(examSubmit){submitExam();return;}
+ const examReset=e.target.closest('#exam-reset');if(examReset){examSelections={};examSubmitted=false;el('main').innerHTML=examPage();return;}
+ const printCourse=e.target.closest('#print-course');if(printCourse){window.print();return;}
  const graded=e.target.closest('#practice-grade');if(graded){evaluatePractice();return;}
  const check=e.target.closest('[data-practice-check]');if(check){assessExercise(check.dataset.practiceCheck);return;}
  const hint=e.target.closest('[data-practice-hint]');if(hint){showPracticeHint(hint.dataset.practiceHint);return;}
@@ -1162,7 +1208,7 @@ document.addEventListener('click',e=>{
  const sect=e.target.closest('[data-section]');if(sect){e.preventDefault();el(sect.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return;}
 });
 function searchSubmit(){const q=el('global-search').value.trim();if(!q)return;lastSearch=q;try{sessionStorage.setItem('biocode-last-search',q);}catch(e){}if(currentPath()==='recherche')render();else location.hash='/recherche';el('global-search').blur();}
-document.addEventListener('change',e=>{if(e.target.id==='trace-choice'&&simulatorCatalog[e.target.value]){simulatorCurrent=e.target.value;simulatorStep=0;el('main').innerHTML=simulatorPage();updateSimulator();return;}if(e.target.id==='atelier-case'&&atelierCases[e.target.value]){atelierCurrent=e.target.value;el('main').innerHTML=atelierPage();computeAtelier();}});
+document.addEventListener('change',e=>{if(e.target.dataset.examQuestion!==undefined&&!examSubmitted){examSelections[Number(e.target.dataset.examQuestion)]=Number(e.target.value);return;}if(e.target.id==='trace-choice'&&simulatorCatalog[e.target.value]){simulatorCurrent=e.target.value;simulatorStep=0;el('main').innerHTML=simulatorPage();updateSimulator();return;}if(e.target.id==='atelier-case'&&atelierCases[e.target.value]){atelierCurrent=e.target.value;el('main').innerHTML=atelierPage();computeAtelier();}});
 el('global-search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchSubmit();}});
 el('global-search').addEventListener('input',e=>{if(!e.target.value.trim()&&currentPath()==='recherche'){location.hash='/accueil';}});
 el('mobile-menu').addEventListener('click',()=>{el('sidebar').classList.toggle('open');el('mobile-overlay').classList.toggle('show');});
