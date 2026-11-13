@@ -13,18 +13,7 @@
 @media(max-width:760px){.sidebar{transform:translateX(-110%);transition:transform .22s;width:280px;box-shadow:12px 0 25px #142e2140}.sidebar.open{transform:translateX(0)}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#0007;z-index:19}.app-shell{width:100%;margin-left:0}.topbar{height:66px;padding:0 17px;gap:10px}.topbar-left{font-size:12px}.mobile-menu{display:inline-flex;border:0;border-radius:9px;background:#e8f2eb;color:#175444;padding:8px}.search-wrap{width:48%;max-width:220px}.search-input{height:35px;font-size:11px}.main{padding:20px 17px 55px}.hero{padding:29px 24px;min-height:310px;border-radius:20px}.hero-copy{width:100%}.hero h1{font-size:34px}.hero p{font-size:13px}.hero-graphic{right:-65px;top:50px;opacity:.16}.metrics{grid-template-columns:repeat(2,1fr)}.card-grid,.activity-grid,.lab-layout,.search-result-list{grid-template-columns:1fr}.section-head{margin-top:29px}.chapter-banner{display:block}.chapter-banner h1{font-size:30px}.lesson-section{padding:21px 19px}.objectives{padding:19px}.resource-card{display:block}.resource-card .btn{margin-top:13px}.footer{padding:20px 17px}}
 @media print{.sidebar,.topbar,.footer,.btn,.code-bar button,.page-actions{display:none!important}.app-shell{margin:0;width:100%}.main{padding:0;max-width:100%}.lesson-layout{display:block}.lesson-section{break-inside:avoid;border:1px solid #ccc}.hero{background:none!important;color:#000}.hero h1{color:#000}.quiz-card{break-inside:avoid}}
 
-/* Atelier de programmation visuelle et schémas algorithmique */
-.visual-entry{margin:20px 0 4px;padding:23px 25px;background:linear-gradient(105deg,#e3f5e9,#fff5e4);border:1px solid #d3e7d7;border-radius:18px;display:flex;justify-content:space-between;gap:22px;align-items:center}
-.visual-entry p{font-size:13px;margin:5px 0 0}.visual-entry .btn{flex-shrink:0}
-.visual-flow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0}.visual-flow span{border-radius:12px;padding:11px 15px;background:#e6f3ed;font-weight:750;font-size:13px}
-.block-glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:20px 0}
-.block-item{border:1px solid #c9dfd3;border-radius:13px;padding:15px 12px;background:#f6f9f5;display:flex;flex-direction:column;gap:8px}
-.block-item strong{font-size:12px;color:#1b594a}.block-item span{font-size:11px;color:#61766b}
-.block-item.event{border-top:5px solid #e3a438}.block-item.variable{border-top:5px solid #2f9dde}.block-item.condition{border-top:5px solid #9872d9}.block-item.loop{border-top:5px solid #ed8a54}.block-item.output{border-top:5px solid #219b8c}
-.visual-stack{display:flex;flex-direction:column;align-items:flex-start;gap:5px;margin:16px 0;max-width:100%}
-.v-block{padding:11px 16px;border-radius:9px 9px 9px 3px;color:white;font-weight:750;font-size:13px;line-height:1.5;box-shadow:0 2px 0 #18492a22;max-width:100%;overflow-wrap:anywhere}
-.v-block.event{background:#c88f26}.v-block.variable{background:#277eae}.v-block.condition{background:#8056be}.v-block.loop{background:#bf6837}.v-block.output{background:#167e70}
-.v-nested{margin-left:22px;padding:8px 0 8px 15px;border-left:5px solid #9872d9;display:flex;flex-direction:column;gap:5px;max-width:calc(100% - 23px)}
+/* Schémas d'algorithmique et atelier de traduction Python */
 .data-visual{margin:20px 0;background:#f4f9f5;border:1px solid #d6e6d8;border-radius:16px;padding:19px}.visual-title{font-weight:850;color:#255b49;margin-bottom:12px}
 .array-cells{display:flex;gap:7px;flex-wrap:wrap}.array-cells>div{min-width:75px;text-align:center;border:1px solid #b7d9c1;border-radius:10px;background:white;overflow:hidden}
 .array-cells span{display:block;background:#e6f1e7;color:#4c796a;font-size:11px;padding:5px}.array-cells b{display:block;padding:12px;color:#1f5949;font-size:20px}
@@ -32,17 +21,41 @@
 .dict-visual b{background:white;border:1px solid #d7e9db}.data-comparison{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px;margin:18px 0}
 .data-comparison>div{padding:17px;background:#f3f8f3;border:1px solid #dce9df;border-radius:14px;min-width:0}
 .data-comparison h3{font-size:16px;margin:8px 0}.data-comparison p{font-size:12px}.data-comparison code{font-size:11px;overflow-wrap:anywhere}.compare-symbol{font-weight:900;font-size:25px;color:#14705a}
-.visual-tool-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:20px}
-.visual-tool-panel{border-radius:17px;padding:23px;background:white;border:1px solid var(--border);min-width:0}
-.visual-tool-panel h2{font-size:20px}.visual-tool-panel label{display:block;font-size:12px;font-weight:800;margin:11px 0 5px;color:#456f5b}
-.visual-tool-panel input,.visual-tool-panel select{display:block;width:100%;border:1px solid #bed7c6;border-radius:9px;padding:11px 13px;background:#fcfefa;color:var(--ink)}
-.visual-tool-panel input:focus-visible,.visual-tool-panel select:focus-visible{outline:3px solid #98d1b6}
-.visual-tool-panel .v-block{margin-bottom:5px}.visual-tool-panel .code-window{margin-top:7px}
-.visual-tool-panel .v-nested{margin-bottom:7px}.visual-block-result{padding:13px 15px;background:#e8f6ec;border:1px solid #c5dfcc;border-radius:12px;margin-top:14px;font-size:13px}
-.visual-block-result.error{background:#fff0e9;border-color:#e9c5b7;color:#81482f}
-.visual-block-result strong{color:#195d47;font-size:20px}
-.vis-steps{font-size:12px;color:#5a7566}
-@media(max-width:850px){.visual-tool-layout{grid-template-columns:1fr}.visual-entry{display:block}.visual-entry .btn{margin-top:12px}}
+
+.schema-bridge{border:1px solid #cee3d6;background:linear-gradient(110deg,#f3faf4,#fffaf0);border-radius:19px;padding:22px;margin-top:20px}
+.schema-bridge h3{font-size:18px;margin:0 0 6px;color:#194e42}.schema-bridge p{font-size:13px;margin:0 0 17px}
+.schema-track{display:flex;align-items:stretch;gap:7px;flex-wrap:wrap;justify-content:space-between}
+.schema-step{flex:1 1 125px;min-width:120px;padding:15px 11px;border:1px solid #d6e7da;border-radius:13px;background:#fff;text-align:center}
+.schema-step strong{display:block;color:#174d40;font-size:13px}.schema-step span{display:block;color:#647d70;font-size:11px;margin-top:4px}
+.schema-arrow{align-self:center;font-weight:900;color:#42846c;font-size:20px}
+.schema-bridge .btn{margin-top:18px}
+.atelier-grid{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:18px;margin:20px 0}
+.atelier-panel{min-width:0;border:1px solid var(--border);border-radius:17px;padding:23px;background:#fff}
+.atelier-panel h2{font-size:20px;margin-bottom:12px}
+.atelier-panel label{display:block;font-size:12px;color:#426658;font-weight:800;margin:13px 0 5px}
+.atelier-panel select,.atelier-panel input{width:100%;padding:11px 12px;border:1px solid #bdd5c6;border-radius:10px;background:#fbfdfb;color:var(--ink)}
+.atelier-panel .code-window{margin:8px 0 18px}
+.atelier-note{font-size:12px;color:#6b8073}
+.atelier-result{border-radius:12px;margin-top:17px;background:#eaf6ee;padding:16px;border:1px solid #c9e5d2;font-size:13px;color:#245e49}
+.atelier-result strong{display:block;font-size:20px;color:#164b3f;margin-bottom:4px}
+.atelier-result.error{background:#fff0eb;border-color:#ecc7b5;color:#8b452f}
+.atelier-flow{margin:18px 0;display:flex;flex-direction:column;align-items:center;gap:7px}
+.flow-node{border:1px solid #c5dfce;border-radius:13px;background:white;text-align:center;padding:11px 17px;max-width:min(100%,450px);width:100%;font-size:13px;color:#254b3e;font-weight:700}
+.flow-node.terminal{border-radius:40px;background:#dcefe3}
+.flow-node.read{background:#f6f7e9}
+.flow-node.decision{background:#eee9f9;border-color:#d4c8ee}
+.flow-node.process{background:#e7f1fd;border-color:#c2d8ee}
+.flow-node.output{background:#e8f7ee}
+.flow-down{font-size:19px;color:#528975;line-height:1}
+.flow-forks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;width:100%;max-width:670px}
+.flow-fork{border:1px dashed #c5dacf;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:7px;align-items:center;background:#f8fbf7}
+.flow-fork .flow-node{font-size:12px;flex:1}
+.flow-caption{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#41775c;font-weight:900}
+.flow-fork.invalid .flow-caption{color:#a36447}
+.atelier-examples{display:flex;gap:8px;flex-wrap:wrap}
+.atelier-examples span{background:#edf4ee;border:1px solid #d6e6db;padding:9px 12px;border-radius:10px;font-size:12px;color:#425f50}
+@media(max-width:900px){.atelier-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.schema-track{display:grid;grid-template-columns:1fr;gap:6px}.schema-arrow{justify-self:center;transform:rotate(90deg)}.flow-forks{grid-template-columns:1fr}.atelier-panel{padding:18px}}
 
 </style>
 </head>
@@ -52,7 +65,7 @@
 <aside class="sidebar" id="sidebar" aria-label="Navigation principale">
   <a class="logo" href="#/accueil" aria-label="BioCode — Accueil"><span class="logo-mark">β</span><span><span class="logo-name">BioCode<span style="color:#d5b28e">.</span></span><span class="logo-sub">Algorithmique × Python × Biologie</span></span></a>
   <nav class="sidebar-scroll" id="side-nav"></nav>
-  <div class="sidebar-bottom"><p id="sidebar-progress-label">0 / 14 chapitres terminés</p><div class="sidebar-meter" aria-label="Progression des cours"><span id="sidebar-progress-bar" style="width:0%"></span></div></div>
+  <div class="sidebar-bottom"><p id="sidebar-progress-label">0 / 12 chapitres terminés</p><div class="sidebar-meter" aria-label="Progression des cours"><span id="sidebar-progress-bar" style="width:0%"></span></div></div>
 </aside>
 <div class="app-shell">
   <header class="topbar"><button class="mobile-menu" id="mobile-menu" aria-label="Ouvrir le menu">☰</button><div class="topbar-left">Espace étudiant <span> / <span id="page-title">Accueil</span></span></div><div class="search-wrap"><input id="global-search" class="search-input" type="search" aria-label="Rechercher dans les cours, TD et TP" placeholder="Rechercher un cours... ⏎"></div></header>
@@ -525,145 +538,6 @@ const algoChapters = [
 }
 ];
 
-const visualChapters = [
- {
-  "id": "visuel-concepts",
-  "num": "V1",
-  "icon": "▧",
-  "title": "Découvrir la programmation visuelle",
-  "short": "Des blocs colorés pour comprendre séquences, variables, conditions et boucles.",
-  "time": "50 min",
-  "level": "Initiation visuelle",
-  "objectives": [
-   "Expliquer la programmation par blocs et sa différence avec le code textuel.",
-   "Reconnaître événement, séquence, variable, condition et boucle.",
-   "Suivre le parcours d'un programme visuel."
-  ],
-  "sections": [
-   {
-    "title": "Qu'est-ce que la programmation visuelle ?",
-    "body": "<p>En programmation visuelle, nous assemblons des <strong>blocs d'instructions</strong> au lieu de rédiger chaque instruction au clavier. Chaque couleur représente une famille de commandes : événements, variables, conditions, boucles ou affichage.</p><p>Un environnement de programmation par blocs réduit les erreurs de syntaxe mais n'élimine pas les <strong>erreurs logiques</strong>. Il faut toujours analyser le problème et tester le résultat.</p><div class=\"visual-flow\"><span>🧩 Problème</span><span>→</span><span>🟦 Blocs</span><span>→</span><span>🧠 Logique</span><span>→</span><span>🐍 Python</span></div>"
-   },
-   {
-    "title": "Les cinq familles de blocs",
-    "body": "<div class=\"block-glossary\"><div class=\"block-item event\"><strong>▶ Quand on lance</strong><span>Événement : point de départ</span></div><div class=\"block-item variable\"><strong>▦ Mettre nombre à 40</strong><span>Variable : mémoriser une valeur</span></div><div class=\"block-item condition\"><strong>◇ Si nombre &gt; 0 alors</strong><span>Condition : prendre une décision</span></div><div class=\"block-item loop\"><strong>↻ Répéter 4 fois</strong><span>Boucle : refaire des actions</span></div><div class=\"block-item output\"><strong>◉ Afficher le résultat</strong><span>Sortie : communiquer une valeur</span></div></div><p>Les couleurs utilisées ici sont une convention de BioCode, pas un langage officiel. Elles servent à visualiser les notions.</p>"
-   },
-   {
-    "title": "Schéma d'une séquence de blocs",
-    "body": "<p>Les instructions s'exécutent <strong>de haut en bas</strong>. La variable change de valeur lorsqu'un bloc d'affectation est exécuté.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block variable\">▦ Mettre nombre à 3</div><div class=\"v-block variable\">▦ Mettre nombre à nombre + 2</div><div class=\"v-block output\">◉ Afficher nombre → 5</div></div>",
-    "code": "nombre = 3\nnombre = nombre + 2\nprint(nombre)",
-    "output": "5"
-   },
-   {
-    "title": "Condition et boucle en blocs",
-    "body": "<p>Une <strong>condition</strong> choisit une branche, tandis qu'une <strong>boucle</strong> répète une action. Voici un exemple de traitement d'un lot de mesures.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block loop\">↻ Pour chaque température</div><div class=\"v-nested\"><div class=\"v-block condition\">◇ Si température &gt; 30</div><div class=\"v-block output\">◉ Afficher « Élevée »</div></div></div>",
-    "code": "temperatures = [19, 33, 27]\nfor temperature in temperatures:\n    if temperature > 30:\n        print('Élevée')",
-    "output": "Élevée",
-    "note": "En visual programming comme en Python, les blocs doivent être correctement emboîtés pour exprimer leur portée."
-   }
-  ],
-  "quiz": [
-   {
-    "q": "Quel est l'objectif principal des blocs ?",
-    "choices": [
-     "Supprimer toute logique",
-     "Représenter visuellement les instructions",
-     "Interdire Python"
-    ],
-    "correct": 1,
-    "why": "Les blocs rendent la logique du programme visible."
-   },
-   {
-    "q": "Quel bloc est utilisé pour répéter ?",
-    "choices": [
-     "Boucle",
-     "Variable",
-     "Sortie"
-    ],
-    "correct": 0,
-    "why": "Une boucle exécute plusieurs fois le même traitement."
-   },
-   {
-    "q": "Un programme en blocs peut-il contenir une erreur logique ?",
-    "choices": [
-     "Non",
-     "Oui",
-     "Seulement s'il est en ligne"
-    ],
-    "correct": 1,
-    "why": "L'absence d'erreurs de syntaxe ne garantit pas un calcul correct."
-   }
-  ]
- },
- {
-  "id": "visuel-transition",
-  "num": "V2",
-  "icon": "⇄",
-  "title": "Des blocs au code Python",
-  "short": "Comparer un programme en blocs avec sa traduction textuelle et tester un problème biologique.",
-  "time": "70 min",
-  "level": "Atelier guidé",
-  "objectives": [
-   "Associer un bloc à l'instruction Python correspondante.",
-   "Construire et tester un taux de germination.",
-   "Utiliser l'atelier interactif pour modifier les entrées."
-  ],
-  "sections": [
-   {
-    "title": "Correspondance entre blocs et Python",
-    "body": "<div class=\"data-comparison\"><div><div class=\"v-block event\">▶ Quand on lance</div><p>Point de départ</p></div><div><div class=\"v-block variable\">▦ Mettre x à 5</div><code>x = 5</code></div><div><div class=\"v-block condition\">◇ Si x &gt; 0 alors</div><code>if x &gt; 0:</code></div><div><div class=\"v-block loop\">↻ Répéter 3 fois</div><code>for i in range(3):</code></div></div><p>Le pseudo-code, les blocs et Python peuvent représenter <strong>le même algorithme</strong>. Seule la forme change.</p>"
-   },
-   {
-    "title": "Exemple biologique : germination",
-    "body": "<p>On connaît le nombre de graines semées et germées. Il faut vérifier les effectifs avant de calculer un pourcentage.</p><div class=\"visual-stack\"><div class=\"v-block event\">▶ Quand on lance</div><div class=\"v-block variable\">▦ Mettre semees à 40</div><div class=\"v-block variable\">▦ Mettre germees à 34</div><div class=\"v-block condition\">◇ Si semees &gt; 0 ET 0 ≤ germees ≤ semees</div><div class=\"v-nested\"><div class=\"v-block variable\">▦ Mettre taux à 100 × germees / semees</div><div class=\"v-block output\">◉ Afficher taux</div></div><div class=\"v-block condition\">◇ Sinon → afficher « Effectifs invalides »</div></div>",
-    "pseudo": "Début\n    semees ← 40\n    germees ← 34\n    Si semees > 0 ET germees >= 0 ET germees <= semees Alors\n        taux ← 100 * germees / semees\n        Écrire taux, \"%\"\n    Sinon\n        Écrire \"Effectifs invalides\"\n    FinSi\nFin",
-    "code": "semees = 40\ngermees = 34\nif semees > 0 and 0 <= germees <= semees:\n    taux = 100 * germees / semees\n    print(round(taux, 1), '%')\nelse:\n    print('Effectifs invalides')",
-    "output": "85.0 %"
-   },
-   {
-    "title": "Exercice : prédire avant d'exécuter",
-    "body": "<p>Changez <strong>germees</strong> de 34 à 0 puis à 50, sans changer <strong>semees</strong>. Quelle branche s'active ? Comparez vos hypothèses à la simulation.</p><p>Ce laboratoire n'exécute pas du Python côté serveur : il reproduit les mêmes règles de calcul en JavaScript et affiche le <strong>code Python équivalent</strong>.</p><div class=\"info-box\"><strong>À faire :</strong> ouvrez l'atelier, choisissez « Germination », changez les paramètres et lancez la simulation.</div><p><a class=\"btn btn-light\" href=\"#/visuel\">Ouvrir l'atelier de programmation visuelle ↗</a></p>"
-   },
-   {
-    "title": "Pourquoi apprendre les deux méthodes ?",
-    "body": "<p>La programmation visuelle permet de <strong>repérer les étapes</strong> et les structures de contrôle. Python permet ensuite de créer des scripts, traiter des fichiers et automatiser des tâches scientifiques.</p><p><strong>Parcours recommandé :</strong> algorithmique → programmation par blocs → Python → TD/TP de biologie.</p>"
-   }
-  ],
-  "quiz": [
-   {
-    "q": "Quel code Python correspond au bloc « Mettre x à 5 » ?",
-    "choices": [
-     "x == 5",
-     "x = 5",
-     "print(5)"
-    ],
-    "correct": 1,
-    "why": "L'affectation utilise = en Python."
-   },
-   {
-    "q": "Quel résultat pour 40 graines semées et 34 germées ?",
-    "choices": [
-     "85 %",
-     "34 %",
-     "118 %"
-    ],
-    "correct": 0,
-    "why": "100 × 34 / 40 = 85."
-   },
-   {
-    "q": "Si 50 graines germent alors que 40 ont été semées ?",
-    "choices": [
-     "125 % sans validation",
-     "Effectifs invalides",
-     "0 %"
-    ],
-    "correct": 1,
-    "why": "Le contrôle de cohérence doit refuser cette entrée."
-   }
-  ]
- }
-];
-
 const chapters = [
 {
  id:'introduction',num:'01',icon:'⌘',title:'Introduction à Python',short:'Comprendre le programme, écrire et exécuter ses premières instructions.',time:'45 min',level:'Débutant',
@@ -909,7 +783,7 @@ for etape in range(6):
 
 
 const STORAGE_KEY='biocode-progress-v1';
-const allChapters=[...algoChapters,...visualChapters,...chapters];
+const allChapters=[...algoChapters,...chapters];
 let lastSearch='';
 let done=new Set();
 let answers={};
@@ -919,7 +793,7 @@ const escapeHtml=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 const codeWindow=(code,name='exemple.py')=>`<div class="code-window"><div class="code-bar"><span>● &nbsp; ${name==='pseudo-code.txt'?'PSEUDO-CODE':'PYTHON'} &nbsp; / &nbsp; ${escapeHtml(name)}</span><button type="button" data-copy="${encodeURIComponent(code)}" aria-label="Copier le code">Copier</button></div><pre><code>${escapeHtml(code)}</code></pre></div>`;
 const nav=(id,title,num,check=false)=>`<button class="nav-link" data-go="${escapeHtml(id)}" type="button"><span class="nav-number">${num}</span><span>${escapeHtml(title)}</span>${check?'<span class="nav-check" aria-label="Terminé">✓</span>':''}</button>`;
 function renderNav(){
- el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Programmation visuelle · 2 chapitres</div>${visualChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}${nav('visuel','Atelier interactif','▧')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
+ el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
  const total=allChapters.length;const count=allChapters.filter(c=>done.has(c.id)).length;
  el('sidebar-progress-label').textContent=count+' / '+total+' chapitres terminés';
  el('sidebar-progress-bar').style.width=Math.round(100*count/total)+'%';
@@ -929,10 +803,10 @@ function activityCard(a,kind){return `<a class="activity-card" href="#/${kind}/$
 function heroGraphic(){return `<div class="hero-graphic" aria-hidden="true"><svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M78 12C204 68 204 206 80 267" stroke="#b9edbb" stroke-width="10" stroke-linecap="round"/><path d="M201 12C75 68 75 206 200 267" stroke="#83c7b3" stroke-width="10" stroke-linecap="round"/>${[27,53,79,105,131,157,183,209,235,261].map((y,i)=>{let x1=80+125*Math.sin((y-12)/255*Math.PI);let x2=200-125*Math.sin((y-12)/255*Math.PI);return `<path d="M${x1.toFixed(1)} ${y}L${x2.toFixed(1)} ${y}" stroke="${i%2?'#d8eece':'#e8b47d'}" stroke-width="5" stroke-linecap="round" opacity=".9"/>`}).join('')}<circle cx="141" cy="140" r="121" stroke="#bfe2d1" opacity=".24" stroke-dasharray="4 12"/></svg></div>`;}
 function home(){
  return `<section class="hero"><div class="hero-copy"><span class="eyebrow">Plateforme d'apprentissage · Sciences de la vie</span><div class="teacher-signature"><span>Cours présenté par</span><strong>Pr. Asma EL MEJDI</strong></div><h1>Comprendre l'algorithmique, programmer en Python.</h1><p>Du raisonnement algorithmique aux programmes Python : pseudo-code, applications biologiques, TD corrigés et TP guidés.</p><div class="hero-actions"><a class="btn btn-primary" href="#/cours/algo-concepts">Commencer par l'algorithmique <span>↗</span></a><a class="btn btn-outline" href="#/laboratoire">Essayer le mini-labo</a></div></div>${heroGraphic()}</section>
- <div class="metrics"><div class="metric"><strong>14</strong><span>Chapitres de cours</span></div><div class="metric"><strong>06</strong><span>TD avec corrigés</span></div><div class="metric"><strong>08</strong><span>TP guidés</span></div><div class="metric"><strong>${allChapters.filter(c=>done.has(c.id)).length}/14</strong><span>Chapitres terminés</span></div></div>
+ <div class="metrics"><div class="metric"><strong>12</strong><span>Chapitres de cours</span></div><div class="metric"><strong>06</strong><span>TD avec corrigés</span></div><div class="metric"><strong>08</strong><span>TP guidés</span></div><div class="metric"><strong>${allChapters.filter(c=>done.has(c.id)).length}/12</strong><span>Chapitres terminés</span></div></div>
  <div class="section-head"><div><h2>Partie I — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div>
- <div class="section-head"><div><h2>Partie II — Programmation visuelle</h2><p>Comprendre les séquences, variables, conditions et boucles grâce aux blocs colorés.</p></div><a class="text-link" href="#/visuel">Atelier interactif ↗</a></div><div class="card-grid">${visualChapters.map(courseCard).join('')}</div><div class="visual-entry"><div><strong>🧩 Construire un programme sans écrire du code</strong><p>Choisissez un cas biologique et observez les blocs, les résultats et la traduction Python.</p></div><a class="btn btn-light" href="#/visuel">Ouvrir l’atelier ↗</a></div>
- <div class="section-head"><div><h2>Partie III — Programmation Python</h2><p>Transformer les algorithmes en scripts Python et les appliquer à la biologie.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
+ <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
+ <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Transformer les algorithmes en scripts Python et les appliquer à la biologie.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
  <div class="section-head"><div><h2>Travaux dirigés avec corrigés</h2><p>Six TD d'algorithmique et de Python appliqués à la biologie.</p></div><span class="pill">06 TD</span></div><div class="activity-grid">${tds.map(t=>activityCard(t,'td')).join('')}</div>
   <div class="section-head"><div><h2>Pratiquer sur des cas biologiques</h2><p>Huit TP guidés avec scripts Python téléchargeables.</p></div><a class="text-link" href="#/laboratoire">Laboratoire interactif ↗</a></div><div class="activity-grid">${tps.map(t=>activityCard(t,'tp')).join('')}</div>`;
 }
@@ -1086,7 +960,7 @@ function render(){
  else if(type==='td'&&tds.some(t=>t.id===slug)){const t=tds.find(t=>t.id===slug);html=tdPage(t);title=t.title;}
  else if(type==='tp'&&tps.some(t=>t.id===slug)){const t=tps.find(t=>t.id===slug);html=tpPage(t);title=t.title;}
  else if(type==='laboratoire'){html=labPage();title='Mini-laboratoire';}
- else if(type==='visuel'){html=visualPage();title='Programmation visuelle';}
+ else if(type==='atelier'||type==='visuel'){html=atelierPage();title='Atelier interactif';}
  else if(type==='recherche'){let term=lastSearch;try{term=sessionStorage.getItem('biocode-last-search')||lastSearch;}catch(e){}html=searchPage(term);title='Recherche';}
  else {html=home();title='Accueil';}
  el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();
