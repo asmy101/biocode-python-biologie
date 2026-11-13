@@ -57,6 +57,44 @@
 @media(max-width:900px){.atelier-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.schema-track{display:grid;grid-template-columns:1fr;gap:6px}.schema-arrow{justify-self:center;transform:rotate(90deg)}.flow-forks{grid-template-columns:1fr}.atelier-panel{padding:18px}}
 
+
+/* Simulateur algorithmique pas à pas */
+.trace-head{display:flex;align-items:flex-start;gap:16px;justify-content:space-between;flex-wrap:wrap}
+.trace-head select{max-width:440px;min-width:240px;width:100%;padding:11px 13px;border:1px solid #c3d9cb;border-radius:11px;background:#fff;color:#1d4f42}
+.trace-layout{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(270px,.88fr);gap:16px;margin-top:18px}
+.trace-panel{background:white;border:1px solid var(--border);border-radius:18px;padding:22px;min-width:0}
+.trace-panel h2{font-size:20px;margin-bottom:13px}
+.trace-code{padding:0;margin:0;list-style:none;counter-reset:none}
+.trace-code li{background:#f7faf7;border:1px solid #ebf2ed;border-radius:9px;margin-bottom:5px;padding:10px 13px;color:#567568;font:13px/1.65 Consolas,Monaco,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.trace-code li.current{background:#dcf1e3;color:#164e3c;border-color:#78b595;font-weight:800;box-shadow:inset 4px 0 #20815c}
+.trace-step-description{background:#eef6ed;border:1px solid #d8ead9;padding:13px 15px;border-radius:12px;margin-top:12px;color:#2c5d4c;font-size:13px}
+.trace-step-description strong{display:block;color:#154e3d;margin-bottom:2px}
+.trace-progress{height:9px;background:#e2eee6;border-radius:50px;overflow:hidden;margin:17px 0 11px}
+.trace-progress span{display:block;background:#2a8a66;height:100%;transition:width .15s}
+.trace-controls{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:13px}
+.trace-controls button{border:1px solid #c8ded0;border-radius:11px;padding:10px 13px;font-weight:800;font-size:12px;background:#f4f9f5;color:#1e664d}
+.trace-controls button.primary{background:#146d53;color:white;border-color:#146d53}
+.trace-controls button:disabled{cursor:not-allowed;opacity:.45}
+.trace-table{width:100%;border-collapse:collapse;font-size:13px}
+.trace-table th,.trace-table td{padding:11px 9px;border-bottom:1px solid #e5ede7;text-align:left}
+.trace-table th{color:#557365;font-weight:750}.trace-table td:last-child{font-weight:850;color:#1c614e}
+.trace-console{padding:15px 18px;background:#15332e;color:#ebf9e9;border-radius:12px;font-family:Consolas,monospace;min-height:55px;white-space:pre-wrap}
+.trace-history{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.trace-history td,.trace-history th{border-bottom:1px solid #edf3ee;padding:8px;text-align:left}
+.trace-history tr:last-child{background:#e6f5e9}
+.practice-entry{background:linear-gradient(112deg,#e7f5eb,#fff7e9);border:1px solid #d3e7d9;border-radius:16px;padding:21px;margin:18px 0;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.practice-entry h3{font-size:18px;margin:0 0 6px}.practice-entry p{font-size:13px;margin:0}
+.practice-links{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
+.practice-item{background:white;border:1px solid var(--border);border-radius:16px;padding:21px 23px;margin:13px 0}
+.practice-item h3{font-size:17px}.practice-item p{font-size:13px}
+.practice-item textarea{display:block;width:100%;min-height:54px;resize:vertical;font:13px/1.5 Consolas,monospace;border:1px solid #c5dace;border-radius:11px;padding:12px;background:#f9fcf9}
+.practice-feedback{padding:12px 15px;margin-top:12px;border:1px solid #c9e7d4;background:#eef8ee;border-radius:10px;font-size:13px}
+.practice-feedback.error{background:#fff3e9;border-color:#e8c4aa}
+.practice-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.practice-counter{color:#61796d;font-size:12px}
+@media(max-width:950px){.trace-layout{grid-template-columns:1fr}}
+@media(max-width:760px){.trace-panel{padding:17px}.practice-entry{display:block}.practice-links{margin-top:16px}.trace-head select{min-width:0}.trace-history{font-size:11px}}
+
 </style>
 </head>
 <body>
@@ -793,7 +831,7 @@ const escapeHtml=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 const codeWindow=(code,name='exemple.py')=>`<div class="code-window"><div class="code-bar"><span>● &nbsp; ${name==='pseudo-code.txt'?'PSEUDO-CODE':'PYTHON'} &nbsp; / &nbsp; ${escapeHtml(name)}</span><button type="button" data-copy="${encodeURIComponent(code)}" aria-label="Copier le code">Copier</button></div><pre><code>${escapeHtml(code)}</code></pre></div>`;
 const nav=(id,title,num,check=false)=>`<button class="nav-link" data-go="${escapeHtml(id)}" type="button"><span class="nav-number">${num}</span><span>${escapeHtml(title)}</span>${check?'<span class="nav-check" aria-label="Terminé">✓</span>':''}</button>`;
 function renderNav(){
- el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
+ el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Apprendre en pratiquant</div>${nav('simulateur','Simulateur pas à pas','▶')}${nav('exercices','Algorithme → Python','✎')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
  const total=allChapters.length;const count=allChapters.filter(c=>done.has(c.id)).length;
  el('sidebar-progress-label').textContent=count+' / '+total+' chapitres terminés';
  el('sidebar-progress-bar').style.width=Math.round(100*count/total)+'%';
@@ -807,6 +845,7 @@ function home(){
  <div class="section-head"><div><h2>Partie I — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div>
  <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
  <div class="section-head"><div><h2>Partie II — Programmation Python</h2><p>Transformer les algorithmes en scripts Python et les appliquer à la biologie.</p></div><span class="pill">06 chapitres · Python 3</span></div><div class="card-grid">${chapters.map(courseCard).join('')}</div>
+ <div class="practice-entry"><div><h3>Apprendre par la pratique</h3><p>Suivez les variables étape par étape, puis entraînez-vous à traduire des algorithmes en Python.</p></div><div class="practice-links"><a class="btn" href="#/simulateur">Simulateur pas à pas ↗</a><a class="btn btn-light" href="#/exercices">Exercices interactifs ↗</a></div></div>
  <div class="section-head"><div><h2>Travaux dirigés avec corrigés</h2><p>Six TD d'algorithmique et de Python appliqués à la biologie.</p></div><span class="pill">06 TD</span></div><div class="activity-grid">${tds.map(t=>activityCard(t,'td')).join('')}</div>
   <div class="section-head"><div><h2>Pratiquer sur des cas biologiques</h2><p>Huit TP guidés avec scripts Python téléchargeables.</p></div><a class="text-link" href="#/laboratoire">Laboratoire interactif ↗</a></div><div class="activity-grid">${tps.map(t=>activityCard(t,'tp')).join('')}</div>`;
 }
@@ -935,6 +974,56 @@ function computeAtelier(){
  const out=document.getElementById('atelier-result');out.textContent=message;out.classList.toggle('error',isError);
 }
 
+
+/* ----- Simulateur algorithmique : états déterministes et traces ----- */
+const simulatorCatalog={
+ affectation:{name:"Affectations et calculs",intro:"Suivez les affectations successives des variables a et b.",lines:["a ← 5","b ← a + 3","a ← b × 2","Écrire a, b"],python:"a = 5\nb = a + 3\na = b * 2\nprint(a, b)",states:[
+ {line:0,vars:{a:5,b:"—"},desc:"On mémorise 5 dans a.",out:""},
+ {line:1,vars:{a:5,b:8},desc:"On utilise a = 5 : b prend la valeur 8.",out:""},
+ {line:2,vars:{a:16,b:8},desc:"On calcule 8 × 2 puis on remplace a par 16.",out:""},
+ {line:3,vars:{a:16,b:8},desc:"Affichage des valeurs finales de a et b.",out:"16 8"}
+ ]},
+ germination:{name:"Taux de germination",intro:"Calculez un pourcentage à partir de 40 graines semées dont 34 germées.",lines:["semees ← 40","germees ← 34","Si semees > 0 ET germees ≤ semees","taux ← 100 × germees / semees","Écrire taux"],python:"semees = 40\ngermees = 34\nif semees > 0 and 0 <= germees <= semees:\n    taux = 100 * germees / semees\n    print(taux)",states:[
+ {line:0,vars:{semees:40,germees:"—",taux:"—"},desc:"On déclare le nombre de graines semées.",out:""},
+ {line:1,vars:{semees:40,germees:34,taux:"—"},desc:"On mémorise le nombre de graines germées.",out:""},
+ {line:2,vars:{semees:40,germees:34,taux:"—"},desc:"Les conditions sont vraies : 40 > 0 et 34 ≤ 40.",out:""},
+ {line:3,vars:{semees:40,germees:34,taux:85},desc:"Le taux vaut 100 × 34 ÷ 40 = 85 %.",out:""},
+ {line:4,vars:{semees:40,germees:34,taux:85},desc:"On affiche le taux calculé.",out:"85.0"}
+ ]},
+ adn:{name:"Boucle : compter les bases G dans l’ADN",intro:"Pour chaque base de AGCTGC, observez la boucle et le compteur.",lines:['adn ← "AGCTGC"',"compteur ← 0","Pour chaque base dans adn","Si base = G : compteur ← compteur + 1","Écrire compteur"],python:"adn = 'AGCTGC'\ncompteur = 0\nfor base in adn:\n    if base == 'G':\n        compteur += 1\nprint(compteur)",states:(()=>{let seq="AGCTGC",n=0;let a=[{line:0,vars:{adn:seq,base:"—",compteur:"—"},desc:"La séquence à analyser contient 6 nucléotides.",out:""},{line:1,vars:{adn:seq,base:"—",compteur:0},desc:"On initialise le compteur à zéro.",out:""}];for(let i=0;i<seq.length;i++){let b=seq[i];a.push({line:2,vars:{adn:seq,base:b,compteur:n},desc:"Itération "+(i+1)+" : on lit la base "+b+".",out:""});if(b==="G"){n++;a.push({line:3,vars:{adn:seq,base:b,compteur:n},desc:"La base est G : on augmente compteur de 1.",out:""});}}a.push({line:4,vars:{adn:seq,base:"fin",compteur:n},desc:"La boucle est terminée, on affiche "+n+".",out:String(n)});return a;})()},
+ moyenne:{name:"Liste : moyenne de températures",intro:"Suivez une boucle qui additionne quatre températures puis calcule la moyenne.",lines:["mesures ← [18, 20, 22, 24]","somme ← 0","Pour chaque mesure : somme ← somme + mesure","moyenne ← somme / 4","Écrire moyenne"],python:"mesures = [18, 20, 22, 24]\nsomme = 0\nfor mesure in mesures:\n    somme += mesure\nmoyenne = somme / len(mesures)\nprint(moyenne)",states:(()=>{let a=[{line:0,vars:{mesures:"[18,20,22,24]",mesure:"—",somme:"—",moyenne:"—"},desc:"On crée le tableau des températures.",out:""},{line:1,vars:{mesures:"[18,20,22,24]",mesure:"—",somme:0,moyenne:"—"},desc:"On initialise la somme à 0.",out:""}],sum=0;for(const v of [18,20,22,24]){sum+=v;a.push({line:2,vars:{mesures:"[18,20,22,24]",mesure:v,somme:sum,moyenne:"—"},desc:"On ajoute "+v+" : la somme devient "+sum+".",out:""});}a.push({line:3,vars:{mesures:"[18,20,22,24]",mesure:"fin",somme:sum,moyenne:21},desc:"On divise 84 par 4 : la moyenne est 21.",out:""});a.push({line:4,vars:{mesures:"[18,20,22,24]",mesure:"fin",somme:sum,moyenne:21},desc:"On affiche la moyenne de 21 °C.",out:"21.0"});return a;})()}
+};
+let simulatorCurrent='affectation', simulatorStep=0;
+function simulatorPage(){
+ const d=simulatorCatalog[simulatorCurrent];
+ const opts=Object.entries(simulatorCatalog).map(([id,c])=>'<option value="'+id+'" '+(id===simulatorCurrent?'selected':'')+'>'+escapeHtml(c.name)+'</option>').join('');
+ return '<div class="breadcrumb"><a href="#/accueil">Accueil</a> / Simulateur</div><span class="eyebrow">Algorithmique · Atelier interactif</span>'
+  +'<h1>Simulateur pas à pas</h1><p>Avancez instruction par instruction, observez la table des variables et vérifiez la sortie. Les exemples sont des simulations pédagogiques, pas du code Python exécuté dans le navigateur.</p>'
+  +'<div class="trace-head"><div><h2 style="font-size:21px;margin-bottom:5px">'+escapeHtml(d.name)+'</h2><p style="font-size:13px;margin:0">'+escapeHtml(d.intro)+'</p></div><select id="trace-choice" aria-label="Choisir un algorithme">'+opts+'</select></div>'
+  +'<div class="trace-layout"><section class="trace-panel"><h2>Algorithme : ligne en cours</h2><ol class="trace-code" id="trace-code"></ol>'
+  +'<div class="trace-progress"><span id="trace-bar"></span></div><div class="trace-controls">'
+  +'<button type="button" id="trace-prev">← Précédent</button><button type="button" id="trace-next" class="primary">Suivant →</button>'
+  +'<button type="button" id="trace-reset">↻ Recommencer</button><span class="practice-counter" id="trace-count"></span></div>'
+  +'<div class="trace-step-description" id="trace-explanation" role="status" aria-live="polite"></div></section>'
+  +'<section class="trace-panel"><h2>État des variables</h2><table class="trace-table"><thead><tr><th>Variable</th><th>Valeur</th></tr></thead><tbody id="trace-vars"></tbody></table>'
+  +'<h3 style="font-size:15px;margin-top:24px">Sortie affichée</h3><div class="trace-console" id="trace-output">—</div></section></div>'
+  +'<section class="trace-panel"><h2>Table de trace</h2><p style="font-size:13px">Voici les états successifs du programme jusqu’à l’étape sélectionnée.</p><div style="overflow-x:auto"><table class="trace-history"><thead><tr><th>Étape</th><th>Instruction</th><th>Variables</th></tr></thead><tbody id="trace-history"></tbody></table></div></section>'
+  +'<div class="section-head"><div><h2>Traduction en Python</h2><p>Le même algorithme écrit en Python.</p></div></div>'+codeWindow(d.python,'exemple.py')
+  +'<div class="practice-entry"><div><h3>À vous de traduire !</h3><p>Après la simulation, entraînez-vous à écrire les instructions Python.</p></div><a class="btn" href="#/exercices">Exercices interactifs ↗</a></div>';
+}
+function updateSimulator(){
+ const d=simulatorCatalog[simulatorCurrent],i=simulatorStep,st=d.states[i];
+ const code=el('trace-code');if(!code)return;
+ code.innerHTML=d.lines.map((line,n)=>'<li class="'+(n===st.line?'current':'')+'">'+escapeHtml(line)+'</li>').join('');
+ el('trace-bar').style.width=100*(i+1)/d.states.length+'%';
+ el('trace-count').textContent='Étape '+(i+1)+' / '+d.states.length;
+ el('trace-explanation').innerHTML='<strong>Étape '+(i+1)+'</strong>'+escapeHtml(st.desc);
+ el('trace-vars').innerHTML=Object.entries(st.vars).map(([key,value])=>'<tr><td><code>'+escapeHtml(key)+'</code></td><td>'+escapeHtml(String(value))+'</td></tr>').join('');
+ el('trace-output').textContent=st.out||'—';
+ el('trace-history').innerHTML=d.states.slice(0,i+1).map((v,j)=>'<tr><td>'+String(j+1)+'</td><td>'+escapeHtml(d.lines[v.line])+'</td><td>'+Object.entries(v.vars).map(([k,val])=>escapeHtml(k+'='+String(val))).join(' · ')+'</td></tr>').join('');
+ el('trace-prev').disabled=i===0;el('trace-next').disabled=i===d.states.length-1;
+}
+
 function searchPage(term){
  const q=term.trim().toLocaleLowerCase('fr');
  const hits=[...allChapters.map(c=>({type:'Cours',name:c.title,desc:c.short,route:'cours/'+c.id,hay:[c.title,c.short,...c.objectives.map(x=>x),...c.sections.map(s=>s.title+' '+s.body)].join(' ')})),...tds.map(t=>({type:'TD',name:t.title,desc:t.intro,route:'td/'+t.id,hay:[t.title,t.intro,...t.exercises.map(e=>e.name+' '+e.statement)].join(' ')})),...tps.map(t=>({type:'TP',name:t.title,desc:t.intro,route:'tp/'+t.id,hay:[t.title,t.intro,...t.steps].join(' ')}))].filter(x=>x.hay.toLocaleLowerCase('fr').includes(q));
@@ -949,9 +1038,11 @@ function render(){
  else if(type==='tp'&&tps.some(t=>t.id===slug)){const t=tps.find(t=>t.id===slug);html=tpPage(t);title=t.title;}
  else if(type==='laboratoire'){html=labPage();title='Mini-laboratoire';}
  else if(type==='atelier'||type==='visuel'){html=atelierPage();title='Atelier interactif';}
+ else if(type==='simulateur'){html=simulatorPage();title='Simulateur pas à pas';}
+ else if(type==='exercices'){html=practicePage();title='Exercices de traduction';}
  else if(type==='recherche'){let term=lastSearch;try{term=sessionStorage.getItem('biocode-last-search')||lastSearch;}catch(e){}html=searchPage(term);title='Recherche';}
  else {html=home();title='Accueil';}
- el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();if(type==='atelier'||type==='visuel')computeAtelier();
+ el('main').innerHTML=html;el('page-title').textContent=title;document.title=title+' — BioCode';renderNav();if(type==='atelier'||type==='visuel')computeAtelier();if(type==='simulateur')updateSimulator();
  document.querySelectorAll('.nav-link').forEach(btn=>btn.classList.toggle('active',btn.dataset.go===path));
  el('sidebar').classList.remove('open');el('mobile-overlay').classList.remove('show');
  window.scrollTo(0,0);
@@ -1007,6 +1098,7 @@ function calcLab(id){
 }
 
 document.addEventListener('click',e=>{
+ const trace=e.target.closest('#trace-next, #trace-prev, #trace-reset');if(trace){const d=simulatorCatalog[simulatorCurrent];if(trace.id==='trace-next')simulatorStep=Math.min(d.states.length-1,simulatorStep+1);else if(trace.id==='trace-prev')simulatorStep=Math.max(0,simulatorStep-1);else simulatorStep=0;updateSimulator();return;}
  const run=e.target.closest('#atelier-run');if(run){computeAtelier();return;}
  const go=e.target.closest('[data-go]');if(go){location.hash='/'+go.dataset.go;return;}
  const a=e.target.closest('[data-answer]');if(a){const [id,i,j]=a.dataset.answer.split('|');answers[id+'-'+i]=Number(j);const c=allChapters.find(x=>x.id===id);const q=c?.quiz[Number(i)];const wrap=a.closest('.quiz-card');if(q&&wrap){const choices=wrap.querySelectorAll('.choice');choices.forEach((b,idx)=>{b.disabled=true;b.classList.toggle('correct',idx===q.correct);b.classList.toggle('incorrect',idx===Number(j)&&idx!==q.correct)});const div=document.createElement('div');div.className='quiz-result '+(Number(j)===q.correct?'good':'bad');div.textContent=(Number(j)===q.correct?'✓ Bonne réponse. ':'Réponse correcte : '+q.choices[q.correct]+'. ')+q.why;wrap.appendChild(div);}return;}
@@ -1019,7 +1111,7 @@ document.addEventListener('click',e=>{
  const sect=e.target.closest('[data-section]');if(sect){e.preventDefault();el(sect.dataset.section)?.scrollIntoView({behavior:'smooth',block:'start'});return;}
 });
 function searchSubmit(){const q=el('global-search').value.trim();if(!q)return;lastSearch=q;try{sessionStorage.setItem('biocode-last-search',q);}catch(e){}if(currentPath()==='recherche')render();else location.hash='/recherche';el('global-search').blur();}
-document.addEventListener('change',e=>{if(e.target.id==='atelier-case'&&atelierCases[e.target.value]){atelierCurrent=e.target.value;el('main').innerHTML=atelierPage();computeAtelier();}});
+document.addEventListener('change',e=>{if(e.target.id==='trace-choice'&&simulatorCatalog[e.target.value]){simulatorCurrent=e.target.value;simulatorStep=0;el('main').innerHTML=simulatorPage();updateSimulator();return;}if(e.target.id==='atelier-case'&&atelierCases[e.target.value]){atelierCurrent=e.target.value;el('main').innerHTML=atelierPage();computeAtelier();}});
 el('global-search').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchSubmit();}});
 el('global-search').addEventListener('input',e=>{if(!e.target.value.trim()&&currentPath()==='recherche'){location.hash='/accueil';}});
 el('mobile-menu').addEventListener('click',()=>{el('sidebar').classList.toggle('open');el('mobile-overlay').classList.toggle('show');});
