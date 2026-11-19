@@ -310,6 +310,44 @@
 @media(max-width:580px){.td4-viz{padding:13px}.td4-cell{flex-basis:42px}.td4-cell b{font-size:15px}.td4-baritem>span{font-size:9px}.td4-bars{gap:4px}.td4-bartrack{height:105px}.td4-stat{flex-basis:105px}}
 @media print{.td4-viz{break-inside:avoid;box-shadow:none}.td4-viz-controls{display:none!important}.td4-frame[hidden]{display:none!important}}
 
+
+/* Guide de démarrage Python & VS Code */
+.setup-hero{background:linear-gradient(115deg,#10594c,#183c37);color:#fff;border-radius:24px;padding:31px 36px;margin-bottom:20px}
+.setup-hero h1{color:#fff;font-size:clamp(27px,3vw,40px);margin:0 0 10px}
+.setup-hero p{color:#d7ebe0;max-width:710px;margin:0}
+.setup-hero .eyebrow{color:#bce7c8}
+.setup-tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.setup-tag{border:1px solid #ffffff4d;background:#ffffff15;border-radius:99px;padding:5px 11px;font-size:12px;color:#f0f8ed;font-weight:700}
+.setup-section{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px 27px;margin:16px 0}
+.setup-section h2{font-size:23px;margin-bottom:9px}
+.setup-section p{font-size:14px}
+.setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:17px 0}
+.setup-card{background:#f6faf6;border:1px solid #d8e8dd;border-radius:14px;padding:18px}
+.setup-card h3{margin:0 0 7px;font-size:18px}
+.setup-card p{font-size:13px;margin:0 0 12px}
+.setup-card .btn{font-size:12px}
+.setup-step-list{counter-reset:setup-counter;list-style:none;margin:16px 0 0;padding:0}
+.setup-step-list>li{position:relative;padding:0 0 19px 48px;margin:0 0 12px;border-bottom:1px solid #ecf1ed}
+.setup-step-list>li:last-child{border:0;margin-bottom:0;padding-bottom:0}
+.setup-step-list>li:before{counter-increment:setup-counter;content:counter(setup-counter);position:absolute;left:0;top:-2px;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#e1f1e8;color:#176044;font-weight:850}
+.setup-step-list strong{display:block;margin-bottom:5px}
+.setup-step-list p{margin:0 0 8px}
+.setup-command{background:#14312b;color:#effbf1;border-radius:10px;padding:12px 15px;font:13px/1.6 Consolas,'Courier New',monospace;white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:auto;margin:10px 0}
+.setup-note{background:#ecf7ed;border:1px solid #cfe6d6;border-radius:11px;padding:13px 15px;font-size:13px;color:#245a44;margin:13px 0}
+.setup-warning{background:#fff8e8;border-color:#f0dfb8;color:#73502c}
+.setup-checklist{display:grid;gap:11px;margin:14px 0}
+.setup-checklist label{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#2b5845}
+.setup-checklist input{accent-color:#167756;margin-top:5px;width:16px;height:16px;flex-shrink:0}
+.setup-faq details{border:1px solid #dde8e0;border-radius:10px;padding:12px 16px;margin:9px 0;background:#fcfefc}
+.setup-faq summary{cursor:pointer;font-weight:700;color:#194d3e}
+.setup-faq p{margin:10px 0 0}
+.setup-home-callout{background:linear-gradient(115deg,#e8f5ed,#fff6e7);border:1px solid #cee5d8;border-radius:16px;padding:20px 23px;margin:22px 0 5px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.setup-home-callout h3{font-size:18px;margin:0 0 5px}
+.setup-home-callout p{font-size:13px;margin:0}
+.setup-home-callout .btn{flex-shrink:0}
+@media(max-width:750px){.setup-grid{grid-template-columns:1fr}.setup-hero{padding:25px 21px}.setup-section{padding:19px}.setup-home-callout{flex-direction:column;align-items:flex-start}}
+@media print{.setup-hero{color:#193432;background:none!important;border:1px solid #bbd6c4}.setup-hero h1,.setup-hero p,.setup-hero .eyebrow{color:#193432}.setup-tag{color:#193432;border-color:#bcd3c5}.setup-section{break-inside:auto}.setup-card,.setup-step-list>li,.setup-faq details{break-inside:avoid}.setup-command{color:#000;background:#f4f6f4!important;border:1px solid #b4c5b8}.setup-faq details{break-inside:avoid}}
+
 </style>
 </head>
 <body>
@@ -326,6 +364,89 @@
   <footer class="footer"><span>© BioCode · Informatique et Python pour la biologie</span><span>Enseignante : Pr. Asma EL MEJDI</span></footer>
 </div>
 </div>
+
+<template id="installation-template">
+  <div class="breadcrumb"><a href="#/accueil">Accueil</a> / Préparer son PC</div>
+  <div class="print-toolbar"><button type="button" data-print-mode="student">Imprimer / Enregistrer en PDF</button></div>
+  <section class="setup-hero">
+    <span class="eyebrow">Fiche pratique · Débutants · BBE S3</span>
+    <h1>Installer Python et Visual Studio Code</h1>
+    <p>Préparez votre ordinateur pour les travaux pratiques du module Informatique et Python en biologie. Suivez les étapes dans l’ordre, puis réalisez le petit test final.</p>
+    <div class="setup-tags"><span class="setup-tag">Windows 10/11</span><span class="setup-tag">Logiciels gratuits</span><span class="setup-tag">Aucune expérience requise</span></div>
+  </section>
+
+  <section class="setup-section">
+    <h2>1. Prérequis pour les TP</h2>
+    <p>Vous avez besoin d’un ordinateur sur lequel vous pouvez installer des logiciels, d’un peu d’espace disque libre et d’une connexion Internet pour les téléchargements. Les programmes pourront ensuite être exécutés sans connexion Internet.</p>
+    <div class="setup-grid">
+      <div class="setup-card"><h3>🐍 Python 3</h3><p><strong>Obligatoire.</strong> C’est le langage et l’interpréteur qui exécutent vos programmes <code>.py</code>. Installer une version stable de Python 3.</p><a class="btn btn-light" href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">Télécharger Python ↗</a></div>
+      <div class="setup-card"><h3>⌨ Visual Studio Code</h3><p><strong>Recommandé pour les TP.</strong> C’est l’éditeur pour écrire, organiser et lancer les scripts. Ajouter ensuite l’extension <strong>Python</strong> de Microsoft.</p><a class="btn btn-light" href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">Télécharger VS Code ↗</a></div>
+    </div>
+    <div class="setup-note"><strong>À savoir :</strong> installer VS Code seul ne suffit pas : il faut également installer Python. Aucune bibliothèque supplémentaire (NumPy, pandas, etc.) n’est nécessaire pour les premiers TD/TP.</div>
+  </section>
+
+  <section class="setup-section">
+    <h2>2. Installation sur Windows — étape par étape</h2>
+    <ol class="setup-step-list">
+      <li><strong>Télécharger Python</strong><p>Ouvrez <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">python.org/downloads</a>, choisissez la version stable proposée pour Windows et lancez le fichier téléchargé. Suivez les instructions de l’installateur. Si l’option « Add Python to PATH » apparaît, cochez-la ; l’écran peut être différent selon la version.</p></li>
+      <li><strong>Vérifier Python</strong><p>Ouvrez le menu Démarrer, recherchez <strong>Terminal</strong> ou <strong>Invite de commandes (CMD)</strong>, puis tapez :</p><pre class="setup-command">python --version</pre><p>Si nécessaire, essayez :</p><pre class="setup-command">py --version</pre><p>Vous devez obtenir une réponse de la forme <code>Python 3.x.x</code>. Si l’outil d’installation vous propose d’installer une version de Python, suivez cette étape.</p></li>
+      <li><strong>Installer Visual Studio Code</strong><p>Téléchargez VS Code depuis <a href="https://code.visualstudio.com/download" target="_blank" rel="noopener noreferrer">son site officiel</a>. Lancez l’installation, puis ouvrez l’application.</p></li>
+      <li><strong>Ajouter l’extension Python</strong><p>Dans VS Code, cliquez sur <strong>Extensions</strong> dans la barre de gauche (raccourci <code>Ctrl + Shift + X</code>). Recherchez <strong>Python</strong>, vérifiez que l’éditeur est <strong>Microsoft</strong> et cliquez sur <strong>Install</strong>.</p></li>
+      <li><strong>Choisir l’interpréteur Python</strong><p>Appuyez sur <code>Ctrl + Shift + P</code>, tapez <strong>Python: Select Interpreter</strong> puis sélectionnez la version de Python 3 installée sur votre ordinateur.</p></li>
+      <li><strong>Créer et exécuter votre premier fichier</strong><p>Créez un dossier <code>Python_BBE</code>, ouvrez-le dans VS Code (<strong>File → Open Folder</strong>), créez un fichier nommé <code>test.py</code>, saisissez le programme ci-dessous, enregistrez (<code>Ctrl + S</code>), puis cliquez sur <strong>Run Python File</strong> (▶).</p></li>
+    </ol>
+    <div class="setup-note setup-warning"><strong>macOS et Linux :</strong> installez Python 3 avec les instructions officielles propres à votre système, puis suivez les étapes VS Code à partir de l’extension Python. Sur macOS/Linux, la commande de vérification est souvent <code>python3 --version</code>.</div>
+  </section>
+
+  <section class="setup-section">
+    <h2>3. Premier test : Bonjour BBE !</h2>
+    <p>Dans le fichier <code>test.py</code>, écrivez :</p>
+    <pre class="setup-command">print("Bonjour les étudiants de BBE !")</pre>
+    <p><strong>Résultat attendu dans le terminal :</strong></p>
+    <pre class="setup-command">Bonjour les étudiants de BBE !</pre>
+    <div class="setup-note">Si ce texte apparaît dans le terminal de VS Code, Python et son environnement sont prêts pour les premiers TP.</div>
+  </section>
+
+  <section class="setup-section">
+    <h2>4. Mini-application en biologie : germination</h2>
+    <p>Créez le fichier <code>germination.py</code> et recopiez ce programme. Il calcule le pourcentage de graines germées et rejette les effectifs impossibles.</p>
+    <pre class="setup-command">semees = int(input("Nombre de graines semées : "))
+germees = int(input("Nombre de graines germées : "))
+
+if semees &lt;= 0 or germees &lt; 0 or germees &gt; semees:
+    print("Effectifs invalides")
+else:
+    taux = 100 * germees / semees
+    print("Taux de germination :", round(taux, 1), "%")</pre>
+    <p><strong>Exemple :</strong> saisissez <code>100</code> graines semées et <code>80</code> graines germées. Le programme doit afficher :</p>
+    <pre class="setup-command">Taux de germination : 80.0 %</pre>
+    <div class="setup-note"><strong>Attention :</strong> ce programme suppose que les saisies sont des nombres entiers. Si vous entrez du texte à la place d’un nombre, <code>int()</code> provoquera une erreur. Les contrôles plus avancés seront vus en cours.</div>
+  </section>
+
+  <section class="setup-section">
+    <h2>5. Vérification avant le premier TP</h2>
+    <p>Cochez chaque élément lorsque vous l’avez terminé :</p>
+    <div class="setup-checklist">
+      <label><input type="checkbox"> Python 3 est installé et <code>python --version</code> (ou <code>py --version</code>) fonctionne.</label>
+      <label><input type="checkbox"> VS Code s’ouvre correctement.</label>
+      <label><input type="checkbox"> L’extension Python de Microsoft est installée.</label>
+      <label><input type="checkbox"> Le bon interpréteur Python est sélectionné.</label>
+      <label><input type="checkbox"> Le fichier <code>test.py</code> affiche « Bonjour les étudiants de BBE ! ».</label>
+      <label><input type="checkbox"> Le fichier <code>germination.py</code> affiche 80.0 % pour 80 graines sur 100.</label>
+    </div>
+  </section>
+
+  <section class="setup-section setup-faq">
+    <h2>6. Problèmes fréquents</h2>
+    <details><summary>« python n’est pas reconnu »</summary><p>Fermez et rouvrez le terminal. Essayez <code>py --version</code>. Si aucune commande ne fonctionne, vérifiez l’installation de Python et la configuration PATH. Consultez la <a href="https://docs.python.org/3/using/windows.html" target="_blank" rel="noopener noreferrer">documentation officielle Windows</a>.</p></details>
+    <details><summary>Windows ouvre le Microsoft Store quand je tape python</summary><p>Vérifiez que Python 3 est bien installé. Si Windows utilise un raccourci d’application à la place, contrôlez les « App execution aliases » dans les paramètres Windows, ou essayez <code>py --version</code>.</p></details>
+    <details><summary>VS Code affiche « No Python interpreter selected »</summary><p>Ouvrez la palette de commandes avec <code>Ctrl + Shift + P</code>, lancez <strong>Python: Select Interpreter</strong> et choisissez votre installation de Python 3.</p></details>
+    <details><summary>Le bouton ▶ ne lance pas mon programme</summary><p>Assurez-vous que le fichier est enregistré avec l’extension <code>.py</code>, que l’extension Python de Microsoft est installée et que l’interpréteur est sélectionné. Vous pouvez aussi tester dans le terminal : <code>python test.py</code> (ou <code>py test.py</code>).</p></details>
+    <details><summary>Est-ce qu’Internet est indispensable pendant le TP ?</summary><p>Non, pas pour les scripts Python simples : une fois Python, VS Code et l’extension installés, les exercices de base peuvent être exécutés sans Internet.</p></details>
+    <p style="margin-top:17px"><strong>Ressources officielles :</strong> <a href="https://docs.python.org/3/using/windows.html" target="_blank" rel="noopener noreferrer">Python sous Windows</a> · <a href="https://code.visualstudio.com/docs/python/python-tutorial" target="_blank" rel="noopener noreferrer">Tutoriel Python dans VS Code</a>.</p>
+  </section>
+</template>
+
 <script>'use strict';
 const bioinformaticsChapters = [
  {
@@ -2018,7 +2139,7 @@ const escapeHtml=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 const codeWindow=(code,name='exemple.py')=>`<div class="code-window"><div class="code-bar"><span>● &nbsp; ${name==='pseudo-code.txt'?'PSEUDO-CODE':'PYTHON'} &nbsp; / &nbsp; ${escapeHtml(name)}</span><button type="button" data-copy="${encodeURIComponent(code)}" aria-label="Copier le code">Copier</button></div><pre><code>${escapeHtml(code)}</code></pre></div>`;
 const nav=(id,title,num,check=false)=>`<button class="nav-link" data-go="${escapeHtml(id)}" type="button"><span class="nav-number">${num}</span><span>${escapeHtml(title)}</span>${check?'<span class="nav-check" aria-label="Terminé">✓</span>':''}</button>`;
 function renderNav(){
- el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Découvrir la bio-informatique</div>${bioinformaticsChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}${nav('algo-td/td1','TD 1','TD')}${nav('algo-td/td2','TD 2','TD')}${nav('algo-td/td3','TD 3','TD')}${nav('algo-td/td4','TD 4','TD')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Apprendre en pratiquant</div>${nav('simulateur','Simulateur pas à pas','▶')}${nav('exercices','Algorithme → Python','✎')}${nav('examen','Examen blanc','✓')}${nav('projets','Mini-projets','⚗')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
+ el('side-nav').innerHTML=`<div class="nav-title">Navigation</div>${nav('accueil','Tableau de bord','⌂')}<div class="nav-title">Avant le premier TP</div>${nav('installation','Installation de Python','⚙')}<div class="nav-title">Découvrir la bio-informatique</div>${bioinformaticsChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Algorithmique · 6 chapitres</div>${algoChapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}${nav('algo-td/td1','TD 1','TD')}${nav('algo-td/td2','TD 2','TD')}${nav('algo-td/td3','TD 3','TD')}${nav('algo-td/td4','TD 4','TD')}<div class="nav-title">Algorithme → Python</div>${nav('atelier','Atelier interactif','⇄')}<div class="nav-title">Apprendre en pratiquant</div>${nav('simulateur','Simulateur pas à pas','▶')}${nav('exercices','Algorithme → Python','✎')}${nav('examen','Examen blanc','✓')}${nav('projets','Mini-projets','⚗')}<div class="nav-title">Python · 6 chapitres</div>${chapters.map(c=>nav('cours/'+c.id,c.title,c.num,done.has(c.id))).join('')}<div class="nav-title">Travaux dirigés</div>${tds.map(t=>nav('td/'+t.id,t.title,t.num.replace('TD ',''))).join('')}<div class="nav-title">Travaux pratiques</div>${tps.map(t=>nav('tp/'+t.id,t.title,t.num.replace('TP ',''))).join('')}<div class="nav-title">Explorer</div>${nav('laboratoire','Mini-laboratoire','✳')}`;
  const total=allChapters.length;const count=allChapters.filter(c=>done.has(c.id)).length;
  el('sidebar-progress-label').textContent=count+' / '+total+' chapitres terminés';
  el('sidebar-progress-bar').style.width=Math.round(100*count/total)+'%';
@@ -2029,6 +2150,7 @@ function heroGraphic(){return `<div class="hero-graphic" aria-hidden="true"><svg
 function home(){
  return `<section class="hero"><div class="hero-copy"><span class="eyebrow">Plateforme d'apprentissage · Sciences de la vie</span><div class="teacher-signature"><span>Cours présenté par</span><strong>Pr. Asma EL MEJDI</strong></div><h1>Comprendre l'algorithmique, programmer en Python.</h1><p>De la découverte de la bio-informatique à l'algorithmique puis à Python : cours, applications biologiques, TD corrigés et TP guidés.</p><div class="hero-actions"><a class="btn btn-primary" href="#/cours/bioinformatique">Commencer par la bio-informatique <span>↗</span></a><a class="btn btn-outline" href="#/laboratoire">Essayer le mini-labo</a></div></div>${heroGraphic()}</section>
  <div class="metrics"><div class="metric"><strong>13</strong><span>Chapitres de cours</span></div><div class="metric"><strong>06</strong><span>TD avec corrigés</span></div><div class="metric"><strong>08</strong><span>TP guidés</span></div><div class="metric"><strong>${allChapters.filter(c=>done.has(c.id)).length}/13</strong><span>Chapitres terminés</span></div></div>
+ <div class="setup-home-callout"><div><h3>Avant le premier TP : préparer votre ordinateur</h3><p>Installer Python 3, VS Code et l’extension Python, puis tester votre premier script.</p></div><a class="btn btn-light" href="#/installation">Voir la fiche d’installation ↗</a></div>
  <div class="section-head"><div><h2>Pour commencer — Introduction à la bio-informatique</h2><p>Comprendre l’utilité des outils informatiques en biologie avant d’apprendre à programmer.</p></div><span class="pill">Chapitre 00 · Découverte</span></div><div class="card-grid">${bioinformaticsChapters.map(courseCard).join('')}</div>
  <div class="section-head"><div><h2>Partie I — Algorithmique</h2><p>Analyser un problème, écrire un pseudo-code et prévoir les résultats.</p></div><span class="pill">06 chapitres · Initiation</span></div><div class="card-grid">${algoChapters.map(courseCard).join('')}</div><div class="activity-grid"><a class="activity-card" href="#/algo-td/td1"><span class="mini-icon">✎</span><div><h3>TD 1 — Notion d’algorithme</h3><p>Variables, types, expressions, affectations et lecture/écriture.</p><span class="pill">10 exercices · Corrigés disponibles</span></div></a><a class="activity-card" href="#/algo-td/td2"><span class="mini-icon">✎</span><div><h3>TD 2 — Les structures conditionnelles</h3><p>Comparaisons, équations et mentions avec Si / Sinon et Selon.</p><span class="pill">5 exercices · Corrigés disponibles</span></div></a><a class="activity-card" href="#/algo-td/td3"><span class="mini-icon">✎</span><div><h3>TD 3 — Les structures répétitives</h3><p>Sommes, minimum et maximum, division, diviseurs et nombres premiers.</p><span class="pill">5 exercices · Corrigés disponibles</span></div></a><a class="activity-card" href="#/algo-td/td4"><span class="mini-icon">✎</span><div><h3>TD 4 — Les tableaux</h3><p>Saisie, recherche, statistiques et applications en biologie.</p><span class="pill">6 exercices · Corrigés disponibles</span></div></a></div>
  <div class="schema-bridge"><h3>Schéma : de l'algorithme à Python</h3><p>Une même démarche, de l'analyse d'un problème biologique jusqu'à un programme testé.</p><div class="schema-track"><div class="schema-step"><strong>1. Problème</strong><span>Ex. : germination</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>2. Analyse</strong><span>Entrées / Sorties</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>3. Pseudo-code</strong><span>Lire, Si, Calculer</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>4. Python</strong><span>if, print, calcul</span></div><span class="schema-arrow">→</span><div class="schema-step"><strong>5. Tests</strong><span>Vérifier le résultat</span></div></div><a class="btn btn-light" href="#/atelier">Essayer l'atelier interactif ↗</a></div>
@@ -2364,6 +2486,7 @@ function projectsPage(){
  +'<div class="practice-entry"><div><h3>Distribuer un sujet aux étudiants</h3><p>Utilisez la fonction d’impression du navigateur pour enregistrer cette page en PDF.</p></div><button type="button" class="btn" id="print-course">Imprimer / PDF</button></div>';
 }
 
+function installationPage(){return document.getElementById('installation-template').innerHTML;}
 function searchPage(term){
  const q=term.trim().toLocaleLowerCase('fr');
  const hits=[...allChapters.map(c=>({type:'Cours',name:c.title,desc:c.short,route:'cours/'+c.id,hay:[c.title,c.short,...c.objectives.map(x=>x),...c.sections.map(s=>s.title+' '+s.body)].join(' ')})),...tds.map(t=>({type:'TD',name:t.title,desc:t.intro,route:'td/'+t.id,hay:[t.title,t.intro,...t.exercises.map(e=>e.name+' '+e.statement)].join(' ')})),...tps.map(t=>({type:'TP',name:t.title,desc:t.intro,route:'tp/'+t.id,hay:[t.title,t.intro,...t.steps].join(' ')}))].filter(x=>x.hay.toLocaleLowerCase('fr').includes(q));
@@ -2373,6 +2496,7 @@ function currentPath(){return decodeURIComponent(location.hash.replace(/^#\/?/,'
 function render(){
  const path=currentPath();const [type,slug]=path.split('/'); let title='BioCode'; let html='';
  if(type==='accueil'){html=home();title='Accueil';}
+ else if(type==='installation'){html=installationPage();title='Installation de Python et VS Code';}
  else if(type==='cours'&&allChapters.some(c=>c.id===slug)){const c=allChapters.find(c=>c.id===slug);html=chapterPage(c);title=c.title;}
  else if(type==='algo-td'&&slug==='td4'){html=algoTD4Page();title='TD 4 — Les tableaux';}
  else if(type==='algo-td'&&slug==='td3'){html=algoTD3Page();title='TD 3 — Les structures répétitives';}
